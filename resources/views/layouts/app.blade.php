@@ -1,8 +1,15 @@
 <!doctype html>
-<html @php(language_attributes())>
+<html @php(language_attributes()) data-theme="{{ $theme }}" @if($isRtl) dir="rtl" @endif>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{-- SEO Meta Tags --}}
+    {!! $metaTags !!}
+
+    {{-- Schema.org Markup --}}
+    {!! $schemaMarkup !!}
+
     @php(do_action('get_header'))
     @php(wp_head())
 
@@ -13,18 +20,19 @@
     @php(wp_body_open())
 
     <div id="app">
-      <a class="sr-only focus:not-sr-only" href="#main">
+      {{-- Skip to content link for accessibility --}}
+      <a class="skip-link sr-only focus:not-sr-only" href="#main">
         {{ __('Skip to content', 'sage') }}
       </a>
 
       @include('sections.header')
 
-      <main id="main" class="main">
+      <main id="main" class="main" role="main">
         @yield('content')
       </main>
 
       @hasSection('sidebar')
-        <aside class="sidebar">
+        <aside class="sidebar" role="complementary">
           @yield('sidebar')
         </aside>
       @endif

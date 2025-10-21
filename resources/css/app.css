@@ -1,3 +1,23 @@
-@import "tailwindcss" theme(static);
-@source "../views/";
-@source "../../app/";
+/**
+ * Alpacode Studio Theme - Main Stylesheet
+ * CSS4-First Architecture | No Framework Dependencies
+ */
+
+/* Foundation - Design System */
+@import "./foundation/_tokens.css";
+@import "./foundation/_reset.css";
+@import "./foundation/_typography.css";
+@import "./foundation/_layout.css";
+@import "./foundation/_utilities.css";
+@import "./foundation/_animations.css";
+
+/* Components */
+/* @import "./components/_button.css"; */
+/* @import "./components/_card.css"; */
+/* @import "./components/_form.css"; */
+/* @import "./components/_navigation.css"; */
+
+/* Sections */
+/* @import "./sections/_hero.css"; */
+/* @import "./sections/_features.css"; */
+/* @import "./sections/_footer.css"; */
