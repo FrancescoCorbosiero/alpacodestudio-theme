@@ -1,31 +1,59 @@
-<p align="center">
-  <a href="https://roots.io/sage/"><img alt="Sage" src="https://cdn.roots.io/app/uploads/logo-sage.svg" height="100"></a>
-</p>
+# alpacode.studio - Sage theme
+## ✅ ARCHITECTURE - SOLID FOUNDATION
 
-<p align="center">
-  <a href="https://packagist.org/packages/roots/sage"><img alt="Packagist Installs" src="https://img.shields.io/packagist/dt/roots/sage?label=projects%20created&colorB=2b3072&colorA=525ddc&style=flat-square"></a>
-  <a href="https://github.com/roots/sage/actions/workflows/main.yml"><img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/roots/sage/main.yml?branch=main&logo=github&label=CI&style=flat-square"></a>
-  <a href="https://bsky.app/profile/roots.dev"><img alt="Follow roots.dev on Bluesky" src="https://img.shields.io/badge/follow-@roots.dev-0085ff?logo=bluesky&style=flat-square"></a>
-</p>
+Sage 10 + CSS4 (Sage default: TailwindCSS) + Alpine.js - Modern stack properly configured
 
-# Sage
+Self-contained blocks philosophy - Template-based approach established
 
-**Advanced hybrid WordPress starter theme with Laravel Blade and Tailwind CSS**
+Service layer architecture - ThemeServiceProvider, SeoService, PerformanceService (BlitzThemeService)
 
-- 🔧 Clean, efficient theme templating with Laravel Blade
-- ⚡️ Modern front-end development workflow powered by Vite
-- 🎨 Out of the box support for Tailwind CSS
-- 🚀 Harness the power of Laravel with [Acorn integration](https://github.com/roots/acorn)
-- 📦 Block editor support built-in
+Vite build system - HMR, code splitting, optimization configured
 
-Sage brings proper PHP templating and modern JavaScript tooling to WordPress themes. Write organized, component-based code using Laravel Blade, enjoy instant builds and CSS hot-reloading with Vite, and leverage Laravel's robust feature set through Acorn.
+FSE available (with smooth Gutenberg integration)
 
-[Read the docs to get started](https://roots.io/sage/docs/installation/)
+## ✅ CORE SYSTEMS - OPERATIONAL
+Backend (PHP/Laravel):
+)
 
-## Sponsors
+- View composers for data binding
+- Theme customizer integration
+- Security hardening & accessibility features
+- Helper functions ecosystem
 
-Sage is an open source project and completely free to use. If you've benefited from our projects and would like to support our future endeavors, [please consider sponsoring us](https://github.com/sponsors/roots).
+Frontend (JS/CSS):
 
-<div align="center">
-<a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="120" height="90"></a> <a href="https://wordpress.com/"><img src="https://cdn.roots.io/app/uploads/wordpress.svg" alt="WordPress.com" width="120" height="90"></a> <a href="https://worksitesafety.ca/careers/"><img src="https://cdn.roots.io/app/uploads/worksite-safety.svg" alt="Worksite Safety" width="120" height="90"></a> <a href="https://40q.agency/"><img src="https://cdn.roots.io/app/uploads/40q.svg" alt="40Q" width="120" height="90"></a> <a href="https://www.itineris.co.uk/"><img src="https://cdn.roots.io/app/uploads/itineris.svg" alt="Itineris" width="120" height="90"></a> <a href="https://bonsai.so/"><img src="https://cdn.roots.io/app/uploads/bonsai.svg" alt="Bonsai" width="120" height="90"></a>
-</div>
+- Dark/light/auto theme toggle with persistence
+- Navigation enhancement with Speculation Rules API
+- View Transitions API for SPA-like navigation
+- Service Worker for offline support
+- Web Vitals monitoring
+- Accessibility features (focus management, ARIA, keyboard nav)
+- CSS layer architecture with token system
+
+## ✅ COMPLETED SECTIONS
+Located in resources/views/sections/:
+
+- Header - Responsive navigation
+- Hero - Landing section
+- Features - Grid/alternating layouts
+- About (mission, timeline) - Interactive components
+- Services - Service showcase
+- Testimonials - Slider implementation
+- FAQ - Accordion interface
+- Contact - Form with validation
+- Footer - Multi-column layout
+- CTA - Call-to-action blocks
+- Stats - Animated counters
+- Pricing - Pricing tables
+- Team - Team member cards
+- Blog - Blog listing
+- Process - Step-by-step visualization
+
+## ✅ REUSABLE COMPONENTS
+
+- Action Board (floating buttons)
+- Contact button / Social buttons
+- Modal, Toast, Alert, Dropdown, Popover
+- Comments system (threaded, reactions)
+- Search form
+- Enhanced content pages with TOC
