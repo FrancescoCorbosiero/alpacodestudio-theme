@@ -14,11 +14,16 @@ use Illuminate\Support\Facades\Vite;
  * @return array
  */
 add_filter('block_editor_settings_all', function ($settings) {
-    $style = Vite::asset('resources/css/editor.css');
+    try {
+        $style = Vite::asset('resources/css/editor.css');
 
-    $settings['styles'][] = [
-        'css' => "@import url('{$style}')",
-    ];
+        $settings['styles'][] = [
+            'css' => "@import url('{$style}')",
+        ];
+    } catch (\Exception $e) {
+        // Vite manifest not found - assets need to be built
+        // Run: npm run build
+    }
 
     return $settings;
 });
@@ -33,17 +38,22 @@ add_filter('admin_head', function () {
         return;
     }
 
-    $dependencies = json_decode(Vite::content('editor.deps.json'));
+    try {
+        $dependencies = json_decode(Vite::content('editor.deps.json'));
 
-    foreach ($dependencies as $dependency) {
-        if (! wp_script_is($dependency)) {
-            wp_enqueue_script($dependency);
+        foreach ($dependencies as $dependency) {
+            if (! wp_script_is($dependency)) {
+                wp_enqueue_script($dependency);
+            }
         }
-    }
 
-    echo Vite::withEntryPoints([
-        'resources/js/editor.js',
-    ])->toHtml();
+        echo Vite::withEntryPoints([
+            'resources/js/editor.js',
+        ])->toHtml();
+    } catch (\Exception $e) {
+        // Vite manifest not found - assets need to be built
+        // Run: npm run build
+    }
 });
 
 /**
@@ -52,9 +62,11 @@ add_filter('admin_head', function () {
  * @return string
  */
 add_filter('theme_file_path', function ($path, $file) {
-    return $file === 'theme.json'
-        ? public_path('build/assets/theme.json')
-        : $path;
+    if ($file === 'theme.json') {
+        $buildPath = public_path('build/assets/theme.json');
+        return file_exists($buildPath) ? $buildPath : $path;
+    }
+    return $path;
 }, 10, 2);
 
 /**
