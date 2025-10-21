@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite';
 import laravel from 'laravel-vite-plugin'
-import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin';
+import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin'
+import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
+import postcssPresetEnv from 'postcss-preset-env'
 
 export default defineConfig({
   base: '/app/themes/sage/public/build/',
+
   plugins: [
-    tailwindcss(),
     laravel({
       input: [
         'resources/css/app.css',
@@ -19,20 +21,74 @@ export default defineConfig({
 
     wordpressPlugin(),
 
-    // Generate the theme.json file in the public/build/assets directory
-    // based on the Tailwind config and the theme.json file from base theme folder
+    // Generate theme.json without Tailwind dependencies
     wordpressThemeJson({
-      disableTailwindColors: false,
-      disableTailwindFonts: false,
-      disableTailwindFontSizes: false,
+      disableTailwindColors: true,
+      disableTailwindFonts: true,
+      disableTailwindFontSizes: true,
     }),
   ],
+
+  build: {
+    manifest: true,
+    outDir: 'public/build',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split vendor code
+          'vendor': ['alpinejs'],
+          // Split core functionality
+          'core': [
+            '/resources/js/core/theme-switcher.js',
+            '/resources/js/core/navigation.js',
+          ],
+        },
+      },
+    },
+    cssCodeSplit: true,
+    minify: 'esbuild',
+    target: 'es2020',
+  },
+
+  css: {
+    devSourcemap: true,
+    postcss: {
+      plugins: [
+        // Modern CSS features (stage 2)
+        postcssPresetEnv({
+          stage: 2,
+          features: {
+            'nesting-rules': true,
+            'custom-properties': true,
+            'color-function': true,
+          },
+        }),
+        // Autoprefixer for browser compatibility
+        autoprefixer(),
+        // CSS minification (production only)
+        ...(process.env.NODE_ENV === 'production'
+          ? [cssnano({ preset: 'default' })]
+          : []
+        ),
+      ],
+    },
+  },
+
   resolve: {
     alias: {
       '@scripts': '/resources/js',
       '@styles': '/resources/css',
       '@fonts': '/resources/fonts',
       '@images': '/resources/images',
+    },
+  },
+
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+    strictPort: true,
+    hmr: {
+      host: 'localhost',
     },
   },
 })

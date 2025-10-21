@@ -15,11 +15,17 @@
     "translate:js": "wp i18n make-json ./resources/lang --pretty-print",
     "translate:mo": "wp i18n make-mo ./resources/lang ./resources/lang"
   },
+  "dependencies": {
+    "alpinejs": "^3.14.3",
+    "web-vitals": "^4.2.4"
+  },
   "devDependencies": {
     "@roots/vite-plugin": "^1.0.2",
-    "@tailwindcss/vite": "^4.0.9",
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
     "laravel-vite-plugin": "^1.2.0",
-    "tailwindcss": "^4.0.9",
+    "postcss": "^8.4.49",
+    "postcss-preset-env": "^10.1.1",
     "vite": "^6.2.0"
   }
 }
