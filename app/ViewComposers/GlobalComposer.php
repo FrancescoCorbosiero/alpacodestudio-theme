@@ -75,6 +75,43 @@ class GlobalComposer extends Composer
             'theme' => $this->designSystem->getThemeAttribute(),
             'metaTags' => $this->seo->getMetaTags(),
             'schemaMarkup' => $this->seo->getSchemaMarkup(),
+            'title' => $this->getTitle(),
         ];
+    }
+
+    /**
+     * Get the title for the current page
+     *
+     * @return string
+     */
+    protected function getTitle(): string
+    {
+        // Check if we're in the loop
+        if (in_the_loop()) {
+            return get_the_title();
+        }
+
+        // Check if it's a singular post/page
+        if (is_singular()) {
+            return get_the_title();
+        }
+
+        // For archives
+        if (is_archive()) {
+            return get_the_archive_title();
+        }
+
+        // For search
+        if (is_search()) {
+            return sprintf(__('Search Results for: %s', 'sage'), get_search_query());
+        }
+
+        // For 404
+        if (is_404()) {
+            return __('Page Not Found', 'sage');
+        }
+
+        // Default to site name
+        return get_bloginfo('name');
     }
 }
