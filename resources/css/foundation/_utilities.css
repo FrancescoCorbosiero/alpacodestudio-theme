@@ -1,0 +1,376 @@
+/**
+ * Utility Classes
+ * Minimal utility classes for common use cases
+ */
+
+@layer utilities {
+  /* ========================================
+     Display Utilities
+     ======================================== */
+
+  .block {
+    display: block;
+  }
+
+  .inline-block {
+    display: inline-block;
+  }
+
+  .inline {
+    display: inline;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  /* ========================================
+     Text Alignment
+     ======================================== */
+
+  .text-left {
+    text-align: left;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .text-justify {
+    text-align: justify;
+  }
+
+  /* ========================================
+     Spacing Utilities - Margin
+     ======================================== */
+
+  .m-0 {
+    margin: var(--space-0);
+  }
+
+  .m-auto {
+    margin: auto;
+  }
+
+  .mx-auto {
+    margin-inline: auto;
+  }
+
+  .my-auto {
+    margin-block: auto;
+  }
+
+  .mt-0 {
+    margin-block-start: var(--space-0);
+  }
+
+  .mr-0 {
+    margin-inline-end: var(--space-0);
+  }
+
+  .mb-0 {
+    margin-block-end: var(--space-0);
+  }
+
+  .ml-0 {
+    margin-inline-start: var(--space-0);
+  }
+
+  .mt-2 {
+    margin-block-start: var(--space-2);
+  }
+
+  .mt-4 {
+    margin-block-start: var(--space-4);
+  }
+
+  .mt-6 {
+    margin-block-start: var(--space-6);
+  }
+
+  .mb-2 {
+    margin-block-end: var(--space-2);
+  }
+
+  .mb-4 {
+    margin-block-end: var(--space-4);
+  }
+
+  .mb-6 {
+    margin-block-end: var(--space-6);
+  }
+
+  /* ========================================
+     Spacing Utilities - Padding
+     ======================================== */
+
+  .p-0 {
+    padding: var(--space-0);
+  }
+
+  .p-2 {
+    padding: var(--space-2);
+  }
+
+  .p-4 {
+    padding: var(--space-4);
+  }
+
+  .p-6 {
+    padding: var(--space-6);
+  }
+
+  .p-8 {
+    padding: var(--space-8);
+  }
+
+  .px-0 {
+    padding-inline: var(--space-0);
+  }
+
+  .px-2 {
+    padding-inline: var(--space-2);
+  }
+
+  .px-4 {
+    padding-inline: var(--space-4);
+  }
+
+  .px-6 {
+    padding-inline: var(--space-6);
+  }
+
+  .py-0 {
+    padding-block: var(--space-0);
+  }
+
+  .py-2 {
+    padding-block: var(--space-2);
+  }
+
+  .py-4 {
+    padding-block: var(--space-4);
+  }
+
+  .py-6 {
+    padding-block: var(--space-6);
+  }
+
+  /* ========================================
+     Width & Height
+     ======================================== */
+
+  .w-full {
+    width: 100%;
+  }
+
+  .w-auto {
+    width: auto;
+  }
+
+  .h-full {
+    height: 100%;
+  }
+
+  .h-auto {
+    height: auto;
+  }
+
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* ========================================
+     Background Colors
+     ======================================== */
+
+  .bg-primary {
+    background-color: var(--color-bg-primary);
+  }
+
+  .bg-secondary {
+    background-color: var(--color-bg-secondary);
+  }
+
+  .bg-tertiary {
+    background-color: var(--color-bg-tertiary);
+  }
+
+  .bg-brand {
+    background-color: var(--color-brand-600);
+  }
+
+  .bg-transparent {
+    background-color: transparent;
+  }
+
+  /* ========================================
+     Border Utilities
+     ======================================== */
+
+  .border {
+    border: var(--border-width-1) solid var(--color-border-primary);
+  }
+
+  .border-0 {
+    border: 0;
+  }
+
+  .border-t {
+    border-block-start: var(--border-width-1) solid var(--color-border-primary);
+  }
+
+  .border-b {
+    border-block-end: var(--border-width-1) solid var(--color-border-primary);
+  }
+
+  .border-l {
+    border-inline-start: var(--border-width-1) solid var(--color-border-primary);
+  }
+
+  .border-r {
+    border-inline-end: var(--border-width-1) solid var(--color-border-primary);
+  }
+
+  /* Border Radius */
+  .rounded-none {
+    border-radius: var(--radius-none);
+  }
+
+  .rounded-sm {
+    border-radius: var(--radius-sm);
+  }
+
+  .rounded {
+    border-radius: var(--radius-md);
+  }
+
+  .rounded-lg {
+    border-radius: var(--radius-lg);
+  }
+
+  .rounded-xl {
+    border-radius: var(--radius-xl);
+  }
+
+  .rounded-full {
+    border-radius: var(--radius-full);
+  }
+
+  /* ========================================
+     Shadow Utilities
+     ======================================== */
+
+  .shadow-none {
+    box-shadow: none;
+  }
+
+  .shadow-sm {
+    box-shadow: var(--shadow-sm);
+  }
+
+  .shadow {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-lg {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .shadow-xl {
+    box-shadow: var(--shadow-xl);
+  }
+
+  /* ========================================
+     Opacity
+     ======================================== */
+
+  .opacity-0 {
+    opacity: 0;
+  }
+
+  .opacity-50 {
+    opacity: 0.5;
+  }
+
+  .opacity-75 {
+    opacity: 0.75;
+  }
+
+  .opacity-100 {
+    opacity: 1;
+  }
+
+  /* ========================================
+     Cursor
+     ======================================== */
+
+  .cursor-auto {
+    cursor: auto;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .cursor-not-allowed {
+    cursor: not-allowed;
+  }
+
+  /* ========================================
+     Pointer Events
+     ======================================== */
+
+  .pointer-events-none {
+    pointer-events: none;
+  }
+
+  .pointer-events-auto {
+    pointer-events: auto;
+  }
+
+  /* ========================================
+     Visibility
+     ======================================== */
+
+  .visible {
+    visibility: visible;
+  }
+
+  .invisible {
+    visibility: hidden;
+  }
+
+  /* ========================================
+     Responsive Utilities
+     ======================================== */
+
+  @media (max-width: 639px) {
+    .sm\:hidden {
+      display: none;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .sm\:block {
+      display: block;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .md\:block {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lg\:block {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,240 @@
+/**
+ * Modern CSS Reset
+ * Based on modern best practices for 2025
+ */
+
+@layer reset {
+  /* ========================================
+     Box Sizing
+     ======================================== */
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* ========================================
+     Document & Root
+     ======================================== */
+
+  html {
+    /* Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+
+    /* Prevent font size inflation on mobile */
+    -webkit-text-size-adjust: 100%;
+
+    /* Enable smooth scrolling for users who don't prefer reduced motion */
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* ========================================
+     Body
+     ======================================== */
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+  }
+
+  /* ========================================
+     Typography Reset
+     ======================================== */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+
+  /* ========================================
+     Lists
+     ======================================== */
+
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* ========================================
+     Media Elements
+     ======================================== */
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ========================================
+     Forms
+     ======================================== */
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  /* Remove default button styles */
+  button,
+  [type="button"],
+  [type="reset"],
+  [type="submit"] {
+    -webkit-appearance: button;
+  }
+
+  /* Remove default input styles */
+  input,
+  textarea,
+  select {
+    margin: 0;
+  }
+
+  /* ========================================
+     Tables
+     ======================================== */
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  /* ========================================
+     Links
+     ======================================== */
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  /* ========================================
+     Text Selection
+     ======================================== */
+
+  ::selection {
+    background-color: var(--color-brand-200);
+    color: var(--color-text-primary);
+  }
+
+  /* ========================================
+     Focus Styles
+     ======================================== */
+
+  :focus-visible {
+    outline: 2px solid var(--color-interactive-primary);
+    outline-offset: 2px;
+  }
+
+  /* ========================================
+     Accessibility
+     ======================================== */
+
+  /* Screen reader only class */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Remove animations for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* ========================================
+     Print Styles
+     ======================================== */
+
+  @media print {
+    *,
+    *::before,
+    *::after {
+      background: transparent !important;
+      color: #000 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+      text-decoration: underline;
+    }
+
+    a[href]::after {
+      content: " (" attr(href) ")";
+    }
+
+    abbr[title]::after {
+      content: " (" attr(title) ")";
+    }
+
+    img {
+      page-break-inside: avoid;
+    }
+
+    p,
+    h2,
+    h3 {
+      orphans: 3;
+      widows: 3;
+    }
+
+    h2,
+    h3 {
+      page-break-after: avoid;
+    }
+  }
+}

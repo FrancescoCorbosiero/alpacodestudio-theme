@@ -1,0 +1,259 @@
+/**
+ * CSS4 Design Tokens
+ * Modern design system foundation using CSS custom properties
+ */
+
+@layer tokens {
+  :root {
+    /* ========================================
+       COLOR SYSTEM
+       ======================================== */
+
+    /* Neutral Colors */
+    --color-neutral-50: oklch(98% 0 0);
+    --color-neutral-100: oklch(96% 0 0);
+    --color-neutral-200: oklch(90% 0 0);
+    --color-neutral-300: oklch(83% 0 0);
+    --color-neutral-400: oklch(71% 0 0);
+    --color-neutral-500: oklch(58% 0 0);
+    --color-neutral-600: oklch(45% 0 0);
+    --color-neutral-700: oklch(35% 0 0);
+    --color-neutral-800: oklch(23% 0 0);
+    --color-neutral-900: oklch(15% 0 0);
+    --color-neutral-950: oklch(10% 0 0);
+
+    /* Brand Colors */
+    --color-brand-50: oklch(97% 0.02 270);
+    --color-brand-100: oklch(94% 0.04 270);
+    --color-brand-200: oklch(88% 0.08 270);
+    --color-brand-300: oklch(80% 0.12 270);
+    --color-brand-400: oklch(70% 0.16 270);
+    --color-brand-500: oklch(60% 0.20 270);
+    --color-brand-600: oklch(50% 0.18 270);
+    --color-brand-700: oklch(40% 0.14 270);
+    --color-brand-800: oklch(30% 0.10 270);
+    --color-brand-900: oklch(20% 0.06 270);
+
+    /* Accent Colors */
+    --color-accent-50: oklch(97% 0.02 180);
+    --color-accent-100: oklch(94% 0.04 180);
+    --color-accent-200: oklch(88% 0.08 180);
+    --color-accent-300: oklch(80% 0.12 180);
+    --color-accent-400: oklch(70% 0.16 180);
+    --color-accent-500: oklch(60% 0.20 180);
+    --color-accent-600: oklch(50% 0.18 180);
+    --color-accent-700: oklch(40% 0.14 180);
+    --color-accent-800: oklch(30% 0.10 180);
+    --color-accent-900: oklch(20% 0.06 180);
+
+    /* Semantic Colors */
+    --color-success: oklch(70% 0.18 150);
+    --color-warning: oklch(75% 0.16 80);
+    --color-error: oklch(60% 0.20 25);
+    --color-info: oklch(65% 0.18 240);
+
+    /* ========================================
+       SPACING SYSTEM
+       ======================================== */
+
+    --space-0: 0;
+    --space-1: 0.25rem;   /* 4px */
+    --space-2: 0.5rem;    /* 8px */
+    --space-3: 0.75rem;   /* 12px */
+    --space-4: 1rem;      /* 16px */
+    --space-5: 1.5rem;    /* 24px */
+    --space-6: 2rem;      /* 32px */
+    --space-7: 3rem;      /* 48px */
+    --space-8: 4rem;      /* 64px */
+    --space-9: 6rem;      /* 96px */
+    --space-10: 8rem;     /* 128px */
+
+    /* ========================================
+       TYPOGRAPHY SYSTEM
+       ======================================== */
+
+    /* Font Families */
+    --font-sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    /* Font Sizes - Fluid Scale */
+    --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+    --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
+    --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    --font-size-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+    --font-size-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+    --font-size-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+    --font-size-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem);
+    --font-size-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);
+    --font-size-5xl: clamp(3rem, 2.5rem + 2.5vw, 3.75rem);
+
+    /* Font Weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Line Heights */
+    --line-height-tight: 1.2;
+    --line-height-snug: 1.375;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.625;
+    --line-height-loose: 2;
+
+    /* Letter Spacing */
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.05em;
+
+    /* ========================================
+       LAYOUT SYSTEM
+       ======================================== */
+
+    /* Container Widths */
+    --container-xs: 20rem;    /* 320px */
+    --container-sm: 36rem;    /* 576px */
+    --container-md: 48rem;    /* 768px */
+    --container-lg: 64rem;    /* 1024px */
+    --container-xl: 80rem;    /* 1280px */
+    --container-2xl: 96rem;   /* 1536px */
+
+    /* Breakpoints */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+
+    /* Grid Gaps */
+    --gap-xs: var(--space-2);
+    --gap-sm: var(--space-3);
+    --gap-md: var(--space-4);
+    --gap-lg: var(--space-6);
+    --gap-xl: var(--space-8);
+
+    /* ========================================
+       BORDER SYSTEM
+       ======================================== */
+
+    /* Border Widths */
+    --border-width-0: 0;
+    --border-width-1: 1px;
+    --border-width-2: 2px;
+    --border-width-4: 4px;
+
+    /* Border Radius */
+    --radius-none: 0;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+    --radius-full: 9999px;
+
+    /* ========================================
+       SHADOW SYSTEM
+       ======================================== */
+
+    --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / 0.05);
+    --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 0.1), 0 1px 2px -1px oklch(0% 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.1), 0 2px 4px -2px oklch(0% 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.1), 0 4px 6px -4px oklch(0% 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 0.1), 0 8px 10px -6px oklch(0% 0 0 / 0.1);
+    --shadow-2xl: 0 25px 50px -12px oklch(0% 0 0 / 0.25);
+
+    /* ========================================
+       ANIMATION SYSTEM
+       ======================================== */
+
+    /* Durations */
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 350ms;
+    --duration-slower: 500ms;
+
+    /* Easing Functions */
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* ========================================
+       Z-INDEX SYSTEM
+       ======================================== */
+
+    --z-base: 0;
+    --z-dropdown: 1000;
+    --z-sticky: 1100;
+    --z-fixed: 1200;
+    --z-modal-backdrop: 1300;
+    --z-modal: 1400;
+    --z-popover: 1500;
+    --z-tooltip: 1600;
+    --z-toast: 1700;
+
+    /* ========================================
+       THEME TOKENS (Light Mode Default)
+       ======================================== */
+
+    --color-bg-primary: var(--color-neutral-50);
+    --color-bg-secondary: var(--color-neutral-100);
+    --color-bg-tertiary: var(--color-neutral-200);
+
+    --color-text-primary: var(--color-neutral-900);
+    --color-text-secondary: var(--color-neutral-700);
+    --color-text-tertiary: var(--color-neutral-600);
+
+    --color-border-primary: var(--color-neutral-300);
+    --color-border-secondary: var(--color-neutral-200);
+
+    --color-interactive-primary: var(--color-brand-600);
+    --color-interactive-hover: var(--color-brand-700);
+    --color-interactive-active: var(--color-brand-800);
+  }
+
+  /* ========================================
+     DARK THEME TOKENS
+     ======================================== */
+
+  [data-theme="dark"] {
+    --color-bg-primary: var(--color-neutral-950);
+    --color-bg-secondary: var(--color-neutral-900);
+    --color-bg-tertiary: var(--color-neutral-800);
+
+    --color-text-primary: var(--color-neutral-50);
+    --color-text-secondary: var(--color-neutral-300);
+    --color-text-tertiary: var(--color-neutral-400);
+
+    --color-border-primary: var(--color-neutral-700);
+    --color-border-secondary: var(--color-neutral-800);
+
+    --color-interactive-primary: var(--color-brand-400);
+    --color-interactive-hover: var(--color-brand-300);
+    --color-interactive-active: var(--color-brand-200);
+  }
+
+  /* ========================================
+     PREFERS COLOR SCHEME (System)
+     ======================================== */
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-bg-primary: var(--color-neutral-950);
+      --color-bg-secondary: var(--color-neutral-900);
+      --color-bg-tertiary: var(--color-neutral-800);
+
+      --color-text-primary: var(--color-neutral-50);
+      --color-text-secondary: var(--color-neutral-300);
+      --color-text-tertiary: var(--color-neutral-400);
+
+      --color-border-primary: var(--color-neutral-700);
+      --color-border-secondary: var(--color-neutral-800);
+
+      --color-interactive-primary: var(--color-brand-400);
+      --color-interactive-hover: var(--color-brand-300);
+      --color-interactive-active: var(--color-brand-200);
+    }
+  }
+}
