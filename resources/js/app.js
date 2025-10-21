@@ -22,9 +22,24 @@ import.meta.glob([
 ])
 
 /**
+ * Check if we're in WordPress admin
+ */
+function isWordPressAdmin() {
+  return document.body.classList.contains('wp-admin') ||
+         document.body.classList.contains('wp-core-ui')
+}
+
+/**
  * Initialize theme on DOM ready
  */
 document.addEventListener('DOMContentLoaded', () => {
+  // Don't initialize frontend features in WordPress admin
+  if (isWordPressAdmin()) {
+    // Only start Alpine.js for admin
+    Alpine.start()
+    return
+  }
+
   try {
     // Initialize theme switcher
     initThemeSwitcher()
