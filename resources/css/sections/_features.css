@@ -1,0 +1,90 @@
+@layer sections {
+  /* Features Section */
+  .features {
+    padding-block: var(--space-3xl);
+  }
+
+  .features__header {
+    text-align: center;
+    max-width: var(--container-md);
+    margin-inline: auto;
+    margin-block-end: var(--space-2xl);
+  }
+
+  .features__title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-block-end: var(--space-md);
+  }
+
+  .features__description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Features Grid */
+  .features__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: var(--space-xl);
+  }
+
+  .features__grid--2 {
+    grid-template-columns: repeat(auto-fit, minmax(min(50%, 100%), 1fr));
+  }
+
+  .features__grid--3 {
+    grid-template-columns: repeat(auto-fit, minmax(min(33.333%, 100%), 1fr));
+  }
+
+  .features__grid--4 {
+    grid-template-columns: repeat(auto-fit, minmax(min(25%, 100%), 1fr));
+  }
+
+  /* Feature Item */
+  .feature {
+    text-align: center;
+    padding: var(--space-lg);
+  }
+
+  .feature__icon {
+    width: 3rem;
+    height: 3rem;
+    margin-inline: auto;
+    margin-block-end: var(--space-md);
+    display: grid;
+    place-items: center;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--color-brand-primary), transparent 90%) 0%,
+      color-mix(in oklch, var(--color-brand-secondary), transparent 95%) 100%
+    );
+    border-radius: var(--radius-lg);
+    color: var(--color-brand-primary);
+  }
+
+  .feature__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-block-end: var(--space-sm);
+  }
+
+  .feature__description {
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Stagger animation */
+  .feature {
+    animation: fade-in 600ms var(--easing-out) backwards;
+  }
+
+  @for $i from 1 through 12 {
+    .feature:nth-child(#{$i}) {
+      animation-delay: calc(#{$i} * 100ms);
+    }
+  }
+}
