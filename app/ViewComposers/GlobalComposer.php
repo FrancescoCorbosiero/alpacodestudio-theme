@@ -66,17 +66,23 @@ class GlobalComposer extends Composer
      */
     public function with(): array
     {
-        return [
+        $data = [
             'siteName' => get_bloginfo('name'),
             'siteDescription' => get_bloginfo('description'),
-            'currentUrl' => home_url(add_query_arg(null, null)),
-            'locale' => $this->i18n->getLocale(),
-            'isRtl' => $this->i18n->isRtl(),
-            'theme' => $this->designSystem->getThemeAttribute(),
-            'metaTags' => $this->seo->getMetaTags(),
-            'schemaMarkup' => $this->seo->getSchemaMarkup(),
             'title' => $this->getTitle(),
         ];
+
+        // Only add frontend-specific data when NOT in admin
+        if (!is_admin()) {
+            $data['currentUrl'] = home_url(add_query_arg(null, null));
+            $data['locale'] = $this->i18n->getLocale();
+            $data['isRtl'] = $this->i18n->isRtl();
+            $data['theme'] = $this->designSystem->getThemeAttribute();
+            $data['metaTags'] = $this->seo->getMetaTags();
+            $data['schemaMarkup'] = $this->seo->getSchemaMarkup();
+        }
+
+        return $data;
     }
 
     /**

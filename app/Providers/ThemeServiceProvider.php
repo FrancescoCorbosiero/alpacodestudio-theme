@@ -52,9 +52,22 @@ class ThemeServiceProvider extends SageServiceProvider
     {
         parent::boot();
 
-        // Register view composers
+        // Register view composers (needed for both admin and frontend)
         $this->app->make('view')->composer('*', GlobalComposer::class);
 
+        // Only initialize frontend optimizations when NOT in admin
+        if (!is_admin()) {
+            $this->bootFrontendServices();
+        }
+    }
+
+    /**
+     * Boot frontend-only services
+     *
+     * @return void
+     */
+    protected function bootFrontendServices()
+    {
         // Initialize performance optimizations
         $performance = $this->app->make(PerformanceService::class);
         $performance->setupLazyLoading();
@@ -64,7 +77,7 @@ class ThemeServiceProvider extends SageServiceProvider
         $asset = $this->app->make(AssetService::class);
         $asset->disableEmojis();
 
-        // Add defer to scripts
+        // Add defer to scripts (frontend only)
         add_filter('script_loader_tag', function ($tag, $handle, $src) use ($asset) {
             return $asset->deferScript($tag, $handle, $src);
         }, 10, 3);
