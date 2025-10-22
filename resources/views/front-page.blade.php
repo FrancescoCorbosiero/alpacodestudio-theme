@@ -14,15 +14,15 @@
   {{-- DIVINE Value Props - 3D tilt cards with glassmorphism --}}
   @include('sections.value-props-divine')
 
-  {{-- Features Grid - What We Do (keeping original for now) --}}
-  @include('sections.features')
+  {{-- DIVINE Features - Horizontal scroll with massive gradient cards --}}
+  @include('sections.features-divine')
 
-  {{-- Social Proof - Testimonials + Stats (keeping original for now) --}}
-  @include('sections.social-proof')
+  {{-- DIVINE Social Proof - Auto-rotating 3D carousel --}}
+  @include('sections.social-proof-divine')
 
-  {{-- Pricing Preview - Package Cards (keeping original for now) --}}
-  @include('sections.pricing-preview')
+  {{-- DIVINE Pricing - Interactive 3D cards with glassmorphism --}}
+  @include('sections.pricing-divine')
 
-  {{-- Final CTA - Conversion Focused (keeping original for now) --}}
-  @include('sections.final-cta')
+  {{-- DIVINE Final CTA - Magnetic effects with particle animations --}}
+  @include('sections.final-cta-divine')
 @endsection

@@ -23,8 +23,12 @@
 @import "./sections/_value-proposition.css";
 @import "./sections/_value-props-divine.css";
 @import "./sections/_features.css";
+@import "./sections/_features-divine.css";
 @import "./sections/_social-proof.css";
+@import "./sections/_social-proof-divine.css";
 @import "./sections/_pricing-preview.css";
+@import "./sections/_pricing-divine.css";
 @import "./sections/_final-cta.css";
+@import "./sections/_final-cta-divine.css";
 @import "./sections/_footer.css";
 @import "./sections/_cta.css";
