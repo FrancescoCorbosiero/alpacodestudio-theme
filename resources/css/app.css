@@ -7,6 +7,7 @@
 @import "./foundation/_tokens.css";
 @import "./foundation/_reset.css";
 @import "./foundation/_typography.css";
+@import "./foundation/_fluid-typography.css";
 @import "./foundation/_layout.css";
 @import "./foundation/_utilities.css";
 @import "./foundation/_animations.css";
@@ -18,10 +19,16 @@
 
 /* Sections */
 @import "./sections/_hero.css";
+@import "./sections/_hero-divine.css";
 @import "./sections/_value-proposition.css";
+@import "./sections/_value-props-divine.css";
 @import "./sections/_features.css";
+@import "./sections/_features-divine.css";
 @import "./sections/_social-proof.css";
+@import "./sections/_social-proof-divine.css";
 @import "./sections/_pricing-preview.css";
+@import "./sections/_pricing-divine.css";
 @import "./sections/_final-cta.css";
+@import "./sections/_final-cta-divine.css";
 @import "./sections/_footer.css";
 @import "./sections/_cta.css";

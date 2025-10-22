@@ -1,28 +1,28 @@
 {{--
   Template Name: Front Page (Homepage)
 
-  The main landing page for Alpacode Studio.
-  Showcases all premium sections in a cohesive layout.
+  DIVINE landing page for Alpacode Studio.
+  ReadyMag-level stunning UI with Alpine.js interactivity.
 --}}
 
 @extends('layouts.app')
 
 @section('content')
-  {{-- Hero Section - Stunning First Impression --}}
-  @include('sections.hero')
+  {{-- DIVINE Hero - MASSIVE typography with morphing effects --}}
+  @include('sections.hero-divine')
 
-  {{-- Value Proposition - Why Choose Alpacode --}}
-  @include('sections.value-proposition')
+  {{-- DIVINE Value Props - 3D tilt cards with glassmorphism --}}
+  @include('sections.value-props-divine')
 
-  {{-- Features Grid - What We Do --}}
-  @include('sections.features')
+  {{-- DIVINE Features - Horizontal scroll with massive gradient cards --}}
+  @include('sections.features-divine')
 
-  {{-- Social Proof - Testimonials + Stats --}}
-  @include('sections.social-proof')
+  {{-- DIVINE Social Proof - Auto-rotating 3D carousel --}}
+  @include('sections.social-proof-divine')
 
-  {{-- Pricing Preview - Package Cards --}}
-  @include('sections.pricing-preview')
+  {{-- DIVINE Pricing - Interactive 3D cards with glassmorphism --}}
+  @include('sections.pricing-divine')
 
-  {{-- Final CTA - Conversion Focused --}}
-  @include('sections.final-cta')
+  {{-- DIVINE Final CTA - Magnetic effects with particle animations --}}
+  @include('sections.final-cta-divine')
 @endsection

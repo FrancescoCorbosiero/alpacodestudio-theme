@@ -1,0 +1,334 @@
+@layer sections {
+  /* ============================================
+     DIVINE HERO SECTION
+     ReadyMag-inspired stunning first impression
+     ============================================ */
+
+  .hero-divine {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at 30% 20%,
+        color-mix(in oklch, var(--color-brand-primary), transparent 92%) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 70% 80%,
+        color-mix(in oklch, var(--color-brand-accent), transparent 92%) 0%,
+        transparent 50%
+      ),
+      var(--color-surface-base);
+  }
+
+  /* Mouse-following gradient blob */
+  .hero-divine__blob {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklch, var(--color-brand-primary), transparent 70%) 0%,
+      transparent 70%
+    );
+    filter: blur(80px);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: left 0.5s ease-out, top 0.5s ease-out;
+    z-index: 1;
+  }
+
+  /* Morphing background shapes */
+  .hero-divine__shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .shape {
+    position: absolute;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: morph 20s ease-in-out infinite;
+  }
+
+  .shape--1 {
+    top: 10%;
+    left: 5%;
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--color-brand-primary), transparent 90%),
+      color-mix(in oklch, var(--color-brand-secondary), transparent 95%)
+    );
+    opacity: 0.3;
+    animation-delay: 0s;
+  }
+
+  .shape--2 {
+    bottom: 10%;
+    right: 10%;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--color-brand-secondary), transparent 90%),
+      color-mix(in oklch, var(--color-brand-accent), transparent 95%)
+    );
+    opacity: 0.25;
+    animation-delay: 7s;
+  }
+
+  .shape--3 {
+    top: 50%;
+    right: 5%;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--color-brand-accent), transparent 90%),
+      color-mix(in oklch, var(--color-brand-primary), transparent 95%)
+    );
+    opacity: 0.2;
+    animation-delay: 14s;
+  }
+
+  @keyframes morph {
+    0%, 100% {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      transform: rotate(0deg) scale(1);
+    }
+    33% {
+      border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+      transform: rotate(120deg) scale(1.1);
+    }
+    66% {
+      border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+      transform: rotate(240deg) scale(0.9);
+    }
+  }
+
+  /* Content container */
+  .hero-divine__content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    padding-inline: var(--gutter);
+    text-align: center;
+  }
+
+  /* Eyebrow */
+  .hero-divine__eyebrow {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-brand-primary);
+    margin-block-end: var(--space-xl);
+    display: inline-block;
+    padding: var(--space-xs) var(--space-lg);
+    border: 2px solid var(--color-brand-primary);
+    border-radius: var(--radius-full);
+    background: color-mix(in oklch, var(--color-brand-primary), transparent 90%);
+  }
+
+  /* MASSIVE Title */
+  .hero-divine__title {
+    margin-block-end: var(--space-2xl);
+    max-width: 20ch;
+    margin-inline: auto;
+    /* Split text chars will have their own animation */
+  }
+
+  /* Large Subtitle */
+  .hero-divine__subtitle {
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-2xl);
+    max-width: 30ch;
+    margin-inline: auto;
+    font-weight: var(--font-weight-normal);
+  }
+
+  /* CTA Buttons */
+  .hero-divine__cta {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-block-end: var(--space-3xl);
+  }
+
+  /* DIVINE Button Styles */
+  .button-divine {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg) var(--space-2xl);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition:
+      transform var(--duration-base) var(--easing-out),
+      box-shadow var(--duration-base) var(--easing-out);
+    overflow: hidden;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+
+  .button-divine--primary {
+    background: linear-gradient(
+      135deg,
+      var(--color-brand-primary) 0%,
+      var(--color-brand-secondary) 100%
+    );
+    color: var(--color-text-inverse);
+    box-shadow:
+      0 4px 20px color-mix(in oklch, var(--color-brand-primary), transparent 50%),
+      0 0 40px color-mix(in oklch, var(--color-brand-primary), transparent 70%);
+  }
+
+  .button-divine--primary:hover {
+    box-shadow:
+      0 8px 30px color-mix(in oklch, var(--color-brand-primary), transparent 40%),
+      0 0 60px color-mix(in oklch, var(--color-brand-primary), transparent 60%);
+  }
+
+  .button-divine__glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      color-mix(in oklch, white, transparent 70%) 50%,
+      transparent 100%
+    );
+    background-size: 200% 200%;
+    animation: glow-slide 3s ease infinite;
+    opacity: 0;
+    transition: opacity var(--duration-base);
+  }
+
+  .button-divine--primary:hover .button-divine__glow {
+    opacity: 1;
+  }
+
+  @keyframes glow-slide {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .button-divine--ghost {
+    background: transparent;
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-neutral-300);
+  }
+
+  .button-divine--ghost:hover {
+    background: var(--color-surface-raised);
+    border-color: var(--color-brand-primary);
+    color: var(--color-brand-primary);
+  }
+
+  /* Stats */
+  .hero-divine__stats {
+    display: flex;
+    gap: var(--space-3xl);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .stat__number {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(
+      135deg,
+      var(--color-brand-primary) 0%,
+      var(--color-brand-accent) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat__label {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-secondary);
+  }
+
+  /* Scroll indicator */
+  .hero-divine__scroll {
+    position: absolute;
+    bottom: var(--space-3xl);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .scroll-arrow {
+    width: 32px;
+    height: 32px;
+    stroke: var(--color-text-secondary);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: bounce-down 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px color-mix(in oklch, var(--color-brand-primary), transparent 70%));
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-divine {
+      min-height: 90vh;
+    }
+
+    .hero-divine__blob {
+      width: 400px;
+      height: 400px;
+    }
+
+    .shape--1,
+    .shape--2,
+    .shape--3 {
+      display: none;
+    }
+
+    .hero-divine__cta {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .button-divine {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .hero-divine__stats {
+      gap: var(--space-xl);
+    }
+
+    .stat__number {
+      font-size: var(--font-size-3xl);
+    }
+  }
+}
