@@ -212,16 +212,26 @@ export function revealOnScroll(animation = 'fade-up') {
     visible: false,
 
     init() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.visible = true
-            observer.unobserve(entry.target)
-          }
-        })
-      }, { threshold: 0.1 })
+      // Check if element is already visible on page load
+      const rect = this.$el.getBoundingClientRect()
+      const isInitiallyVisible = rect.top < window.innerHeight && rect.bottom > 0
 
-      observer.observe(this.$el)
+      if (isInitiallyVisible) {
+        // Element is already in viewport, show immediately
+        this.visible = true
+      } else {
+        // Element is below fold, use IntersectionObserver
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              this.visible = true
+              observer.unobserve(entry.target)
+            }
+          })
+        }, { threshold: 0.1 })
+
+        observer.observe(this.$el)
+      }
     }
   }
 }
