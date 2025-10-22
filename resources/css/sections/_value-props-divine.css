@@ -1,0 +1,209 @@
+@layer sections {
+  /* ============================================
+     DIVINE VALUE PROPOSITIONS
+     3D tilt, glassmorphism, stunning effects
+     ============================================ */
+
+  .value-props-divine {
+    padding-block: var(--space-3xl) calc(var(--space-3xl) * 2);
+    background: linear-gradient(
+      180deg,
+      var(--color-surface-base) 0%,
+      var(--color-surface-raised) 100%
+    );
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Section Header */
+  .value-props-divine__header {
+    text-align: center;
+    margin-block-end: var(--space-3xl);
+    position: relative;
+  }
+
+  .value-props-divine__title {
+    margin-block-end: var(--space-md);
+    background: linear-gradient(
+      135deg,
+      var(--color-text-primary) 0%,
+      var(--color-brand-primary) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .value-props-divine__subtitle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.03;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Grid */
+  .value-props-divine__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: var(--space-2xl);
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* DIVINE Value Card */
+  .value-card-divine {
+    position: relative;
+    padding: var(--space-2xl);
+    border-radius: var(--radius-2xl);
+    background: color-mix(in oklch, var(--color-surface-base), transparent 20%);
+    backdrop-filter: blur(20px);
+    border: 1px solid color-mix(in oklch, var(--color-neutral-200), transparent 50%);
+    transition:
+      transform var(--duration-slow) var(--easing-out),
+      box-shadow var(--duration-slow) var(--easing-out);
+    transform-style: preserve-3d;
+    overflow: hidden;
+  }
+
+  [data-theme="dark"] .value-card-divine {
+    background: color-mix(in oklch, var(--color-neutral-800), transparent 40%);
+    border-color: color-mix(in oklch, var(--color-neutral-700), transparent 50%);
+  }
+
+  /* Animated glow on hover */
+  .value-card-divine__glow {
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      transparent 0deg,
+      var(--color-brand-primary) 60deg,
+      var(--color-brand-secondary) 120deg,
+      var(--color-brand-accent) 180deg,
+      transparent 240deg
+    );
+    opacity: 0;
+    animation: rotate 4s linear infinite;
+    transition: opacity var(--duration-slow);
+  }
+
+  .value-card-divine:hover .value-card-divine__glow {
+    opacity: 0.15;
+  }
+
+  @keyframes rotate {
+    to { transform: rotate(360deg); }
+  }
+
+  .value-card-divine:hover {
+    box-shadow:
+      0 20px 60px color-mix(in oklch, var(--color-brand-primary), transparent 80%),
+      0 0 80px color-mix(in oklch, var(--color-brand-primary), transparent 90%);
+  }
+
+  /* Icon */
+  .value-card-divine__icon {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-xl);
+    display: grid;
+    place-items: center;
+    margin-block-end: var(--space-xl);
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--color-brand-primary), transparent 85%) 0%,
+      color-mix(in oklch, var(--color-brand-secondary), transparent 85%) 100%
+    );
+    color: var(--color-brand-primary);
+    transform: translateZ(20px);
+    transition: transform var(--duration-base) var(--easing-out);
+  }
+
+  .value-card-divine:hover .value-card-divine__icon {
+    transform: translateZ(40px) scale(1.1);
+  }
+
+  .value-card-divine__icon svg {
+    filter: drop-shadow(0 4px 10px color-mix(in oklch, var(--color-brand-primary), transparent 70%));
+  }
+
+  /* Title */
+  .value-card-divine__title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-block-end: var(--space-md);
+    transform: translateZ(10px);
+  }
+
+  /* Description */
+  .value-card-divine__description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-block-end: var(--space-xl);
+    transform: translateZ(5px);
+  }
+
+  /* Number with count-up */
+  .value-card-divine__number {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    transform: translateZ(15px);
+  }
+
+  .value-card-divine__number > span:first-child {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(
+      135deg,
+      var(--color-brand-primary) 0%,
+      var(--color-brand-accent) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+
+  .value-card-divine__label {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-tertiary);
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    .value-props-divine {
+      padding-block: var(--space-2xl);
+    }
+
+    .value-props-divine__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .value-card-divine {
+      padding: var(--space-xl);
+    }
+
+    /* Disable 3D on mobile for performance */
+    .value-card-divine {
+      transform: none !important;
+    }
+
+    .value-card-divine__icon,
+    .value-card-divine__title,
+    .value-card-divine__description,
+    .value-card-divine__number {
+      transform: none !important;
+    }
+  }
+}
