@@ -1,61 +1,102 @@
-<footer class="site-footer" style="background: var(--color-surface-raised); border-top: 1px solid var(--color-neutral-200); padding-block: var(--space-3xl) var(--space-lg);">
-  <div class="container">
-    {{-- Footer Main --}}
-    <div class="footer__main grid grid--3 gap-xl" style="margin-block-end: var(--space-2xl);">
-      {{-- About Column --}}
-      <div class="footer__col footer__col--about">
-        <div class="heading-5" style="margin-block-end: var(--space-md);">
-          {{ $siteName }}
-        </div>
-        <p class="body-small" style="margin-block-end: var(--space-md);">
-          {{ $siteDescription }}
-        </p>
+{{--
+  Premium Footer - Comprehensive Footer
 
-        {{-- Social Links (if needed) --}}
-        <div class="flex gap-sm">
-          {{-- Add social media links here --}}
-        </div>
-      </div>
+  Four-column layout:
+  - Brand (logo, tagline, social icons)
+  - Servizi (service links)
+  - Risorse (resource links)
+  - Contatti (contact info)
+--}}
 
-      {{-- Links Column --}}
-      <div class="footer__col footer__col--links">
-        <h3 class="heading-6" style="margin-block-end: var(--space-md);">
-          {{ __('Quick Links', 'sage') }}
-        </h3>
-        @if (has_nav_menu('primary_navigation'))
-          {!! wp_nav_menu([
-            'theme_location' => 'primary_navigation',
-            'menu_class' => 'stack-sm',
-            'container' => false,
-            'fallback_cb' => false,
-          ]) !!}
-        @endif
-      </div>
-
-      {{-- Contact Column --}}
-      <div class="footer__col footer__col--contact">
-        <h3 class="heading-6" style="margin-block-end: var(--space-md);">
-          {{ __('Contact', 'sage') }}
-        </h3>
-        <address class="body-small stack-xs" style="font-style: normal;">
-          {{-- Add contact information here --}}
-          <p>{{ __('Email:', 'sage') }} <a href="mailto:info@alpacode.studio">info@alpacode.studio</a></p>
-        </address>
-      </div>
-    </div>
-
-    {{-- Footer Bottom --}}
-    <div class="footer__bottom flex items-center justify-between flex-wrap gap-md" style="padding-block-start: var(--space-lg); border-top: 1px solid var(--color-neutral-200);">
-      <p class="footer__copyright body-small text-secondary">
-        &copy; {{ date('Y') }} {{ $siteName }}. {{ __('All rights reserved.', 'sage') }}
+<footer class="site-footer" role="contentinfo">
+  {{-- Footer Main --}}
+  <div class="footer__main">
+    {{-- Column 1: Brand --}}
+    <div class="footer__col footer__col--brand">
+      <div class="footer__brand-name">Alpacode Studio</div>
+      <p class="footer__tagline">
+        Facciamo siti web. Bene, semplice.
       </p>
 
-      <nav class="footer__legal" aria-label="{{ __('Legal Navigation', 'sage') }}">
-        <ul class="flex gap-md body-small">
-          <li><a href="{{ home_url('/privacy-policy') }}">{{ __('Privacy Policy', 'sage') }}</a></li>
-          <li><a href="{{ home_url('/terms-of-service') }}">{{ __('Terms of Service', 'sage') }}</a></li>
-        </ul>
-      </nav>
+      {{-- Social Media Icons --}}
+      <div class="footer__social">
+        <a href="https://github.com/alpacodestudio" class="footer__social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+          <svg class="footer__social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="https://twitter.com/alpacodestudio" class="footer__social-link" aria-label="Twitter/X" target="_blank" rel="noopener noreferrer">
+          <svg class="footer__social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/company/alpacodestudio" class="footer__social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <svg class="footer__social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="4" cy="4" r="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="https://instagram.com/alpacodestudio" class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg class="footer__social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
     </div>
+
+    {{-- Column 2: Servizi --}}
+    <div class="footer__col footer__col--services">
+      <h3 class="footer__col-title">Servizi</h3>
+      <ul class="footer__links">
+        <li><a href="#siti-web" class="footer__link">Siti Web Professionali</a></li>
+        <li><a href="#strumenti-creator" class="footer__link">Strumenti per Creator</a></li>
+        <li><a href="#soluzioni-business" class="footer__link">Soluzioni per Attività</a></li>
+        <li><a href="#consulenza" class="footer__link">Consulenza Personalizzata</a></li>
+      </ul>
+    </div>
+
+    {{-- Column 3: Risorse --}}
+    <div class="footer__col footer__col--resources">
+      <h3 class="footer__col-title">Risorse</h3>
+      <ul class="footer__links">
+        <li><a href="/portfolio" class="footer__link">Portfolio</a></li>
+        <li><a href="/blog" class="footer__link">Blog</a></li>
+        <li><a href="/faq" class="footer__link">Domande Frequenti</a></li>
+        <li><a href="/pricing" class="footer__link">Guida ai Prezzi</a></li>
+      </ul>
+    </div>
+
+    {{-- Column 4: Contatti --}}
+    <div class="footer__col footer__col--contact">
+      <h3 class="footer__col-title">Contatti</h3>
+      <address class="footer__contact">
+        <p>
+          <strong>Email:</strong><br>
+          <a href="mailto:hello@alpacode.studio">hello@alpacode.studio</a>
+        </p>
+        <p>
+          <strong>Sede:</strong><br>
+          Monza Brianza, Italia
+        </p>
+        <p>
+          <a href="/contact" class="footer__link">Invia un messaggio →</a>
+        </p>
+      </address>
+    </div>
+  </div>
+
+  {{-- Footer Bottom --}}
+  <div class="footer__bottom">
+    <p class="footer__copyright">
+      &copy; {{ date('Y') }} Alpacode Studio
+    </p>
+
+    <nav class="footer__legal" aria-label="Legal navigation">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/cookies">Cookies</a>
+    </nav>
   </div>
 </footer>
