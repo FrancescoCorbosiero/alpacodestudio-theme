@@ -178,6 +178,43 @@
     animation: fade-in 200ms var(--easing-out);
   }
 
+  /* Navigation Loading State */
+  html.is-navigating {
+    cursor: wait;
+  }
+
+  html.is-navigating::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--color-brand-primary) 0%,
+      var(--color-brand-secondary) 50%,
+      var(--color-brand-accent) 100%
+    );
+    background-size: 200% 100%;
+    animation: loading-bar 1s ease-in-out infinite;
+    z-index: 9999;
+  }
+
+  @keyframes loading-bar {
+    0% {
+      background-position: 200% 0;
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      background-position: -200% 0;
+      opacity: 0.5;
+    }
+  }
+
   /* Reduce motion */
   @media (prefers-reduced-motion: reduce) {
     .animate-in,
