@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="container">
-    @include('partials.page-header')
+  @include('partials.page-header')
 
+  <div class="container section">
     @if (have_posts())
       <div class="grid grid--auto gap-lg">
         @while (have_posts())
@@ -32,7 +32,7 @@
               </div>
 
               <footer>
-                <a href="{{ get_permalink() }}" class="button button--ghost">
+                <a href="{{ get_permalink() }}" class="button button--ghost button--sm">
                   {{ __('Read more', 'sage') }} →
                 </a>
               </footer>
@@ -41,10 +41,16 @@
         @endwhile
       </div>
 
-      {!! get_the_posts_navigation() !!}
+      @if (get_the_posts_navigation())
+        <nav class="pagination" style="margin-block-start: var(--space-xl);" aria-label="{{ __('Posts navigation', 'sage') }}">
+          {!! get_the_posts_navigation() !!}
+        </nav>
+      @endif
     @else
-      <div class="section text-center">
-        <p class="body-large">{{ __('Sorry, no posts were found.', 'sage') }}</p>
+      <div class="text-center">
+        <div class="card" style="padding: var(--space-xl); max-width: 48rem; margin-inline: auto;">
+          <p class="body-large">{{ __('Sorry, no posts were found.', 'sage') }}</p>
+        </div>
       </div>
     @endif
   </div>
