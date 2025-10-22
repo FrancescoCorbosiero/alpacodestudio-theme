@@ -4,6 +4,11 @@
  * Handles IntersectionObserver-based animations for elements with:
  * - [data-animate]: Single element animation
  * - [data-animate-stagger]: Staggered children animation
+ *
+ * Features:
+ * - Automatic cleanup on page navigation
+ * - Prevents double-initialization
+ * - WordPress-compatible
  */
 
 // Observer configuration
@@ -12,28 +17,75 @@ const observerOptions = {
   rootMargin: '0px 0px -50px 0px' // Trigger slightly before element is in view
 }
 
-// Create IntersectionObserver
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('animate-in')
-      observer.unobserve(entry.target) // Unobserve after animation
-    }
-  })
-}, observerOptions)
+// Store observer instance globally to allow cleanup
+let animationObserver = null
 
-// Initialize on DOM ready
-document.addEventListener('DOMContentLoaded', () => {
-  // Observe all elements with data-animate
+/**
+ * Initialize scroll animations
+ */
+function initScrollAnimations() {
+  // Cleanup existing observer if any
+  if (animationObserver) {
+    animationObserver.disconnect()
+    animationObserver = null
+  }
+
+  // Create new IntersectionObserver
+  animationObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in')
+        animationObserver.unobserve(entry.target) // Unobserve after animation
+      }
+    })
+  }, observerOptions)
+
+  // Find and observe all elements with data-animate
   const animatedElements = document.querySelectorAll('[data-animate]')
-  animatedElements.forEach(el => observer.observe(el))
+  animatedElements.forEach(el => {
+    // Remove any stale animate-in class
+    if (el.classList.contains('animate-in')) {
+      el.classList.remove('animate-in')
+    }
+    animationObserver.observe(el)
+  })
 
   // Observe elements with data-animate-stagger
   const staggeredContainers = document.querySelectorAll('[data-animate-stagger]')
-  staggeredContainers.forEach(container => observer.observe(container))
+  staggeredContainers.forEach(container => {
+    // Remove any stale animate-in class
+    if (container.classList.contains('animate-in')) {
+      container.classList.remove('animate-in')
+    }
+    animationObserver.observe(container)
+  })
+
+  console.info(`Scroll animations initialized: ${animatedElements.length + staggeredContainers.length} elements`)
+}
+
+/**
+ * Cleanup function
+ */
+function cleanupScrollAnimations() {
+  if (animationObserver) {
+    animationObserver.disconnect()
+    animationObserver = null
+  }
+}
+
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', initScrollAnimations)
+
+// Reinitialize on page change (for SPA-like navigation if enabled)
+window.addEventListener('pagechange', () => {
+  console.info('Page changed, reinitializing scroll animations')
+  initScrollAnimations()
 })
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', cleanupScrollAnimations)
 
 /**
  * Export for use in other modules
  */
-export { observer, observerOptions }
+export { animationObserver, observerOptions, initScrollAnimations, cleanupScrollAnimations }
