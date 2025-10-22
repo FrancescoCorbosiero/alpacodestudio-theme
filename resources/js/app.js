@@ -35,6 +35,12 @@ function isWordPressAdmin() {
  * Initialize theme on DOM ready
  */
 document.addEventListener('DOMContentLoaded', () => {
+  // Prevent multiple initializations
+  if (window.alpineInitialized) {
+    return
+  }
+  window.alpineInitialized = true
+
   // Don't initialize frontend features in WordPress admin
   if (isWordPressAdmin()) {
     // Only start Alpine.js for admin
