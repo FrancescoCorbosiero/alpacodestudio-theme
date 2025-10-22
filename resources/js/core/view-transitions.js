@@ -15,16 +15,11 @@
 /**
  * Initialize view transitions
  *
- * CURRENTLY DISABLED - uncomment to enable (not recommended in WordPress context)
+ * ENABLED with WordPress compatibility fixes
  */
 export function initViewTransitions() {
-  // View Transitions disabled due to WordPress compatibility issues
-  // See comments above for details
-
-  console.info('View Transitions: Disabled for WordPress compatibility')
-
-  // If you want to enable, uncomment below and test thoroughly:
-  // return enableViewTransitions()
+  // Enable View Transitions with proper safeguards
+  return enableViewTransitions()
 }
 
 /**
@@ -93,11 +88,15 @@ function shouldInterceptNavigation(link) {
  */
 async function navigateWithTransition(url, updateHistory = true) {
   try {
-    // Show loading indicator (optional)
+    // Show loading indicator
     document.documentElement.classList.add('is-navigating')
 
     // Fetch the new page
-    const response = await fetch(url)
+    const response = await fetch(url, {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest' // Let WordPress know this is AJAX
+      }
+    })
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
@@ -109,18 +108,24 @@ async function navigateWithTransition(url, updateHistory = true) {
     const parser = new DOMParser()
     const doc = parser.parseFromString(html, 'text/html')
 
+    // CRITICAL: Verify we have valid content
+    const newMain = doc.querySelector('main#main')
+    const oldMain = document.querySelector('main#main')
+
+    if (!newMain || !oldMain) {
+      throw new Error('Required elements not found, falling back to full navigation')
+    }
+
     // Start view transition
     const transition = document.startViewTransition(() => {
-      // Update the entire body content (more reliable than just main)
-      const oldContent = document.querySelector('#app')
-      const newContent = doc.querySelector('#app')
+      // CRITICAL FIX: Clear old content completely before swapping
+      oldMain.innerHTML = ''
 
-      if (oldContent && newContent) {
-        oldContent.innerHTML = newContent.innerHTML
-      } else {
-        // Fallback: replace entire body
-        document.body.innerHTML = doc.body.innerHTML
-      }
+      // Force reflow to ensure clear
+      void oldMain.offsetHeight
+
+      // Now swap in new content
+      oldMain.innerHTML = newMain.innerHTML
 
       // Update the title
       document.title = doc.title
@@ -128,25 +133,32 @@ async function navigateWithTransition(url, updateHistory = true) {
       // Update meta tags
       updateMetaTags(doc)
 
+      // Update body classes (important for WordPress context)
+      const newBodyClasses = doc.body.className
+      document.body.className = newBodyClasses
+
       // Update URL
       if (updateHistory) {
-        history.pushState(null, '', url)
+        history.pushState({ url }, '', url)
       }
 
       // Remove loading indicator
       document.documentElement.classList.remove('is-navigating')
     })
 
+    // Wait for transition to complete
     await transition.finished
 
     // CRITICAL: Reinitialize WordPress and theme scripts
-    reinitializeScripts()
+    await reinitializeScripts()
 
     // Dispatch event for other scripts to listen to
     window.dispatchEvent(new CustomEvent('pagechange', { detail: { url } }))
 
-    // Scroll to top (or preserve scroll position if needed)
-    window.scrollTo(0, 0)
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: 'instant' })
+
+    console.info('View transition completed:', url)
 
   } catch (error) {
     console.error('View transition failed:', error)
@@ -187,23 +199,39 @@ function updateMetaTags(doc) {
  * Reinitialize scripts after content swap
  * CRITICAL for WordPress compatibility
  */
-function reinitializeScripts() {
+async function reinitializeScripts() {
+  // Small delay to ensure DOM is ready
+  await new Promise(resolve => setTimeout(resolve, 50))
+
   // Reinitialize WordPress scripts
   if (window.wp && window.wp.domReady) {
-    window.wp.domReady()
+    try {
+      window.wp.domReady()
+    } catch (e) {
+      console.warn('WordPress domReady failed:', e)
+    }
   }
 
-  // Reinitialize scroll animations
+  // Reinitialize Alpine.js if present
   if (window.Alpine) {
-    window.Alpine.destroyTree(document.body)
-    window.Alpine.initTree(document.body)
+    try {
+      window.Alpine.destroyTree(document.body)
+      window.Alpine.initTree(document.body)
+    } catch (e) {
+      console.warn('Alpine.js reinitialization failed:', e)
+    }
   }
 
-  // Reinitialize navigation
-  const event = new Event('DOMContentLoaded', {
+  // CRITICAL: Reinitialize scroll animations
+  // This is handled by the pagechange event listener in animations.js
+
+  // Trigger DOMContentLoaded for other scripts
+  const domReadyEvent = new Event('DOMContentLoaded', {
     bubbles: true,
     cancelable: true
   })
-  document.dispatchEvent(event)
+  document.dispatchEvent(domReadyEvent)
+
+  console.info('Scripts reinitialized after view transition')
 }
 
