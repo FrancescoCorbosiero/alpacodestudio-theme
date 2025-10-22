@@ -100,7 +100,7 @@
         const zIndex = isActive ? 10 : 5 - Math.abs(normalizedDiff)
 
         return {
-          transform: \`translate3d(\${translateX}%, 0, \${translateZ}px) rotateY(\${rotateY}deg) scale(\${scale})\`,
+          transform: `translate3d(${translateX}%, 0, ${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
           opacity: opacity,
           zIndex: zIndex
         }
@@ -123,7 +123,7 @@
           {{-- Content --}}
           <div class="testimonial-card-divine__content">
             {{-- Stars --}}
-            <div class="testimonial-card-divine__stars" role="img" :aria-label="`${testimonial.rating} stars`">
+            <div class="testimonial-card-divine__stars" role="img" :aria-label="testimonial.rating + ' stars'">
               <template x-for="star in 5">
                 <svg
                   class="star"
@@ -184,7 +184,7 @@
             @click="goTo(index)"
             class="carousel-dot"
             :class="{ 'is-active': index === currentIndex }"
-            :aria-label="`Go to testimonial ${index + 1}`"
+            :aria-label="'Go to testimonial ' + (index + 1)"
           ></button>
         </template>
       </div>
