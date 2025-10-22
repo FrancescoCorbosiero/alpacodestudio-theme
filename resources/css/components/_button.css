@@ -45,8 +45,9 @@
     }
 
     &:active {
-      transform: translateY(0);
+      transform: translateY(0) scale(0.98);
       box-shadow: var(--shadow-sm);
+      transition-duration: var(--duration-fast);
     }
   }
 
@@ -58,6 +59,12 @@
     &:hover {
       background: var(--color-brand-primary);
       color: var(--color-text-inverse);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0) scale(0.98);
+      transition-duration: var(--duration-fast);
     }
   }
 
@@ -69,6 +76,12 @@
     &:hover {
       background: var(--color-surface-overlay);
       border-color: var(--color-neutral-400);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0) scale(0.98);
+      transition-duration: var(--duration-fast);
     }
   }
 
@@ -78,6 +91,11 @@
 
     &:hover {
       background: var(--color-surface-raised);
+    }
+
+    &:active {
+      transform: scale(0.98);
+      transition-duration: var(--duration-fast);
     }
   }
 

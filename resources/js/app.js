@@ -11,6 +11,7 @@ import { initNavigation } from './core/navigation'
 import { initViewTransitions } from './core/view-transitions'
 import { initPerformance } from './core/performance'
 import { initAccessibility } from './core/accessibility'
+import './core/animations' // Scroll-triggered animations
 
 // Make Alpine available globally
 window.Alpine = Alpine
