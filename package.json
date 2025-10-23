@@ -17,7 +17,15 @@
   },
   "dependencies": {
     "alpinejs": "^3.14.3",
-    "web-vitals": "^4.2.4"
+    "web-vitals": "^4.2.4",
+    "@picocss/pico": "^2.0.6",
+    "@shoelace-style/shoelace": "^2.17.0",
+    "gsap": "^3.12.5",
+    "aos": "^3.0.0-beta.6",
+    "swiper": "^11.1.14",
+    "vanta": "^0.5.24",
+    "three": "^0.160.0",
+    "photoswipe": "^5.4.4"
   },
   "devDependencies": {
     "@roots/vite-plugin": "^1.0.2",

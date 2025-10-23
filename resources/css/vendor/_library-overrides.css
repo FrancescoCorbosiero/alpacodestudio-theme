@@ -1,0 +1,206 @@
+/**
+ * Override library styles to match design system
+ * Uses custom properties from foundation/_tokens.css
+ */
+
+/* ═══════════════════════════════════════════════════
+   PicoCSS Overrides
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  --pico-font-family: var(--font-family-base);
+  --pico-border-radius: var(--radius-md);
+  --pico-spacing: var(--space-md);
+  --pico-typography-spacing-vertical: var(--space-md);
+  --pico-font-size: var(--font-size-base);
+
+  /* Brand colors integration */
+  --pico-primary: var(--color-brand-primary);
+  --pico-primary-hover: oklch(60% 0.23 40);
+  --pico-primary-focus: oklch(65% 0.23 40 / 0.125);
+
+  /* Surface colors */
+  --pico-background-color: var(--color-surface-base);
+  --pico-color: var(--color-text-primary);
+  --pico-muted-color: var(--color-text-secondary);
+
+  /* Form elements */
+  --pico-form-element-spacing-vertical: var(--space-sm);
+  --pico-form-element-spacing-horizontal: var(--space-md);
+
+  /* Transitions */
+  --pico-transition: all var(--duration-base) var(--easing-out);
+}
+
+[data-theme="dark"] {
+  --pico-background-color: var(--color-surface-base);
+  --pico-color: var(--color-text-primary);
+  --pico-muted-color: var(--color-text-secondary);
+}
+
+/* ═══════════════════════════════════════════════════
+   Shoelace Theme Integration
+   ═══════════════════════════════════════════════════ */
+
+sl-button,
+sl-input,
+sl-select,
+sl-textarea,
+sl-checkbox,
+sl-radio {
+  /* Primary brand color */
+  --sl-color-primary-600: var(--color-brand-primary);
+  --sl-color-primary-500: oklch(70% 0.23 40);
+  --sl-color-primary-700: oklch(60% 0.23 40);
+
+  /* Border radius */
+  --sl-border-radius-medium: var(--radius-md);
+  --sl-border-radius-small: var(--radius-sm);
+  --sl-border-radius-large: var(--radius-lg);
+
+  /* Spacing */
+  --sl-spacing-medium: var(--space-md);
+  --sl-spacing-small: var(--space-sm);
+  --sl-spacing-large: var(--space-lg);
+
+  /* Typography */
+  --sl-font-size-medium: var(--font-size-base);
+  --sl-font-size-small: var(--font-size-sm);
+  --sl-font-size-large: var(--font-size-lg);
+
+  /* Transitions */
+  --sl-transition-fast: var(--duration-fast);
+  --sl-transition-medium: var(--duration-base);
+  --sl-transition-slow: var(--duration-slow);
+}
+
+/* ═══════════════════════════════════════════════════
+   AOS Custom Timing
+   ═══════════════════════════════════════════════════ */
+
+[data-aos] {
+  transition-duration: var(--duration-base) !important;
+  transition-timing-function: var(--easing-out) !important;
+}
+
+[data-aos][data-aos-delay] {
+  transition-delay: 0s;
+}
+
+[data-aos][data-aos-duration="fast"] {
+  transition-duration: var(--duration-fast) !important;
+}
+
+[data-aos][data-aos-duration="slow"] {
+  transition-duration: var(--duration-slow) !important;
+}
+
+[data-aos][data-aos-easing="bounce"] {
+  transition-timing-function: var(--easing-bounce) !important;
+}
+
+[data-aos][data-aos-easing="spring"] {
+  transition-timing-function: var(--easing-spring) !important;
+}
+
+/* ═══════════════════════════════════════════════════
+   Swiper Custom Styling
+   ═══════════════════════════════════════════════════ */
+
+.swiper {
+  --swiper-theme-color: var(--color-brand-primary);
+  --swiper-navigation-size: var(--space-lg);
+  --swiper-pagination-bullet-size: var(--space-xs);
+
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--color-brand-primary);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--color-brand-primary);
+  background: var(--color-surface-overlay);
+  width: calc(var(--space-lg) * 2);
+  height: calc(var(--space-lg) * 2);
+  border-radius: var(--radius-full);
+  transition: all var(--duration-base) var(--easing-out);
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: var(--color-brand-primary);
+  color: var(--color-text-inverse);
+  transform: scale(1.1);
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: var(--font-size-lg);
+}
+
+.swiper-pagination {
+  bottom: var(--space-md);
+}
+
+.swiper-pagination-bullet {
+  transition: all var(--duration-base) var(--easing-out);
+}
+
+.swiper-pagination-bullet:hover {
+  transform: scale(1.2);
+}
+
+/* ═══════════════════════════════════════════════════
+   PhotoSwipe Dark Mode Support
+   ═══════════════════════════════════════════════════ */
+
+.pswp {
+  --pswp-bg: oklch(from var(--color-surface-base) l c h / 0.95);
+  --pswp-icon-color: var(--color-text-primary);
+  --pswp-icon-color-secondary: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .pswp {
+  --pswp-bg: oklch(from var(--color-surface-base) l c h / 0.98);
+}
+
+.pswp__button {
+  background: var(--color-surface-overlay) !important;
+  border-radius: var(--radius-md);
+  transition: all var(--duration-base) var(--easing-out);
+}
+
+.pswp__button:hover {
+  background: var(--color-brand-primary) !important;
+  transform: scale(1.1);
+}
+
+.pswp__counter {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  background: var(--color-surface-overlay);
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-md);
+}
+
+/* ═══════════════════════════════════════════════════
+   Vanta.js Container Styling
+   ═══════════════════════════════════════════════════ */
+
+.vanta-background,
+#vanta-bg {
+  position: relative;
+  isolation: isolate;
+}
+
+.vanta-background > canvas,
+#vanta-bg > canvas {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
