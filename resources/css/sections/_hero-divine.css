@@ -138,11 +138,15 @@
     line-height: 1.1;
     letter-spacing: -0.02em;
     font-weight: var(--font-weight-bold);
-    /* Ensure visibility */
-    color: var(--color-text-primary);
+    /* Ensure visibility - but don't override .text-gradient */
     opacity: 1;
     z-index: 10;
     position: relative;
+  }
+
+  /* Only set color if not using text-gradient */
+  .hero-divine__title:not(.text-gradient) {
+    color: var(--color-text-primary);
   }
 
   .hero-divine__subtitle {
@@ -154,26 +158,10 @@
     opacity: 0.9;
   }
 
-  /* Text Gradient - ensure it works in dark mode */
-  .text-gradient {
-    background: linear-gradient(
-      135deg,
-      var(--color-brand-primary) 0%,
-      oklch(70% 0.12 180) 50%,
-      oklch(75% 0.18 120) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* Fallback for older browsers */
-    color: var(--color-brand-primary);
-  }
-
-  /* Ensure gradient works properly */
-  @supports (-webkit-background-clip: text) {
-    .text-gradient {
-      color: transparent;
-    }
+  /* Hero-specific gradient override (if needed) */
+  .hero-divine .text-gradient {
+    /* Use the global .text-gradient from _fluid-typography.css */
+    /* This section kept for potential future customization */
   }
 
   /* ==========================================================================
