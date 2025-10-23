@@ -91,9 +91,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    /* Remove animation for now - causing rendering issues */
-    /* background-size: 200% 200%; */
-    /* animation: gradient-shift 8s ease infinite; */
     /* Fallback for browsers that don't support background-clip */
     color: var(--color-brand-primary);
   }
@@ -103,6 +100,15 @@
     .text-gradient {
       color: transparent;
     }
+  }
+
+  /* Enhanced visibility in dark mode */
+  [data-theme="dark"] .text-gradient {
+    /* Add subtle glow to make gradient pop in dark mode */
+    filter: brightness(1.1);
+    text-shadow:
+      0 0 20px color-mix(in oklch, var(--color-brand-primary), transparent 70%),
+      0 0 40px color-mix(in oklch, var(--color-brand-secondary), transparent 85%);
   }
 
   .text-outline {
