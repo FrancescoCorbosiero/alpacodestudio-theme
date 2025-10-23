@@ -104,29 +104,7 @@ GSAPUtils.rotateOnScroll('#element', 360);</code></pre>
   </div>
 </section>
 
-<script>
-// Initialize GSAP animations for this section
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof GSAPUtils === 'undefined') return;
-
-  // Parallax layers
-  GSAPUtils.parallax('.parallax-layer--back', 0.3);
-  GSAPUtils.parallax('.parallax-layer--middle', 0.6);
-  GSAPUtils.parallax('.parallax-layer--front', 0.9);
-
-  // Stagger grid
-  GSAPUtils.staggerOnScroll('#stagger-demo', '.stagger-item');
-
-  // Fade slide features
-  GSAPUtils.slideInOnScroll('#fade-slide-demo .feature-box', 'up', {
-    stagger: 0.2,
-    duration: 0.8
-  });
-
-  // Rotate element
-  GSAPUtils.rotateOnScroll('#rotate-demo', 720);
-});
-</script>
+{{-- Note: GSAP animations are initialized in resources/js/libraries/showcase-init.js --}}
 
 <style>
 .gsap-showcase {
