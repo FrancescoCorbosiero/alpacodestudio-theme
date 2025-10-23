@@ -1,28 +1,35 @@
 {{--
   Template Name: Front Page (Homepage)
 
-  DIVINE landing page for Alpacode Studio.
-  ReadyMag-level stunning UI with Alpine.js interactivity.
+  SHOWCASE landing page demonstrating all integrated libraries:
+  - Vanta.js 3D backgrounds
+  - GSAP professional animations
+  - AOS scroll animations
+  - Swiper carousels
+  - PhotoSwipe galleries
+  - Shoelace web components
+  - PicoCSS semantic styling
+  - Alpine.js reactive utilities
 --}}
 
 @extends('layouts.app')
 
 @section('content')
-  {{-- DIVINE Hero - MASSIVE typography with morphing effects --}}
-  @include('sections.hero-divine')
+  {{-- Hero with Vanta.js 3D Background --}}
+  @include('sections.hero-showcase')
 
-  {{-- DIVINE Value Props - 3D tilt cards with glassmorphism --}}
-  @include('sections.value-props-divine')
+  {{-- GSAP Animations Demonstration --}}
+  @include('sections.gsap-showcase')
 
-  {{-- DIVINE Features - Horizontal scroll with massive gradient cards --}}
-  @include('sections.features-divine')
+  {{-- AOS Scroll Animations --}}
+  @include('sections.aos-showcase')
 
-  {{-- DIVINE Social Proof - Auto-rotating 3D carousel --}}
-  @include('sections.social-proof-divine')
+  {{-- Swiper Carousel & PhotoSwipe Gallery --}}
+  @include('sections.media-showcase')
 
-  {{-- DIVINE Pricing - Interactive 3D cards with glassmorphism --}}
-  @include('sections.pricing-divine')
+  {{-- Shoelace Web Components --}}
+  @include('sections.shoelace-showcase')
 
-  {{-- DIVINE Final CTA - Magnetic effects with particle animations --}}
-  @include('sections.final-cta-divine')
+  {{-- Final CTA with Alpine.js Utilities --}}
+  @include('sections.final-cta-showcase')
 @endsection
