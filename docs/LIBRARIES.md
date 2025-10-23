@@ -222,15 +222,23 @@ initVanta('#custom-vanta-element')
 ```
 
 #### Available Effects
-- `vanta.waves.min` (default)
-- `vanta.fog.min`
-- `vanta.clouds.min`
-- `vanta.birds.min`
-- `vanta.net.min`
+- `vanta.waves` (default)
+- `vanta.fog`
+- `vanta.clouds`
+- `vanta.birds`
+- `vanta.net`
 
 Change import in `init-libraries.js`:
 ```javascript
-import VANTA from 'vanta/dist/vanta.fog.min'
+// Replace VantaWaves with another effect
+import VantaFog from 'vanta/src/vanta.fog'
+// or
+import VantaClouds from 'vanta/src/vanta.clouds'
+// or
+import VantaBirds from 'vanta/src/vanta.birds'
+
+// Then use in initVanta:
+const vantaEffect = VantaFog({ el, THREE, ... })
 ```
 
 ### 6. PicoCSS
