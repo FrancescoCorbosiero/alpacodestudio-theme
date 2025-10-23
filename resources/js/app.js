@@ -19,6 +19,7 @@ import './utils/animations' // Advanced animation utilities
 import { initAllLibraries, initVanta } from './libraries/init-libraries'
 import { GSAPUtils } from './libraries/utilities'
 import { AlpineLibraryHelpers } from './libraries/alpine-helpers'
+import { initShowcaseAnimations } from './libraries/showcase-init'
 
 // Make Alpine & utilities available globally
 window.Alpine = Alpine
@@ -109,8 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   try {
     // Initialize Vanta on specific pages (if element exists)
-    if (document.querySelector('#vanta-bg')) {
-      initVanta('#vanta-bg')
+    if (document.querySelector('#vanta-bg') || document.querySelector('#hero-vanta')) {
+      const vantaId = document.querySelector('#hero-vanta') ? '#hero-vanta' : '#vanta-bg'
+      initVanta(vantaId)
     }
   } catch (error) {
     console.error('Failed to initialize Vanta:', error)
@@ -118,6 +120,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Start Alpine.js
   Alpine.start()
+
+  // Initialize showcase animations after a short delay to ensure GSAP is ready
+  setTimeout(() => {
+    try {
+      initShowcaseAnimations()
+    } catch (error) {
+      console.error('Failed to initialize showcase animations:', error)
+    }
+  }, 100)
 
   console.log('🚀 Theme fully initialized with all libraries')
 })
