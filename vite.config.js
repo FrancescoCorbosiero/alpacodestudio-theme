@@ -1,9 +1,6 @@
 import { defineConfig } from 'vite'
 import laravel from 'laravel-vite-plugin'
 import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin'
-import autoprefixer from 'autoprefixer'
-import cssnano from 'cssnano'
-import postcssPresetEnv from 'postcss-preset-env'
 
 export default defineConfig({
   base: '/app/themes/sage/public/build/',
@@ -21,12 +18,8 @@ export default defineConfig({
 
     wordpressPlugin(),
 
-    // Generate theme.json without Tailwind dependencies
-    wordpressThemeJson({
-      disableTailwindColors: true,
-      disableTailwindFonts: true,
-      disableTailwindFontSizes: true,
-    }),
+    // Generate theme.json with Tailwind support
+    wordpressThemeJson(),
   ],
 
   build: {
@@ -52,26 +45,6 @@ export default defineConfig({
 
   css: {
     devSourcemap: true,
-    postcss: {
-      plugins: [
-        // Modern CSS features (stage 2)
-        postcssPresetEnv({
-          stage: 2,
-          features: {
-            'nesting-rules': true,
-            'custom-properties': true,
-            'color-function': true,
-          },
-        }),
-        // Autoprefixer for browser compatibility
-        autoprefixer(),
-        // CSS minification (production only)
-        ...(process.env.NODE_ENV === 'production'
-          ? [cssnano({ preset: 'default' })]
-          : []
-        ),
-      ],
-    },
   },
 
   resolve: {
