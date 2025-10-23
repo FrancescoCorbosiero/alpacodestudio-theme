@@ -1,7 +1,7 @@
 @layer foundation {
   /* ============================================
      DIVINE FLUID TYPOGRAPHY SYSTEM
-     60px → 180px range for MASSIVE impact
+     Responsive typography with reasonable bounds
      ============================================ */
 
   :root {
@@ -10,10 +10,10 @@
     --font-size-display-2: clamp(6rem, 10vw + 1.5rem, 15rem);    /* 96px → 240px */
     --font-size-display-3: clamp(4.5rem, 8vw + 1rem, 12rem);     /* 72px → 192px */
 
-    /* Massive hero sizes */
-    --font-size-hero-1: clamp(3.75rem, 6vw + 1rem, 11.25rem);    /* 60px → 180px */
-    --font-size-hero-2: clamp(3rem, 5vw + 0.75rem, 9rem);        /* 48px → 144px */
-    --font-size-hero-3: clamp(2.5rem, 4vw + 0.5rem, 7.5rem);     /* 40px → 120px */
+    /* Massive hero sizes (updated to reasonable bounds) */
+    --font-size-hero-1: clamp(2.25rem, 5vw + 1rem, 5rem);        /* 36px → 80px */
+    --font-size-hero-2: clamp(1.875rem, 4vw + 0.5rem, 4rem);     /* 30px → 64px */
+    --font-size-hero-3: clamp(1.125rem, 2vw + 0.5rem, 2rem);     /* 18px → 32px */
 
     /* Enhanced existing scale */
     --font-size-6xl: clamp(3.75rem, 2.5vw + 3rem, 5rem);         /* 60px → 80px */
