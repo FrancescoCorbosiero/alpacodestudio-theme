@@ -80,6 +80,8 @@
 
   /* Text effects for massive typography */
   .text-gradient {
+    /* Ensure proper display for gradient clipping */
+    display: inline-block;
     background: linear-gradient(
       135deg,
       var(--color-brand-primary) 0%,
@@ -87,10 +89,20 @@
       var(--color-brand-accent) 100%
     );
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
+    background-clip: text;
+    /* Remove animation for now - causing rendering issues */
+    /* background-size: 200% 200%; */
+    /* animation: gradient-shift 8s ease infinite; */
+    /* Fallback for browsers that don't support background-clip */
+    color: var(--color-brand-primary);
+  }
+
+  /* Only apply transparent color if background-clip is supported */
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .text-gradient {
+      color: transparent;
+    }
   }
 
   .text-outline {
