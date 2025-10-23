@@ -9,9 +9,11 @@ import AOS from 'aos'
 import Swiper from 'swiper'
 import { Navigation, Pagination, EffectFade, Autoplay } from 'swiper/modules'
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
-import VANTA from 'vanta/dist/vanta.waves.min'
 import * as THREE from 'three'
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
+
+// Vanta.js - Import effect from src
+import VantaWaves from 'vanta/src/vanta.waves'
 
 /**
  * Initialize GSAP with ScrollTrigger
@@ -114,7 +116,7 @@ export function initVanta(selector = '#vanta-bg') {
     return null
   }
 
-  const vantaEffect = VANTA.WAVES({
+  const vantaEffect = VantaWaves({
     el: el,
     THREE: THREE,
     mouseControls: true,
