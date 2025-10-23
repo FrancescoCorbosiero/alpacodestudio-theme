@@ -12,6 +12,10 @@
 @import "./foundation/_utilities.css";
 @import "./foundation/_animations.css";
 
+/* Third-Party Libraries */
+@import "./vendor/_libraries.css";
+@import "./vendor/_library-overrides.css";
+
 /* Components */
 @import "./components/_button.css";
 @import "./components/_card.css";

@@ -1,5 +1,6 @@
 /**
  * Alpacode Studio Theme - Main JavaScript
+ * WITH INTEGRATED LIBRARIES
  */
 
 // Import Alpine.js
@@ -14,8 +15,24 @@ import { initAccessibility } from './core/accessibility'
 import './core/animations' // Scroll-triggered animations
 import './utils/animations' // Advanced animation utilities
 
-// Make Alpine available globally
+// Import NEW library initialization
+import { initAllLibraries, initVanta } from './libraries/init-libraries'
+import { GSAPUtils } from './libraries/utilities'
+import { AlpineLibraryHelpers } from './libraries/alpine-helpers'
+
+// Make Alpine & utilities available globally
 window.Alpine = Alpine
+window.GSAPUtils = GSAPUtils
+
+// Register Alpine helpers
+Alpine.data('swiperController', AlpineLibraryHelpers.swiperController)
+Alpine.data('gsapTrigger', AlpineLibraryHelpers.gsapTrigger)
+Alpine.data('galleryController', AlpineLibraryHelpers.galleryController)
+Alpine.data('counterAnimation', AlpineLibraryHelpers.counterAnimation)
+Alpine.data('parallaxContainer', AlpineLibraryHelpers.parallaxContainer)
+Alpine.data('scrollProgress', AlpineLibraryHelpers.scrollProgress)
+Alpine.data('aosController', AlpineLibraryHelpers.aosController)
+Alpine.data('timelineController', AlpineLibraryHelpers.timelineController)
 
 // Import static assets
 import.meta.glob([
@@ -83,6 +100,24 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Failed to initialize accessibility features:', error)
   }
 
+  try {
+    // Initialize NEW libraries
+    initAllLibraries()
+  } catch (error) {
+    console.error('Failed to initialize libraries:', error)
+  }
+
+  try {
+    // Initialize Vanta on specific pages (if element exists)
+    if (document.querySelector('#vanta-bg')) {
+      initVanta('#vanta-bg')
+    }
+  } catch (error) {
+    console.error('Failed to initialize Vanta:', error)
+  }
+
   // Start Alpine.js
   Alpine.start()
+
+  console.log('🚀 Theme fully initialized with all libraries')
 })
