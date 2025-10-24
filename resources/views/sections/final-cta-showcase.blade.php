@@ -24,7 +24,7 @@
       </h2>
 
       <p class="cta-description">
-        You now have access to 7 powerful libraries working seamlessly together.
+        You now have access to 6 powerful libraries working seamlessly together.
         Start creating stunning, performant web experiences today.
       </p>
 
@@ -108,19 +108,6 @@
             <li>Multiple effects</li>
             <li>Three.js powered</li>
             <li>Customizable colors</li>
-          </ul>
-        </div>
-
-        <div class="library-card">
-          <div class="library-card__header">
-            <sl-icon name="grid"></sl-icon>
-            <h4>PicoCSS</h4>
-          </div>
-          <p>Minimal semantic CSS</p>
-          <ul class="library-features">
-            <li>Classless styling</li>
-            <li>Form elements</li>
-            <li>Dark mode support</li>
           </ul>
         </div>
 

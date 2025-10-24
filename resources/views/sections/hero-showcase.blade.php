@@ -38,8 +38,8 @@
       data-aos-duration="800"
     >
       Experience <strong>GSAP</strong>, <strong>AOS</strong>, <strong>Swiper</strong>,
-      <strong>PhotoSwipe</strong>, <strong>Vanta.js</strong>, <strong>Shoelace</strong>,
-      and <strong>PicoCSS</strong> working together seamlessly.
+      <strong>PhotoSwipe</strong>, <strong>Vanta.js</strong>, and <strong>Shoelace</strong>
+      working together seamlessly.
     </p>
 
     {{-- CTA Buttons --}}
@@ -66,7 +66,7 @@
       data-aos="fade-up"
       data-aos-delay="600"
     >
-      <div class="stat" x-data="counterAnimation(7, 2)">
+      <div class="stat" x-data="counterAnimation(6, 2)">
         <span class="stat__number" x-text="Math.round(value)">0</span>
         <span class="stat__label">Libraries</span>
       </div>
