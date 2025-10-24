@@ -25,6 +25,9 @@
         {{ __('Skip to content', 'sage') }}
       </a>
 
+      {{-- Header --}}
+      @include('sections.header')
+
       <main id="main" class="main" role="main">
         @yield('content')
       </main>
