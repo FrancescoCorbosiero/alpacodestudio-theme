@@ -25,8 +25,6 @@
         {{ __('Skip to content', 'sage') }}
       </a>
 
-      @include('sections.header')
-
       <main id="main" class="main" role="main">
         @yield('content')
       </main>
@@ -36,8 +34,6 @@
           @yield('sidebar')
         </aside>
       @endif
-
-      @include('sections.footer')
     </div>
 
     @php(do_action('get_footer'))
