@@ -8,10 +8,10 @@ The `_library-overrides.css` file is the **bridge** between your design system a
 
 ### Without Overrides:
 ```
-Your Theme:           PicoCSS:              Shoelace:            Result:
-🎨 Orange primary    🔵 Blue primary       🟢 Green primary    🎪 Rainbow mess!
-📏 16px spacing      📏 8px spacing        📏 12px spacing     📐 Inconsistent
-🔤 Inter font        🔤 System font        🔤 Roboto font      🔠 Font chaos
+Your Theme:           Shoelace:            Swiper:              Result:
+🎨 Orange primary    🟢 Green primary     🔵 Blue primary      🎪 Rainbow mess!
+📏 16px spacing      📏 12px spacing      📏 8px spacing       📐 Inconsistent
+🔤 Inter font        🔤 Roboto font       🔤 System font       🔠 Font chaos
 ```
 
 ### With Overrides:
@@ -44,14 +44,6 @@ Located in `foundation/_tokens.css`:
 Located in `vendor/_library-overrides.css`:
 
 ```css
-:root {
-  /* PicoCSS uses YOUR tokens */
-  --pico-primary: var(--color-brand-primary);     /* 🎨 Orange, not blue */
-  --pico-spacing: var(--space-md);                /* 📏 Your spacing */
-  --pico-font-family: var(--font-family-base);    /* 🔤 Inter font */
-  --pico-border-radius: var(--radius-md);         /* ⭕ Your radius */
-}
-
 sl-button {
   /* Shoelace uses YOUR tokens */
   --sl-color-primary-600: var(--color-brand-primary);
@@ -64,29 +56,15 @@ sl-button {
   --swiper-theme-color: var(--color-brand-primary);
   --swiper-navigation-size: var(--space-lg);
 }
+
+[data-aos] {
+  /* AOS uses YOUR tokens */
+  transition-duration: var(--duration-base) !important;
+  transition-timing-function: var(--easing-out) !important;
+}
 ```
 
 ## 📊 Visual Breakdown by Library
-
-### PicoCSS Override Strategy
-
-```css
-/* ✅ OVERRIDE: Use your design tokens */
-:root {
-  --pico-font-family: var(--font-family-base);
-  --pico-primary: var(--color-brand-primary);
-  --pico-spacing: var(--space-md);
-}
-
-/* Result: PicoCSS buttons, forms, and tables
-   automatically use your brand colors and spacing */
-```
-
-**What it affects:**
-- All semantic HTML elements styled by Pico
-- Buttons, forms, tables, typography
-- Spacing between elements
-- Border radius on inputs
 
 ### Shoelace Override Strategy
 
@@ -185,10 +163,10 @@ Let's say you change your brand color:
 ```
 
 **Automatically updates:**
-- ✅ All PicoCSS buttons → Purple
 - ✅ All Shoelace components → Purple
 - ✅ Swiper navigation → Purple
 - ✅ PhotoSwipe buttons → Purple
+- ✅ AOS animations timing → Your custom timing
 - ✅ Your custom components → Purple
 
 **No need to touch:**
@@ -272,20 +250,6 @@ Libraries keep their functionality, just match your style
 ## 🚫 What NOT to Do
 
 ```css
-/* ❌ BAD: Hardcoding values */
-:root {
-  --pico-primary: #F65100;        /* Wrong! Use tokens */
-  --pico-spacing: 24px;           /* Wrong! Not responsive */
-}
-
-/* ✅ GOOD: Using design tokens */
-:root {
-  --pico-primary: var(--color-brand-primary);
-  --pico-spacing: var(--space-md);
-}
-```
-
-```css
 /* ❌ BAD: Overriding too much */
 sl-button {
   background: red !important;      /* Don't fight the library */
@@ -305,13 +269,13 @@ sl-button {
 
 ```javascript
 // In browser console
-const root = document.documentElement;
-const picoColor = getComputedStyle(root).getPropertyValue('--pico-primary');
-console.log('PicoCSS primary:', picoColor);  // Should show your orange
-
 const button = document.querySelector('sl-button');
 const slColor = getComputedStyle(button).getPropertyValue('--sl-color-primary-600');
-console.log('Shoelace primary:', slColor);   // Should match
+console.log('Shoelace primary:', slColor);  // Should show your brand color
+
+const swiper = document.querySelector('.swiper');
+const swiperColor = getComputedStyle(swiper).getPropertyValue('--swiper-theme-color');
+console.log('Swiper theme color:', swiperColor);   // Should match
 ```
 
 ### Check CSS cascade order:
@@ -328,9 +292,10 @@ If overrides aren't working, check `app.css` import order!
 ## 📚 Further Reading
 
 - [CSS Custom Properties (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
-- [PicoCSS Variables](https://picocss.com/docs/css-variables)
 - [Shoelace Customizing](https://shoelace.style/getting-started/customizing)
 - [Design Tokens](https://www.designtokens.org/)
+- [GSAP Documentation](https://greensock.com/docs/)
+- [AOS Documentation](https://michalsnik.github.io/aos/)
 
 ## 🎓 Summary
 
