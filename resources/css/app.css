@@ -23,6 +23,7 @@
 @import "./components/_comments.css";
 
 /* Sections */
+@import "./sections/_header.css";
 @import "./sections/_hero.css";
 @import "./sections/_value-proposition.css";
 @import "./sections/_features.css";
