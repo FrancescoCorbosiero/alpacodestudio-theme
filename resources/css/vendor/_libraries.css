@@ -3,9 +3,6 @@
  * Import order matters for cascade control
  */
 
-/* PicoCSS - Minimal semantic CSS */
-@import '@picocss/pico/css/pico.min.css';
-
 /* Shoelace - Web Components Styles */
 @import '@shoelace-style/shoelace/dist/themes/light.css';
 @import '@shoelace-style/shoelace/dist/themes/dark.css';

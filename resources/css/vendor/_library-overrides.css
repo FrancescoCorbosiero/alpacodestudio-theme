@@ -4,41 +4,6 @@
  */
 
 /* ═══════════════════════════════════════════════════
-   PicoCSS Overrides
-   ═══════════════════════════════════════════════════ */
-
-:root {
-  --pico-font-family: var(--font-family-base);
-  --pico-border-radius: var(--radius-md);
-  --pico-spacing: var(--space-md);
-  --pico-typography-spacing-vertical: var(--space-md);
-  --pico-font-size: var(--font-size-base);
-
-  /* Brand colors integration */
-  --pico-primary: var(--color-brand-primary);
-  --pico-primary-hover: oklch(60% 0.23 40);
-  --pico-primary-focus: oklch(65% 0.23 40 / 0.125);
-
-  /* Surface colors */
-  --pico-background-color: var(--color-surface-base);
-  --pico-color: var(--color-text-primary);
-  --pico-muted-color: var(--color-text-secondary);
-
-  /* Form elements */
-  --pico-form-element-spacing-vertical: var(--space-sm);
-  --pico-form-element-spacing-horizontal: var(--space-md);
-
-  /* Transitions */
-  --pico-transition: all var(--duration-base) var(--easing-out);
-}
-
-[data-theme="dark"] {
-  --pico-background-color: var(--color-surface-base);
-  --pico-color: var(--color-text-primary);
-  --pico-muted-color: var(--color-text-secondary);
-}
-
-/* ═══════════════════════════════════════════════════
    Shoelace Theme Integration
    ═══════════════════════════════════════════════════ */
 

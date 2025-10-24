@@ -2,7 +2,7 @@
 
 ## Overview
 
-This theme integrates 7 premium JavaScript and CSS libraries for advanced animations, UI components, and effects. All libraries are configured to work seamlessly with Alpine.js and the existing design system.
+This theme integrates 6 premium JavaScript and CSS libraries for advanced animations, UI components, and effects. All libraries are configured to work seamlessly with Alpine.js and the existing design system.
 
 ## Installed Libraries
 
@@ -11,7 +11,6 @@ This theme integrates 7 premium JavaScript and CSS libraries for advanced animat
 - **AOS v3.x** - Lightweight scroll animation library
 
 ### UI Component Libraries
-- **PicoCSS v2.x** - Minimal semantic CSS framework
 - **Shoelace v2.x** - Modern web components library
 - **Swiper v11.x** - Touch-enabled carousel/slider
 - **PhotoSwipe v5.x** - JavaScript image gallery and lightbox
@@ -241,27 +240,7 @@ import VantaBirds from 'vanta/src/vanta.birds'
 const vantaEffect = VantaFog({ el, THREE, ... })
 ```
 
-### 6. PicoCSS
-
-PicoCSS provides semantic HTML styling. Use standard HTML elements:
-
-```blade
-<article>
-  <header>
-    <h1>Article Title</h1>
-  </header>
-  <section>
-    <p>Content here</p>
-  </section>
-  <footer>
-    <button>Click Me</button>
-  </footer>
-</article>
-```
-
-All PicoCSS styles integrate with your design tokens automatically.
-
-### 7. Shoelace Web Components
+### 6. Shoelace Web Components
 
 #### Basic Usage
 ```blade
@@ -338,12 +317,11 @@ All registered automatically and ready to use:
 - **AOS**: ~5KB
 - **Swiper**: ~40KB
 - **PhotoSwipe**: ~15KB
-- **PicoCSS**: ~15KB
 - **Shoelace**: ~50KB (only used components)
 - **Vanta + Three.js**: ~150KB (only loads when used)
 
-**Total (without Vanta)**: ~155KB JS + ~65KB CSS
-**Total (with Vanta)**: ~305KB JS
+**Total (without Vanta)**: ~140KB JS + ~50KB CSS
+**Total (with Vanta)**: ~290KB JS
 
 ### Optimization Tips
 
@@ -503,7 +481,6 @@ initAllLibraries()
 - [Swiper Documentation](https://swiperjs.com/)
 - [PhotoSwipe Documentation](https://photoswipe.com/)
 - [Vanta.js Examples](https://www.vantajs.com/)
-- [PicoCSS Documentation](https://picocss.com/)
 - [Shoelace Documentation](https://shoelace.style/)
 
 ---
