@@ -17,6 +17,7 @@
 @import "./vendor/_library-overrides.css";
 
 /* Components */
+@import "./components/_loader.css";
 @import "./components/_button.css";
 @import "./components/_card.css";
 @import "./components/_modal.css";
