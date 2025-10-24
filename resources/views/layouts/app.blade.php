@@ -19,6 +19,9 @@
   <body @php(body_class())>
     @php(wp_body_open())
 
+    {{-- Page Loader --}}
+    @include('components.loader')
+
     <div id="app">
       {{-- Skip to content link for accessibility --}}
       <a class="skip-link sr-only focus:not-sr-only" href="#main">

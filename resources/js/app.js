@@ -7,6 +7,7 @@
 import Alpine from 'alpinejs'
 
 // Import core modules
+import { initPageLoader } from './core/loader'
 import { initThemeSwitcher } from './core/theme-switcher'
 import { initNavigation } from './core/navigation'
 import { initViewTransitions } from './core/view-transitions'
@@ -64,6 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Only start Alpine.js for admin
     Alpine.start()
     return
+  }
+
+  try {
+    // Initialize page loader FIRST (before everything else)
+    initPageLoader()
+  } catch (error) {
+    console.error('Failed to initialize page loader:', error)
   }
 
   try {
