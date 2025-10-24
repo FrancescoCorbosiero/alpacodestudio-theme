@@ -22,6 +22,7 @@
 @import "./components/_card.css";
 @import "./components/_modal.css";
 @import "./components/_comments.css";
+@import "./components/_sliding-text.css";
 
 /* Sections */
 @import "./sections/_header.css";
@@ -33,3 +34,4 @@
 @import "./sections/_pricing-preview.css";
 @import "./sections/_final-cta.css";
 @import "./sections/_cta.css";
+@import "./sections/_orbiting-hero.css";
