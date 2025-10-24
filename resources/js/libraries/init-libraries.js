@@ -10,7 +10,6 @@ import Swiper from 'swiper'
 import { Navigation, Pagination, EffectFade, Autoplay } from 'swiper/modules'
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import * as THREE from 'three'
-import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js'
 
 // Vanta.js - Import effect from src
 import VantaWaves from 'vanta/src/vanta.waves'
@@ -138,16 +137,6 @@ export function initVanta(selector = '#vanta-bg') {
 }
 
 /**
- * Initialize Shoelace
- */
-export function initShoelace() {
-  // Set base path for Shoelace assets
-  setBasePath('/app/themes/sage/node_modules/@shoelace-style/shoelace/dist')
-
-  console.log('✅ Shoelace initialized')
-}
-
-/**
  * Initialize all libraries
  * Call this from app.js
  */
@@ -156,8 +145,7 @@ export function initAllLibraries() {
   initGSAP()
   initAOS()
 
-  // UI component libraries
-  initShoelace()
+  // Media libraries
   initSwipers()
   initPhotoSwipe()
 

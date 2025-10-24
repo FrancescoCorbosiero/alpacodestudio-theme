@@ -7,7 +7,6 @@
   - AOS scroll animations
   - Swiper carousels
   - PhotoSwipe galleries
-  - Shoelace web components
   - Alpine.js reactive utilities
 --}}
 
@@ -25,9 +24,6 @@
 
   {{-- Swiper Carousel & PhotoSwipe Gallery --}}
   @include('sections.media-showcase')
-
-  {{-- Shoelace Web Components --}}
-  @include('sections.shoelace-showcase')
 
   {{-- Final CTA with Alpine.js Utilities --}}
   @include('sections.final-cta-showcase')
