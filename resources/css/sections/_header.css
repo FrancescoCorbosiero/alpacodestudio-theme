@@ -386,7 +386,19 @@
   }
 
   /* Mobile Submenu */
-  .mobile-nav-menu .sub-menu {
+  .mobile-nav-menu .sub-menu,
+  .mobile-nav-menu .dropdown-menu {
+    /* Reset desktop dropdown styles */
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    min-width: auto;
+
+    /* Mobile submenu styles */
     list-style: none;
     margin: var(--space-2xs) 0 0 0;
     padding-left: var(--space-md);
