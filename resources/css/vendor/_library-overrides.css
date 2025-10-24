@@ -4,42 +4,6 @@
  */
 
 /* ═══════════════════════════════════════════════════
-   Shoelace Theme Integration
-   ═══════════════════════════════════════════════════ */
-
-sl-button,
-sl-input,
-sl-select,
-sl-textarea,
-sl-checkbox,
-sl-radio {
-  /* Primary brand color */
-  --sl-color-primary-600: var(--color-brand-primary);
-  --sl-color-primary-500: oklch(70% 0.23 40);
-  --sl-color-primary-700: oklch(60% 0.23 40);
-
-  /* Border radius */
-  --sl-border-radius-medium: var(--radius-md);
-  --sl-border-radius-small: var(--radius-sm);
-  --sl-border-radius-large: var(--radius-lg);
-
-  /* Spacing */
-  --sl-spacing-medium: var(--space-md);
-  --sl-spacing-small: var(--space-sm);
-  --sl-spacing-large: var(--space-lg);
-
-  /* Typography */
-  --sl-font-size-medium: var(--font-size-base);
-  --sl-font-size-small: var(--font-size-sm);
-  --sl-font-size-large: var(--font-size-lg);
-
-  /* Transitions */
-  --sl-transition-fast: var(--duration-fast);
-  --sl-transition-medium: var(--duration-base);
-  --sl-transition-slow: var(--duration-slow);
-}
-
-/* ═══════════════════════════════════════════════════
    AOS Custom Timing
    ═══════════════════════════════════════════════════ */
 

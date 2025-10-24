@@ -3,10 +3,6 @@
  * Import order matters for cascade control
  */
 
-/* Shoelace - Web Components Styles */
-@import '@shoelace-style/shoelace/dist/themes/light.css';
-@import '@shoelace-style/shoelace/dist/themes/dark.css';
-
 /* AOS - Animate On Scroll */
 @import 'aos/dist/aos.css';
 
