@@ -13,18 +13,12 @@
 @extends('layouts.app')
 
 @section('content')
-  {{-- Hero with Vanta.js 3D Background --}}
-  @include('sections.hero-showcase')
 
-  {{-- GSAP Animations Demonstration --}}
-  @include('sections.gsap-showcase')
+  @include('sections.hero')
+  @include('sections.features')
+  @include('sections.pricing-preview')
+  @include('sections.social-proof')
+  @include('sections.value-proposition')
+  @include('sections.final-cta')
 
-  {{-- AOS Scroll Animations --}}
-  @include('sections.aos-showcase')
-
-  {{-- Swiper Carousel & PhotoSwipe Gallery --}}
-  @include('sections.media-showcase')
-
-  {{-- Final CTA with Alpine.js Utilities --}}
-  @include('sections.final-cta-showcase')
 @endsection
