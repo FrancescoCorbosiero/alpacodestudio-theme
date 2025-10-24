@@ -22,6 +22,9 @@ import { GSAPUtils } from './libraries/utilities'
 import { AlpineLibraryHelpers } from './libraries/alpine-helpers'
 import { initShowcaseAnimations } from './libraries/showcase-init'
 
+// Import section-specific modules
+import { initOrbitingHero } from './sections/orbiting-hero'
+
 // Make Alpine & utilities available globally
 window.Alpine = Alpine
 window.GSAPUtils = GSAPUtils
@@ -137,6 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Failed to initialize showcase animations:', error)
     }
   }, 100)
+
+  try {
+    // Initialize section-specific features
+    initOrbitingHero()
+  } catch (error) {
+    console.error('Failed to initialize orbiting hero:', error)
+  }
 
   console.log('🚀 Theme fully initialized with all libraries')
 })
