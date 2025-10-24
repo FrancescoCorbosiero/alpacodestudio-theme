@@ -8,7 +8,6 @@
   - Swiper carousels
   - PhotoSwipe galleries
   - Shoelace web components
-  - PicoCSS semantic styling
   - Alpine.js reactive utilities
 --}}
 
