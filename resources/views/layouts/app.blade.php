@@ -37,6 +37,9 @@
           @yield('sidebar')
         </aside>
       @endif
+
+      {{-- Footer --}}
+      @include('sections.footer')
     </div>
 
     @php(do_action('get_footer'))
