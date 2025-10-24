@@ -47,10 +47,31 @@ function createLoaderTimeline() {
   const shapes = document.querySelectorAll('[data-loader-shape]')
   const overlay = document.querySelector('[data-loader-overlay]')
 
-  // Initial states
-  gsap.set([logo, text, progress, status], { opacity: 0 })
-  gsap.set(shapes, { opacity: 0, scale: 0, rotation: 0 })
-  gsap.set(overlay, { opacity: 0 })
+  // Helper to filter null elements
+  const filterNull = (elements) => {
+    if (Array.isArray(elements)) {
+      return elements.filter(el => el !== null && el !== undefined)
+    }
+    return elements
+  }
+
+  // Initial states (only set on existing elements)
+  const brandElement = logo || text
+  if (brandElement) {
+    gsap.set(brandElement, { opacity: 0 })
+  }
+  if (progress) {
+    gsap.set(progress, { opacity: 0 })
+  }
+  if (status) {
+    gsap.set(status, { opacity: 0 })
+  }
+  if (shapes.length > 0) {
+    gsap.set(shapes, { opacity: 0, scale: 0, rotation: 0 })
+  }
+  if (overlay) {
+    gsap.set(overlay, { opacity: 0 })
+  }
 
   // Animation sequence
   tl
@@ -58,7 +79,7 @@ function createLoaderTimeline() {
     .to(overlay, {
       opacity: 1,
       duration: 0.3
-    })
+    }, 0)
 
     // Animate shapes in
     .to(shapes, {
@@ -70,16 +91,19 @@ function createLoaderTimeline() {
       ease: 'back.out(1.7)'
     }, 0.2)
 
-    // Animate logo or text
-    .to(logo || text, {
+  // Animate logo or text brand element
+  if (brandElement) {
+    tl.to(brandElement, {
       opacity: 1,
       scale: 1,
       duration: 0.6,
       ease: 'back.out(1.7)'
     }, 0.3)
+  }
 
-    // If text with characters, animate them
-    .to(chars, {
+  // If text with characters, animate them
+  if (chars.length > 0) {
+    tl.to(chars, {
       opacity: 1,
       y: 0,
       rotateX: 0,
@@ -87,16 +111,20 @@ function createLoaderTimeline() {
       duration: 0.6,
       ease: 'back.out(1.7)'
     }, logo ? '-=0.6' : 0.3)
+  }
 
-    // Show progress bar
-    .to(progress, {
+  // Show progress bar
+  if (progress) {
+    tl.to(progress, {
       opacity: 1,
       y: 0,
       duration: 0.4
     }, '-=0.2')
+  }
 
-    // Animate progress counter
-    .to(counter, {
+  // Animate progress counter
+  if (counter && progressFill) {
+    tl.to(counter, {
       textContent: 100,
       duration: LOADER_DURATION * 0.6,
       snap: { textContent: 1 },
@@ -110,16 +138,20 @@ function createLoaderTimeline() {
         })
       }
     }, '-=0.2')
+  }
 
-    // Show status text
-    .to(status, {
+  // Show status text
+  if (status) {
+    tl.to(status, {
       opacity: 1,
       y: 0,
       duration: 0.3
     }, '-=2')
+  }
 
-    // Rotate shapes during loading
-    .to(shapes, {
+  // Rotate shapes during loading
+  if (shapes.length > 0) {
+    tl.to(shapes, {
       rotation: '+=180',
       duration: LOADER_DURATION * 0.7,
       ease: 'none',
@@ -129,6 +161,7 @@ function createLoaderTimeline() {
         yoyo: true
       }
     }, 0.5)
+  }
 
   return tl
 }
@@ -154,39 +187,44 @@ function hideLoader() {
     }
   })
 
-  exitTl
-    // Scale up and fade out shapes
-    .to(shapes, {
+  // Scale up and fade out shapes
+  if (shapes.length > 0) {
+    exitTl.to(shapes, {
       scale: 2,
       opacity: 0,
       rotation: '+=180',
       stagger: 0.05,
       duration: 0.4,
       ease: 'power2.in'
-    })
+    }, 0)
+  }
 
-    // Scale and fade out content
-    .to(loaderContent, {
+  // Scale and fade out content
+  if (loaderContent) {
+    exitTl.to(loaderContent, {
       scale: 0.9,
       opacity: 0,
       duration: 0.5,
       ease: 'power3.in'
     }, '-=0.2')
+  }
 
-    // Fade out overlay with scale
-    .to(overlay, {
+  // Fade out overlay with scale
+  if (overlay) {
+    exitTl.to(overlay, {
       opacity: 0,
       scale: 1.5,
       duration: 0.6,
       ease: 'power2.inOut'
     }, '-=0.3')
+  }
 
-    // Fade out entire loader
-    .to(loader, {
-      opacity: 0,
-      duration: 0.3,
-      ease: 'power2.inOut'
-    }, '-=0.2')
+  // Fade out entire loader
+  exitTl.to(loader, {
+    opacity: 0,
+    duration: 0.3,
+    ease: 'power2.inOut'
+  }, '-=0.2')
 
   return exitTl
 }
