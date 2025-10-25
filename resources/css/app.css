@@ -23,6 +23,9 @@
 @import "./components/_modal.css";
 @import "./components/_comments.css";
 @import "./components/_sliding-text.css";
+@import "./components/_parallax-hero.css";
+@import "./components/_parallax-section.css";
+@import "./components/_social-icons.css";
 
 /* Sections */
 @import "./sections/_header.css";
