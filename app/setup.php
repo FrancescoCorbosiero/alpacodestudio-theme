@@ -166,3 +166,71 @@ add_action('widgets_init', function () {
         'id' => 'sidebar-footer',
     ] + $config);
 });
+
+/**
+ * AJAX handler for language switching.
+ *
+ * @return void
+ */
+add_action('wp_ajax_switch_locale', function () {
+    // Verify nonce
+    check_ajax_referer('switch_locale_nonce', 'nonce');
+
+    $locale = sanitize_text_field($_POST['locale'] ?? '');
+
+    if (empty($locale)) {
+        wp_send_json_error(['message' => __('Invalid locale', 'sage')]);
+        return;
+    }
+
+    // Use I18nService to set locale
+    $i18nService = app(\App\Services\I18nService::class);
+    $availableLocales = $i18nService->getAvailableLocales();
+
+    if (!array_key_exists($locale, $availableLocales)) {
+        wp_send_json_error(['message' => __('Locale not available', 'sage')]);
+        return;
+    }
+
+    // Set the locale
+    $i18nService->setLocale($locale);
+
+    wp_send_json_success([
+        'locale' => $locale,
+        'message' => __('Language changed successfully', 'sage'),
+    ]);
+});
+
+/**
+ * AJAX handler for non-logged-in users (language switching should work for everyone).
+ *
+ * @return void
+ */
+add_action('wp_ajax_nopriv_switch_locale', function () {
+    // Verify nonce
+    check_ajax_referer('switch_locale_nonce', 'nonce');
+
+    $locale = sanitize_text_field($_POST['locale'] ?? '');
+
+    if (empty($locale)) {
+        wp_send_json_error(['message' => __('Invalid locale', 'sage')]);
+        return;
+    }
+
+    // Use I18nService to set locale
+    $i18nService = app(\App\Services\I18nService::class);
+    $availableLocales = $i18nService->getAvailableLocales();
+
+    if (!array_key_exists($locale, $availableLocales)) {
+        wp_send_json_error(['message' => __('Locale not available', 'sage')]);
+        return;
+    }
+
+    // Set the locale
+    $i18nService->setLocale($locale);
+
+    wp_send_json_success([
+        'locale' => $locale,
+        'message' => __('Language changed successfully', 'sage'),
+    ]);
+});

@@ -26,6 +26,7 @@
 @import "./components/_parallax-hero.css";
 @import "./components/_parallax-section.css";
 @import "./components/_social-icons.css";
+@import "./components/_language-selector.css";
 
 /* Sections */
 @import "./sections/_header.css";
