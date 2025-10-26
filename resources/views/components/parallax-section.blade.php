@@ -63,18 +63,37 @@ $hasMultipleLayers = !empty($layers);
 
 @push('scripts')
 <script type="module">
-import { GSAPUtils } from '@scripts/libraries/utilities.js'
+// Wait for DOM to be fully loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initParallaxSection{{ $sectionId }})
+} else {
+  initParallaxSection{{ $sectionId }}()
+}
 
-@if(!$hasMultipleLayers && $background)
-// Single parallax background
-GSAPUtils.parallax('#{{ $sectionId }}-bg', {{ $speed }})
-@endif
+async function initParallaxSection{{ $sectionId }}() {
+  try {
+    const { GSAPUtils } = await import('@scripts/libraries/utilities.js')
 
-@if($hasMultipleLayers)
-// Multiple parallax layers
-@foreach($layers as $index => $layer)
-GSAPUtils.parallax('#{{ $sectionId }}-layer-{{ $index }}', {{ $layer['speed'] ?? 0.5 }})
-@endforeach
-@endif
+    @if(!$hasMultipleLayers && $background)
+    // Single parallax background
+    const bgElement = document.querySelector('#{{ $sectionId }}-bg')
+    if (bgElement) {
+      GSAPUtils.parallax('#{{ $sectionId }}-bg', {{ $speed }})
+    }
+    @endif
+
+    @if($hasMultipleLayers)
+    // Multiple parallax layers
+    @foreach($layers as $index => $layer)
+    const layerElement{{ $index }} = document.querySelector('#{{ $sectionId }}-layer-{{ $index }}')
+    if (layerElement{{ $index }}) {
+      GSAPUtils.parallax('#{{ $sectionId }}-layer-{{ $index }}', {{ $layer['speed'] ?? 0.5 }})
+    }
+    @endforeach
+    @endif
+  } catch (error) {
+    console.error('Error initializing parallax section {{ $sectionId }}:', error)
+  }
+}
 </script>
 @endpush

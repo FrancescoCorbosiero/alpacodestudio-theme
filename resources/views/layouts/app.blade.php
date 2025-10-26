@@ -47,5 +47,8 @@
 
     @php(do_action('get_footer'))
     @php(wp_footer())
+
+    {{-- Component Scripts Stack --}}
+    @stack('scripts')
   </body>
 </html>

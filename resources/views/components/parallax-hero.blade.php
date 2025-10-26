@@ -83,31 +83,53 @@ $contentId = $heroId . '-content';
 
 @push('scripts')
 <script type="module">
-import { GSAPUtils } from '@scripts/libraries/utilities.js'
+// Wait for DOM to be fully loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initParallaxHero{{ $heroId }})
+} else {
+  initParallaxHero{{ $heroId }}()
+}
 
-// Parallax background
-@if($background)
-GSAPUtils.parallax('#{{ $bgId }}', {{ $parallaxSpeed }})
-@endif
+async function initParallaxHero{{ $heroId }}() {
+  try {
+    const { GSAPUtils } = await import('@scripts/libraries/utilities.js')
 
-// Animate title
-@if($animateTitle)
-GSAPUtils.fadeInOnScroll('#{{ $titleId }}', {
-  y: 100,
-  opacity: 0,
-  duration: 1.2,
-  delay: {{ $titleDelay }}
-})
-@endif
+    // Parallax background
+    @if($background)
+    const bgElement = document.querySelector('#{{ $bgId }}')
+    if (bgElement) {
+      GSAPUtils.parallax('#{{ $bgId }}', {{ $parallaxSpeed }})
+    }
+    @endif
 
-// Animate subtitle
-@if($animateSubtitle && $subtitle)
-GSAPUtils.fadeInOnScroll('#{{ $subtitleId }}', {
-  y: 50,
-  opacity: 0,
-  duration: 1,
-  delay: {{ $subtitleDelay }}
-})
-@endif
+    // Animate title
+    @if($animateTitle)
+    const titleElement = document.querySelector('#{{ $titleId }}')
+    if (titleElement) {
+      GSAPUtils.fadeInOnScroll('#{{ $titleId }}', {
+        y: 100,
+        opacity: 0,
+        duration: 1.2,
+        delay: {{ $titleDelay }}
+      })
+    }
+    @endif
+
+    // Animate subtitle
+    @if($animateSubtitle && $subtitle)
+    const subtitleElement = document.querySelector('#{{ $subtitleId }}')
+    if (subtitleElement) {
+      GSAPUtils.fadeInOnScroll('#{{ $subtitleId }}', {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        delay: {{ $subtitleDelay }}
+      })
+    }
+    @endif
+  } catch (error) {
+    console.error('Error initializing parallax hero {{ $heroId }}:', error)
+  }
+}
 </script>
 @endpush
