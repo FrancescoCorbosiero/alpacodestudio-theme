@@ -30,6 +30,18 @@ Frontend (JS/CSS):
 - Accessibility features (focus management, ARIA, keyboard nav)
 - CSS layer architecture with token system
 
+Internationalization (i18n):
+
+- Multi-language support (Italian default, English, Spanish)
+- Language selector component in header
+- AJAX-powered language switching with cookie persistence
+- Browser language auto-detection
+- RTL language support (Arabic, Hebrew, Persian, Urdu)
+- I18nService for centralized translation management
+- **ZERO plugin dependencies** - uses WordPress core i18n only
+- Translation-ready with .pot template included
+- See `/docs/I18N_DEVELOPMENT_RULES.md` for development guidelines
+
 ## ✅ COMPLETED SECTIONS
 Located in resources/views/sections/:
 
