@@ -1,10 +1,19 @@
-# Translation Setup
+# Translation Files
 
-This file is a placeholder for Italian translations.
+## Important: No Plugin Dependencies!
 
-## How to Create Translations
+**Loco Translate is NOT required for the theme to work.** It's only a TOOL for creating translation files (like Photoshop for images). Once you create the `.po` and `.mo` files, the theme works completely standalone with WordPress core.
 
-You have two main options:
+## Already Translated?
+
+If you received this theme with pre-created translation files, you're all set! Just:
+1. Go to **Settings → General** in WordPress
+2. Select your **Site Language**
+3. Or use the language selector in the header
+
+## Creating New Translations
+
+If you want to add more languages or modify existing translations, you have two main options:
 
 ### Option 1: Loco Translate Plugin (Recommended - Easiest)
 
