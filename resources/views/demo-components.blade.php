@@ -8,13 +8,14 @@
 @section('content')
 
 {{-- ============================================
-     DEMO 1: Basic Parallax Hero
+     DEMO 1: Basic Parallax Hero (Subtle parallax)
      ============================================ --}}
 
 <x-parallax-hero
   title="Welcome to Component Heaven"
   subtitle="Build stunning websites in minutes, not hours"
   background="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
+  parallaxSpeed="0.15"
   :buttons="[
     ['text' => 'Get Started', 'href' => '#demo', 'variant' => 'primary', 'size' => 'lg'],
     ['text' => 'View Docs', 'href' => '#docs', 'variant' => 'secondary', 'size' => 'lg']
@@ -23,7 +24,7 @@
 
 
 {{-- ============================================
-     DEMO 2: Parallax Hero with Eyebrow & Custom Settings
+     DEMO 2: Parallax Hero with Eyebrow (Subtle parallax)
      ============================================ --}}
 
 <x-parallax-hero
@@ -32,8 +33,8 @@
   subtitle="Experience the power of CSS4-first architecture with pre-built components"
   background="https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&q=80"
   height="tall"
-  alignment="left"
-  parallaxSpeed="0.5"
+  alignment="center"
+  parallaxSpeed="0.2"
   overlayOpacity="0.7"
   :buttons="[
     ['text' => 'Start Free Trial', 'href' => '#trial', 'variant' => 'primary'],
@@ -43,43 +44,45 @@
 
 
 {{-- ============================================
-     DEMO 3: Parallax Section with Single Background
+     DEMO 3: Parallax Section with Cards
      ============================================ --}}
 
 <x-parallax-section
   background="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920&q=80"
-  speed="0.4"
+  speed="0.25"
   overlay="true"
   overlayOpacity="0.8"
 >
   <div class="container section section--lg">
-    <h2 class="display-2 text-center" data-animate style="color: var(--color-neutral-0);">
-      Powerful Features
-    </h2>
-    <p class="text-center" data-animate style="color: var(--color-neutral-100); font-size: var(--font-size-xl); max-width: 45rem; margin-inline: auto;">
-      Everything you need to build modern web experiences
-    </p>
+    <header class="text-center stack-xl">
+      <h2 class="display-2" style="color: var(--color-neutral-0);">
+        Powerful Features
+      </h2>
+      <p class="body-large mx-auto" style="color: var(--color-neutral-100); max-width: 45rem;">
+        Everything you need to build modern web experiences
+      </p>
+    </header>
 
-    <div class="grid grid--3 gap-lg" style="margin-block-start: var(--space-2xl);">
-      <x-card>
+    <div class="grid grid--3 gap-lg">
+      <x-card padding="lg" hover>
         <x-slot:header>
-          <h3>CSS4-First</h3>
+          <h3 class="heading-4">CSS4-First</h3>
         </x-slot:header>
-        <p>Modern CSS features like OKLCH colors, container queries, and CSS layers.</p>
+        <p class="body-normal">Modern CSS features like OKLCH colors, container queries, and CSS layers.</p>
       </x-card>
 
-      <x-card>
+      <x-card padding="lg" hover>
         <x-slot:header>
-          <h3>GSAP Animations</h3>
+          <h3 class="heading-4">GSAP Animations</h3>
         </x-slot:header>
-        <p>Professional scroll-triggered animations with one-line utilities.</p>
+        <p class="body-normal">Professional scroll-triggered animations with one-line utilities.</p>
       </x-card>
 
-      <x-card>
+      <x-card padding="lg" hover>
         <x-slot:header>
-          <h3>Responsive</h3>
+          <h3 class="heading-4">Responsive</h3>
         </x-slot:header>
-        <p>Fluid typography and spacing using clamp() for seamless scaling.</p>
+        <p class="body-normal">Fluid typography and spacing using clamp() for seamless scaling.</p>
       </x-card>
     </div>
   </div>
@@ -87,33 +90,31 @@
 
 
 {{-- ============================================
-     DEMO 4: Multi-Layer Parallax Section
+     DEMO 4: Multi-Layer Parallax (Very subtle)
      ============================================ --}}
 
 <x-parallax-section
   :layers="[
     [
-      'speed' => 0.2,
+      'speed' => 0.1,
       'image' => 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80',
       'class' => 'parallax-back'
     ],
     [
-      'speed' => 0.5,
+      'speed' => 0.2,
       'content' => '<div style=\'position: absolute; inset: 0; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.5));\'></div>'
-    ],
-    [
-      'speed' => 0.8,
-      'content' => '<div style=\'position: absolute; bottom: 0; left: 0; right: 0; height: 30%; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.8));\'></div>'
     ]
   ]"
 >
   <div class="container section section--lg" style="position: relative; z-index: 3;">
-    <h2 class="display-2 text-center" data-animate style="color: var(--color-neutral-0);">
-      Multi-Layer Depth
-    </h2>
-    <p class="text-center" data-animate style="color: var(--color-neutral-100); font-size: var(--font-size-xl); max-width: 45rem; margin-inline: auto;">
-      Experience stunning parallax effects with multiple layers moving at different speeds
-    </p>
+    <header class="text-center stack-lg">
+      <h2 class="display-2" style="color: var(--color-neutral-0);">
+        Multi-Layer Depth
+      </h2>
+      <p class="body-large mx-auto" style="color: var(--color-neutral-100); max-width: 45rem;">
+        Experience subtle parallax effects with multiple layers
+      </p>
+    </header>
   </div>
 </x-parallax-section>
 
@@ -124,77 +125,71 @@
 
 <section class="section section--lg" id="social-icons-demo" style="background: var(--color-surface-base);">
   <div class="container">
-    <h2 class="display-2 text-center" data-animate>Social Icons Showcase</h2>
+    <header class="text-center stack-xl">
+      <h2 class="display-2">Social Icons Showcase</h2>
+    </header>
 
-    {{-- Inline Default --}}
-    <div style="margin-block: var(--space-2xl); text-align: center;">
-      <h3 class="h4">Inline Default</h3>
-      <x-social-icons
-        :platforms="['github', 'twitter', 'linkedin', 'dribbble']"
-        orientation="horizontal"
-      />
-    </div>
+    <div class="stack-2xl">
+      {{-- Inline Default --}}
+      <div class="text-center stack-md">
+        <h3 class="heading-4">Inline Default</h3>
+        <x-social-icons
+          :platforms="['github', 'twitter', 'linkedin', 'dribbble']"
+          orientation="horizontal"
+        />
+      </div>
 
-    {{-- Inline Filled --}}
-    <div style="margin-block: var(--space-2xl); text-align: center;">
-      <h3 class="h4">Inline Filled</h3>
-      <x-social-icons
-        variant="filled"
-        :platforms="['github', 'twitter', 'linkedin', 'dribbble']"
-        orientation="horizontal"
-      />
-    </div>
+      {{-- Inline Filled --}}
+      <div class="text-center stack-md">
+        <h3 class="heading-4">Inline Filled</h3>
+        <x-social-icons
+          variant="filled"
+          :platforms="['github', 'twitter', 'linkedin', 'dribbble']"
+          orientation="horizontal"
+        />
+      </div>
 
-    {{-- Inline Outlined --}}
-    <div style="margin-block: var(--space-2xl); text-align: center;">
-      <h3 class="h4">Inline Outlined</h3>
-      <x-social-icons
-        variant="outlined"
-        :platforms="['github', 'twitter', 'linkedin', 'dribbble']"
-        orientation="horizontal"
-      />
-    </div>
+      {{-- Inline Outlined --}}
+      <div class="text-center stack-md">
+        <h3 class="heading-4">Inline Outlined</h3>
+        <x-social-icons
+          variant="outlined"
+          :platforms="['github', 'twitter', 'linkedin', 'dribbble']"
+          orientation="horizontal"
+        />
+      </div>
 
-    {{-- Inline Labeled --}}
-    <div style="margin-block: var(--space-2xl); text-align: center;">
-      <h3 class="h4">Inline Labeled</h3>
-      <x-social-icons
-        variant="labeled"
-        :platforms="['github', 'twitter', 'linkedin']"
-        orientation="horizontal"
-      />
-    </div>
-
-    {{-- Size Variations --}}
-    <div style="margin-block: var(--space-2xl); text-align: center;">
-      <h3 class="h4">Size Variations</h3>
-      <div style="display: flex; gap: var(--space-2xl); justify-content: center; align-items: center;">
-        <div>
-          <p style="margin-block-end: var(--space-sm);">Small</p>
-          <x-social-icons
-            size="sm"
-            variant="filled"
-            :platforms="['github', 'twitter', 'linkedin']"
-            orientation="horizontal"
-          />
-        </div>
-        <div>
-          <p style="margin-block-end: var(--space-sm);">Base</p>
-          <x-social-icons
-            size="base"
-            variant="filled"
-            :platforms="['github', 'twitter', 'linkedin']"
-            orientation="horizontal"
-          />
-        </div>
-        <div>
-          <p style="margin-block-end: var(--space-sm);">Large</p>
-          <x-social-icons
-            size="lg"
-            variant="filled"
-            :platforms="['github', 'twitter', 'linkedin']"
-            orientation="horizontal"
-          />
+      {{-- Size Variations --}}
+      <div class="text-center stack-md">
+        <h3 class="heading-4">Size Variations</h3>
+        <div class="flex gap-2xl justify-center items-center flex-wrap">
+          <div class="stack-sm">
+            <p class="body-small">Small</p>
+            <x-social-icons
+              size="sm"
+              variant="filled"
+              :platforms="['github', 'twitter', 'linkedin']"
+              orientation="horizontal"
+            />
+          </div>
+          <div class="stack-sm">
+            <p class="body-small">Base</p>
+            <x-social-icons
+              size="base"
+              variant="filled"
+              :platforms="['github', 'twitter', 'linkedin']"
+              orientation="horizontal"
+            />
+          </div>
+          <div class="stack-sm">
+            <p class="body-small">Large</p>
+            <x-social-icons
+              size="lg"
+              variant="filled"
+              :platforms="['github', 'twitter', 'linkedin']"
+              orientation="horizontal"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -203,78 +198,80 @@
 
 
 {{-- ============================================
-     DEMO 6: Fixed Social Icons
-     Uncomment to enable (will stay on screen)
-     ============================================ --}}
-
-{{--
-<x-social-icons
-  position="fixed-left"
-  variant="filled"
-  :platforms="['github', 'twitter', 'linkedin', 'dribbble']"
-  animated="true"
-/>
---}}
-
-{{--
-<x-social-icons
-  position="fixed-bottom"
-  variant="filled"
-  :platforms="['github', 'twitter', 'linkedin', 'email']"
-  orientation="horizontal"
-/>
---}}
-
-
-{{-- ============================================
-     DEMO 7: GSAP Animation Showcase
+     DEMO 6: GSAP Animation Showcase
      ============================================ --}}
 
 <section class="section section--lg" style="background: var(--color-surface-raised);">
   <div class="container">
-    <h2 class="display-2 text-center fade-demo">GSAP Animation Utilities</h2>
+    <header class="text-center stack-xl">
+      <h2 class="display-2 fade-demo">GSAP Animation Utilities</h2>
+    </header>
 
-    {{-- Fade In --}}
-    <div class="grid grid--3 gap-lg" style="margin-block-start: var(--space-2xl);">
-      <div class="fade-in-demo" style="padding: var(--space-lg); background: var(--color-surface-base); border-radius: var(--radius-lg);">
-        <h3>Fade In</h3>
-        <p>Smooth fade in on scroll</p>
-      </div>
-      <div class="fade-in-demo" style="padding: var(--space-lg); background: var(--color-surface-base); border-radius: var(--radius-lg);">
-        <h3>With Stagger</h3>
-        <p>Animated in sequence</p>
-      </div>
-      <div class="fade-in-demo" style="padding: var(--space-lg); background: var(--color-surface-base); border-radius: var(--radius-lg);">
-        <h3>Delay Effect</h3>
-        <p>Staggered delay timing</p>
-      </div>
-    </div>
+    <div class="stack-2xl">
+      {{-- Fade In Demo --}}
+      <div>
+        <h3 class="heading-4 text-center stack-lg">Fade In Effect</h3>
+        <div class="grid grid--3 gap-lg">
+          <x-card padding="lg" class="fade-in-demo">
+            <x-slot:header>
+              <h4 class="heading-5">Fade In</h4>
+            </x-slot:header>
+            <p class="body-normal">Smooth fade in on scroll</p>
+          </x-card>
 
-    {{-- Slide In --}}
-    <div class="grid grid--2 gap-lg" style="margin-block-start: var(--space-2xl);">
-      <div class="slide-left-demo" style="padding: var(--space-lg); background: var(--color-surface-base); border-radius: var(--radius-lg);">
-        <h3>Slide from Left</h3>
-        <p>Slides in from the left side</p>
-      </div>
-      <div class="slide-right-demo" style="padding: var(--space-lg); background: var(--color-surface-base); border-radius: var(--radius-lg);">
-        <h3>Slide from Right</h3>
-        <p>Slides in from the right side</p>
-      </div>
-    </div>
+          <x-card padding="lg" class="fade-in-demo">
+            <x-slot:header>
+              <h4 class="heading-5">With Stagger</h4>
+            </x-slot:header>
+            <p class="body-normal">Animated in sequence</p>
+          </x-card>
 
-    {{-- Reveal Scale --}}
-    <div class="grid grid--4 gap-md" style="margin-block-start: var(--space-2xl);">
-      <div class="reveal-demo" style="padding: var(--space-md); background: var(--color-brand-primary); color: white; border-radius: var(--radius-md); text-align: center;">
-        <h4>Scale</h4>
+          <x-card padding="lg" class="fade-in-demo">
+            <x-slot:header>
+              <h4 class="heading-5">Delay Effect</h4>
+            </x-slot:header>
+            <p class="body-normal">Staggered delay timing</p>
+          </x-card>
+        </div>
       </div>
-      <div class="reveal-demo" style="padding: var(--space-md); background: var(--color-brand-secondary); color: white; border-radius: var(--radius-md); text-align: center;">
-        <h4>Reveal</h4>
+
+      {{-- Slide In Demo --}}
+      <div>
+        <h3 class="heading-4 text-center stack-lg">Slide In Effect</h3>
+        <div class="grid grid--2 gap-lg">
+          <x-card padding="lg" class="slide-left-demo">
+            <x-slot:header>
+              <h4 class="heading-5">Slide from Left</h4>
+            </x-slot:header>
+            <p class="body-normal">Slides in from the left side</p>
+          </x-card>
+
+          <x-card padding="lg" class="slide-right-demo">
+            <x-slot:header>
+              <h4 class="heading-5">Slide from Right</h4>
+            </x-slot:header>
+            <p class="body-normal">Slides in from the right side</p>
+          </x-card>
+        </div>
       </div>
-      <div class="reveal-demo" style="padding: var(--space-md); background: var(--color-brand-accent); color: white; border-radius: var(--radius-md); text-align: center;">
-        <h4>Effect</h4>
-      </div>
-      <div class="reveal-demo" style="padding: var(--space-md); background: var(--color-brand-primary); color: white; border-radius: var(--radius-md); text-align: center;">
-        <h4>Demo</h4>
+
+      {{-- Reveal Scale Demo --}}
+      <div>
+        <h3 class="heading-4 text-center stack-lg">Scale Reveal Effect</h3>
+        <div class="grid grid--auto gap-md">
+          <div class="reveal-demo" style="padding: var(--space-lg); background: var(--color-brand-primary); color: white; border-radius: var(--radius-md); text-align: center;">
+            <h4 class="heading-5">Scale</h4>
+          </div>
+          <div class="reveal-demo" style="padding: var(--space-lg); background: var(--color-brand-secondary); color: white; border-radius: var(--radius-md); text-align: center;">
+            <h4 class="heading-5">Reveal</h4>
+          </div>
+          <div class="reveal-demo" style="padding: var(--space-lg); background: var(--color-brand-accent); color: white; border-radius: var(--radius-md); text-align: center;">
+            <h4 class="heading-5">Effect</h4>
+          </div>
+          <div class="reveal-demo" style="padding: var(--space-lg); background: var(--color-brand-primary); color: white; border-radius: var(--radius-md); text-align: center;">
+            <h4 class="heading-5">Demo</h4>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -282,7 +279,7 @@
 
 
 {{-- ============================================
-     DEMO 8: Complete Landing Page Example
+     DEMO 7: Final CTA Hero
      ============================================ --}}
 
 <x-parallax-hero
@@ -291,6 +288,7 @@
   subtitle="Join thousands of developers using our component framework"
   background="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80"
   height="medium"
+  parallaxSpeed="0.15"
   :buttons="[
     ['text' => 'Start Free Trial', 'href' => '#', 'variant' => 'primary', 'size' => 'lg'],
     ['text' => 'Contact Sales', 'href' => '#', 'variant' => 'secondary', 'size' => 'lg']
