@@ -304,40 +304,48 @@
      ============================================ --}}
 
 @push('scripts')
-<script type="module">
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initDemoAnimations)
-} else {
-  initDemoAnimations()
-}
-
-async function initDemoAnimations() {
-  try {
-    const { GSAPUtils } = await import('@scripts/libraries/utilities.js')
-
-    // Demo animations
-    if (document.querySelector('.fade-demo')) {
-      GSAPUtils.fadeInOnScroll('.fade-demo', { y: 50, duration: 0.8 })
+<script>
+(function() {
+  function initDemoAnimations() {
+    if (!window.GSAPUtils) {
+      console.warn('GSAPUtils not available yet, retrying...');
+      setTimeout(initDemoAnimations, 100);
+      return;
     }
 
-    if (document.querySelector('.fade-in-demo')) {
-      GSAPUtils.fadeInOnScroll('.fade-in-demo', { y: 50, duration: 0.8, stagger: 0.2 })
-    }
+    try {
+      // Demo animations
+      if (document.querySelector('.fade-demo')) {
+        window.GSAPUtils.fadeInOnScroll('.fade-demo', { y: 50, duration: 0.8 });
+      }
 
-    if (document.querySelector('.slide-left-demo')) {
-      GSAPUtils.slideInOnScroll('.slide-left-demo', 'left', { duration: 1 })
-    }
+      if (document.querySelector('.fade-in-demo')) {
+        window.GSAPUtils.fadeInOnScroll('.fade-in-demo', { y: 50, duration: 0.8, stagger: 0.2 });
+      }
 
-    if (document.querySelector('.slide-right-demo')) {
-      GSAPUtils.slideInOnScroll('.slide-right-demo', 'right', { duration: 1 })
-    }
+      if (document.querySelector('.slide-left-demo')) {
+        window.GSAPUtils.slideInOnScroll('.slide-left-demo', 'left', { duration: 1 });
+      }
 
-    if (document.querySelector('.reveal-demo')) {
-      GSAPUtils.revealOnScroll('.reveal-demo', { scale: 0.8, stagger: 0.1 })
+      if (document.querySelector('.slide-right-demo')) {
+        window.GSAPUtils.slideInOnScroll('.slide-right-demo', 'right', { duration: 1 });
+      }
+
+      if (document.querySelector('.reveal-demo')) {
+        window.GSAPUtils.revealOnScroll('.reveal-demo', { scale: 0.8, stagger: 0.1 });
+      }
+
+      console.log('✅ Demo animations initialized');
+    } catch (error) {
+      console.error('Error initializing demo animations:', error);
     }
-  } catch (error) {
-    console.error('Error initializing demo animations:', error)
   }
-}
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDemoAnimations);
+  } else {
+    initDemoAnimations();
+  }
+})();
 </script>
 @endpush

@@ -62,38 +62,41 @@ $hasMultipleLayers = !empty($layers);
 </div>
 
 @push('scripts')
-<script type="module">
-// Wait for DOM to be fully loaded
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initParallaxSection{{ $sectionId }})
-} else {
-  initParallaxSection{{ $sectionId }}()
-}
-
-async function initParallaxSection{{ $sectionId }}() {
-  try {
-    const { GSAPUtils } = await import('@scripts/libraries/utilities.js')
-
-    @if(!$hasMultipleLayers && $background)
-    // Single parallax background
-    const bgElement = document.querySelector('#{{ $sectionId }}-bg')
-    if (bgElement) {
-      GSAPUtils.parallax('#{{ $sectionId }}-bg', {{ $speed }})
+<script>
+(function() {
+  function initParallaxSection{{ str_replace('-', '_', $sectionId) }}() {
+    if (!window.GSAPUtils) {
+      console.warn('GSAPUtils not available yet, retrying...');
+      setTimeout(initParallaxSection{{ str_replace('-', '_', $sectionId) }}, 100);
+      return;
     }
-    @endif
 
-    @if($hasMultipleLayers)
-    // Multiple parallax layers
-    @foreach($layers as $index => $layer)
-    const layerElement{{ $index }} = document.querySelector('#{{ $sectionId }}-layer-{{ $index }}')
-    if (layerElement{{ $index }}) {
-      GSAPUtils.parallax('#{{ $sectionId }}-layer-{{ $index }}', {{ $layer['speed'] ?? 0.5 }})
+    try {
+      @if(!$hasMultipleLayers && $background)
+      var bgElement = document.querySelector('#{{ $sectionId }}-bg');
+      if (bgElement) {
+        window.GSAPUtils.parallax('#{{ $sectionId }}-bg', {{ $speed }});
+      }
+      @endif
+
+      @if($hasMultipleLayers)
+      @foreach($layers as $index => $layer)
+      var layerElement{{ $index }} = document.querySelector('#{{ $sectionId }}-layer-{{ $index }}');
+      if (layerElement{{ $index }}) {
+        window.GSAPUtils.parallax('#{{ $sectionId }}-layer-{{ $index }}', {{ $layer['speed'] ?? 0.5 }});
+      }
+      @endforeach
+      @endif
+    } catch (error) {
+      console.error('Error initializing parallax section:', error);
     }
-    @endforeach
-    @endif
-  } catch (error) {
-    console.error('Error initializing parallax section {{ $sectionId }}:', error)
   }
-}
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initParallaxSection{{ str_replace('-', '_', $sectionId) }});
+  } else {
+    initParallaxSection{{ str_replace('-', '_', $sectionId) }}();
+  }
+})();
 </script>
 @endpush

@@ -11,6 +11,9 @@ import { Navigation, Pagination, EffectFade, Autoplay } from 'swiper/modules'
 import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import * as THREE from 'three'
 
+// Import GSAP utilities and make globally available
+import { GSAPUtils } from './utilities.js'
+
 // Vanta.js - Import effect from src
 import VantaWaves from 'vanta/src/vanta.waves'
 
@@ -25,6 +28,9 @@ export function initGSAP() {
     ease: 'power2.out',
     duration: 0.6
   })
+
+  // Make GSAPUtils globally available for component scripts
+  window.GSAPUtils = GSAPUtils
 
   console.log('✅ GSAP initialized with ScrollTrigger')
 }
