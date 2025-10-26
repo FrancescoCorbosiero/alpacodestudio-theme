@@ -62,6 +62,9 @@
         <span class="sr-only">Search</span>
       </button>
 
+      {{-- Language Selector --}}
+      @include('components.language-selector')
+
       {{-- Theme Toggle --}}
       <button
         type="button"
@@ -150,6 +153,10 @@
 
       {{-- Mobile Menu Footer --}}
       <div class="mobile-menu__footer">
+        {{-- Language Selector in Mobile Menu --}}
+        <div class="mobile-menu__language">
+          @include('components.language-selector')
+        </div>
         <p class="mobile-menu__footer-text">
           &copy; {{ date('Y') }} {{ get_bloginfo('name') }}
         </p>
