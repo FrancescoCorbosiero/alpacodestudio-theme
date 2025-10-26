@@ -82,54 +82,56 @@ $contentId = $heroId . '-content';
 </section>
 
 @push('scripts')
-<script type="module">
-// Wait for DOM to be fully loaded
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initParallaxHero{{ $heroId }})
-} else {
-  initParallaxHero{{ $heroId }}()
-}
-
-async function initParallaxHero{{ $heroId }}() {
-  try {
-    const { GSAPUtils } = await import('@scripts/libraries/utilities.js')
-
-    // Parallax background
-    @if($background)
-    const bgElement = document.querySelector('#{{ $bgId }}')
-    if (bgElement) {
-      GSAPUtils.parallax('#{{ $bgId }}', {{ $parallaxSpeed }})
+<script>
+(function() {
+  function initParallaxHero{{ str_replace('-', '_', $heroId) }}() {
+    if (!window.GSAPUtils) {
+      console.warn('GSAPUtils not available yet, retrying...');
+      setTimeout(initParallaxHero{{ str_replace('-', '_', $heroId) }}, 100);
+      return;
     }
-    @endif
 
-    // Animate title
-    @if($animateTitle)
-    const titleElement = document.querySelector('#{{ $titleId }}')
-    if (titleElement) {
-      GSAPUtils.fadeInOnScroll('#{{ $titleId }}', {
-        y: 100,
-        opacity: 0,
-        duration: 1.2,
-        delay: {{ $titleDelay }}
-      })
-    }
-    @endif
+    try {
+      @if($background)
+      var bgElement = document.querySelector('#{{ $bgId }}');
+      if (bgElement) {
+        window.GSAPUtils.parallax('#{{ $bgId }}', {{ $parallaxSpeed }});
+      }
+      @endif
 
-    // Animate subtitle
-    @if($animateSubtitle && $subtitle)
-    const subtitleElement = document.querySelector('#{{ $subtitleId }}')
-    if (subtitleElement) {
-      GSAPUtils.fadeInOnScroll('#{{ $subtitleId }}', {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        delay: {{ $subtitleDelay }}
-      })
+      @if($animateTitle)
+      var titleElement = document.querySelector('#{{ $titleId }}');
+      if (titleElement) {
+        window.GSAPUtils.fadeInOnScroll('#{{ $titleId }}', {
+          y: 100,
+          opacity: 0,
+          duration: 1.2,
+          delay: {{ $titleDelay }}
+        });
+      }
+      @endif
+
+      @if($animateSubtitle && $subtitle)
+      var subtitleElement = document.querySelector('#{{ $subtitleId }}');
+      if (subtitleElement) {
+        window.GSAPUtils.fadeInOnScroll('#{{ $subtitleId }}', {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          delay: {{ $subtitleDelay }}
+        });
+      }
+      @endif
+    } catch (error) {
+      console.error('Error initializing parallax hero:', error);
     }
-    @endif
-  } catch (error) {
-    console.error('Error initializing parallax hero {{ $heroId }}:', error)
   }
-}
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initParallaxHero{{ str_replace('-', '_', $heroId) }});
+  } else {
+    initParallaxHero{{ str_replace('-', '_', $heroId) }}();
+  }
+})();
 </script>
 @endpush

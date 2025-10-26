@@ -68,16 +68,16 @@ var(--font-size-display-1) /* clamp(8rem, 12vw + 2rem, 18rem) */
 Import utilities and apply scroll-triggered animations:
 
 ```javascript
-import { GSAPUtils } from '@scripts/libraries/utilities.js'
+// GSAPUtils is globally available via window.GSAPUtils
 
 // Fade in on scroll
-GSAPUtils.fadeInOnScroll('.hero__title', { y: 50, duration: 0.8 })
+window.GSAPUtils.fadeInOnScroll('.hero__title', { y: 50, duration: 0.8 })
 
 // Parallax effect
-GSAPUtils.parallax('.hero__background', 0.5)
+window.GSAPUtils.parallax('.hero__background', 0.5)
 
 // Stagger children
-GSAPUtils.staggerOnScroll('.feature-grid', '.feature-card')
+window.GSAPUtils.staggerOnScroll('.feature-grid', '.feature-card')
 ```
 
 ---
@@ -273,11 +273,10 @@ GSAPUtils.staggerOnScroll('.feature-grid', '.feature-card')
 </style>
 
 <!-- Separate JS initialization -->
-<script type="module">
-import { GSAPUtils } from '@scripts/libraries/utilities.js'
-GSAPUtils.parallax('#hero-bg-123', 0.3)
-GSAPUtils.fadeInOnScroll('#hero-title-123', { y: 100, duration: 1.2, delay: 0.2 })
-GSAPUtils.fadeInOnScroll('#hero-subtitle-123', { y: 50, duration: 1, delay: 0.4 })
+<script>
+window.GSAPUtils.parallax('#hero-bg-123', 0.3)
+window.GSAPUtils.fadeInOnScroll('#hero-title-123', { y: 100, duration: 1.2, delay: 0.2 })
+window.GSAPUtils.fadeInOnScroll('#hero-subtitle-123', { y: 50, duration: 1, delay: 0.4 })
 </script>
 ```
 
@@ -381,10 +380,10 @@ GSAPUtils.fadeInOnScroll('#hero-subtitle-123', { y: 50, duration: 1, delay: 0.4 
 ### Basic Utilities
 
 ```javascript
-import { GSAPUtils } from '@scripts/libraries/utilities.js'
+// GSAPUtils is globally available via window.GSAPUtils
 
 // Fade in on scroll
-GSAPUtils.fadeInOnScroll('.element', {
+window.GSAPUtils.fadeInOnScroll('.element', {
   y: 50,           // Move from 50px below
   opacity: 0,      // Start transparent
   duration: 0.8,   // Animation duration
@@ -392,38 +391,38 @@ GSAPUtils.fadeInOnScroll('.element', {
 })
 
 // Parallax effect
-GSAPUtils.parallax('.background', 0.5)  // 0.5 = half speed
+window.GSAPUtils.parallax('.background', 0.5)  // 0.5 = half speed
 
 // Slide in from direction
-GSAPUtils.slideInOnScroll('.card', 'left', { duration: 1 })
+window.GSAPUtils.slideInOnScroll('.card', 'left', { duration: 1 })
 
 // Stagger children
-GSAPUtils.staggerOnScroll('.container', '.child')
+window.GSAPUtils.staggerOnScroll('.container', '.child')
 
 // Reveal with scale
-GSAPUtils.revealOnScroll('.box', { scale: 0.8, opacity: 0 })
+window.GSAPUtils.revealOnScroll('.box', { scale: 0.8, opacity: 0 })
 
 // Rotate on scroll
-GSAPUtils.rotateOnScroll('.icon', 360)
+window.GSAPUtils.rotateOnScroll('.icon', 360)
 
 // Scale on scroll
-GSAPUtils.scaleOnScroll('.image', 1.2)
+window.GSAPUtils.scaleOnScroll('.image', 1.2)
 
 // Animated counter
-GSAPUtils.animateCounter('.stat-number', 1000, 2)
+window.GSAPUtils.animateCounter('.stat-number', 1000, 2)
 
 // Pin while scrolling
-GSAPUtils.pinOnScroll('.sidebar', '+=500')
+window.GSAPUtils.pinOnScroll('.sidebar', '+=500')
 ```
 
 ### NEW: Enhanced Utilities
 
 ```javascript
 // Split text into characters for animation
-GSAPUtils.splitTextChars('.title')
+window.GSAPUtils.splitTextChars('.title')
 
 // Animate text character by character
-GSAPUtils.animateTextChars('.title', {
+window.GSAPUtils.animateTextChars('.title', {
   y: 50,
   opacity: 0,
   stagger: 0.03,
@@ -431,7 +430,7 @@ GSAPUtils.animateTextChars('.title', {
 })
 
 // Complete hero entrance (preset combo)
-GSAPUtils.heroEntrance({
+window.GSAPUtils.heroEntrance({
   title: '.hero__title',
   subtitle: '.hero__subtitle',
   cta: '.hero__cta',
@@ -439,22 +438,22 @@ GSAPUtils.heroEntrance({
 })
 
 // Scroll progress indicator
-GSAPUtils.scrollProgress('.progress-bar')
+window.GSAPUtils.scrollProgress('.progress-bar')
 
 // Magnetic button effect
-GSAPUtils.magneticEffect('.button--magnetic', 0.3)
+window.GSAPUtils.magneticEffect('.button--magnetic', 0.3)
 
 // Image reveal with clip-path
-GSAPUtils.imageReveal('.image', 'right')
+window.GSAPUtils.imageReveal('.image', 'right')
 
 // Card grid stagger animation
-GSAPUtils.cardGridStagger('.grid', '.card')
+window.GSAPUtils.cardGridStagger('.grid', '.card')
 
 // Floating animation (infinite loop)
-GSAPUtils.floatingAnimation('.icon', { y: -20, duration: 2 })
+window.GSAPUtils.floatingAnimation('.icon', { y: -20, duration: 2 })
 
 // Batch scroll animations (performance optimized)
-GSAPUtils.batchScrollAnimation('.fade-in-item', {
+window.GSAPUtils.batchScrollAnimation('.fade-in-item', {
   y: 50,
   opacity: 0,
   stagger: 0.1
@@ -478,10 +477,10 @@ GSAPUtils.batchScrollAnimation('.fade-in-item', {
 </section>
 
 <script type="module">
-import { GSAPUtils } from '@scripts/libraries/utilities.js'
+// GSAPUtils is globally available via window.GSAPUtils
 
 // One line for complete hero animation!
-GSAPUtils.heroEntrance()
+window.GSAPUtils.heroEntrance()
 </script>
 ```
 
@@ -633,8 +632,8 @@ element.addEventListener('scroll', () => {
 
 **✅ Do:**
 ```javascript
-import { GSAPUtils } from '@scripts/libraries/utilities.js'
-GSAPUtils.parallax('.element', 0.5)
+// GSAPUtils is globally available via window.GSAPUtils
+window.GSAPUtils.parallax('.element', 0.5)
 ```
 
 ### 4. Compose Complex Sections
