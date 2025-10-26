@@ -6,6 +6,9 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger)
+
 /**
  * Fade In on Scroll (GSAP-based)
  * @param {string} selector - Elements to animate
