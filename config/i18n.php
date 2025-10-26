@@ -8,20 +8,21 @@ return [
     /**
      * Default locale
      */
-    'default_locale' => 'en_US',
+    'default_locale' => 'it_IT',
 
     /**
      * Available locales for the theme
      */
     'available_locales' => [
-        'en_US' => 'English (US)',
         'it_IT' => 'Italiano',
+        'en_US' => 'English (US)',
+        'es_ES' => 'Español',
     ],
 
     /**
      * Fallback locale
      */
-    'fallback_locale' => 'en_US',
+    'fallback_locale' => 'it_IT',
 
     /**
      * Auto-detect user locale from browser
