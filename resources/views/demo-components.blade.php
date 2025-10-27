@@ -15,7 +15,7 @@
   title="Welcome to Component Heaven"
   subtitle="Build stunning websites in minutes, not hours"
   background="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
-  parallaxSpeed="0.15"
+  parallaxSpeed="0.0"
   :buttons="[
     ['text' => 'Get Started', 'href' => '#demo', 'variant' => 'primary', 'size' => 'lg'],
     ['text' => 'View Docs', 'href' => '#docs', 'variant' => 'secondary', 'size' => 'lg']

@@ -17,6 +17,10 @@ import { GSAPUtils } from './utilities.js'
 // Vanta.js - Import effect from src
 import VantaWaves from 'vanta/src/vanta.waves'
 
+//import "splitting/dist/splitting.css";
+//import "splitting/dist/splitting-cells.css";
+//import Splitting from "splitting";
+
 /**
  * Initialize GSAP with ScrollTrigger
  */
@@ -143,6 +147,32 @@ export function initVanta(selector = '#vanta-bg') {
 }
 
 /**
+ * Initialize Splitting.js
+export function initSplitting() {
+  Splitting();
+
+  // Replay animation by hiding & showing the element again
+  let el = document.body;
+  el.addEventListener("click", function (e) {
+    el.hidden = true;
+    requestAnimationFrame(() => {
+      el.hidden = false;
+    });
+  });
+
+  var s = document.createElement("style");
+  s.innerHTML =
+    " *, *:before, *:after { animation-play-state: paused !important; }";
+
+  document.addEventListener("keypress", function () {
+    s.parentNode ? document.head.removeChild(s) : document.head.appendChild(s);
+  });
+
+  console.log('✅ Splitting.js initialized')
+  return Splitting;
+}*/
+
+/**
  * Initialize all libraries
  * Call this from app.js
  */
@@ -154,6 +184,8 @@ export function initAllLibraries() {
   // Media libraries
   initSwipers()
   initPhotoSwipe()
+
+  //initSplitting()
 
   // Background effects (optional - init only where needed)
   // initVanta('#hero-background')
