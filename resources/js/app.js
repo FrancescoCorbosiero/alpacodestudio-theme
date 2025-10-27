@@ -10,7 +10,7 @@ import Alpine from 'alpinejs'
 import { initPageLoader } from './core/loader'
 import { initThemeSwitcher } from './core/theme-switcher'
 import { initNavigation } from './core/navigation'
-import { initViewTransitions } from './core/view-transitions'
+import { initViewTransitions } from './core/view-transitions' // Re-enabled with improved safeguards
 import { initPerformance } from './core/performance'
 import { initAccessibility } from './core/accessibility'
 import './core/animations' // Scroll-triggered animations
@@ -92,7 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   try {
-    // Initialize view transitions (if supported)
+    // Initialize view transitions with improved safeguards
+    // Provides SPA-like smoothness for navigation
     initViewTransitions()
   } catch (error) {
     console.error('Failed to initialize view transitions:', error)
