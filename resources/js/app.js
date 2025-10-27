@@ -10,7 +10,7 @@ import Alpine from 'alpinejs'
 import { initPageLoader } from './core/loader'
 import { initThemeSwitcher } from './core/theme-switcher'
 import { initNavigation } from './core/navigation'
-// import { initViewTransitions } from './core/view-transitions' // DISABLED: causes page reload issues
+import { initViewTransitions } from './core/view-transitions' // Re-enabled with improved safeguards
 import { initPerformance } from './core/performance'
 import { initAccessibility } from './core/accessibility'
 import './core/animations' // Scroll-triggered animations
@@ -91,14 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Failed to initialize navigation:', error)
   }
 
-  // DISABLED: View Transitions cause page reload on every click
-  // See resources/js/core/view-transitions.js for details
-  // try {
-  //   // Initialize view transitions (if supported)
-  //   initViewTransitions()
-  // } catch (error) {
-  //   console.error('Failed to initialize view transitions:', error)
-  // }
+  try {
+    // Initialize view transitions with improved safeguards
+    // Provides SPA-like smoothness for navigation
+    initViewTransitions()
+  } catch (error) {
+    console.error('Failed to initialize view transitions:', error)
+  }
 
   try {
     // Initialize performance monitoring

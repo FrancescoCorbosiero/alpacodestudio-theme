@@ -44,8 +44,14 @@ function enableViewTransitions() {
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a')
 
+    // Debug logging
+    if (link) {
+      console.log('[ViewTransitions] Link clicked:', link.href, 'intercept:', shouldInterceptNavigation(link))
+    }
+
     if (shouldInterceptNavigation(link)) {
       e.preventDefault()
+      console.log('[ViewTransitions] Intercepting navigation to:', link.href)
       navigateWithTransition(link.href)
     }
   })
@@ -63,24 +69,40 @@ function enableViewTransitions() {
  */
 function shouldInterceptNavigation(link) {
   if (!link) return false
+  if (!link.href) return false // No href attribute
   if (link.target === '_blank') return false
   if (link.getAttribute('download')) return false
-  if (link.href.startsWith('mailto:') || link.href.startsWith('tel:')) return false
   if (link.classList.contains('no-transition')) return false
 
-  const url = new URL(link.href)
-  const currentUrl = new URL(window.location.href)
+  // Don't intercept special protocols
+  if (link.href.startsWith('mailto:') ||
+      link.href.startsWith('tel:') ||
+      link.href.startsWith('javascript:') ||
+      link.href === '#' ||
+      link.href.endsWith('#')) return false
 
-  // Only intercept same-origin links
-  if (url.origin !== currentUrl.origin) return false
+  try {
+    const url = new URL(link.href)
+    const currentUrl = new URL(window.location.href)
 
-  // Don't intercept hash links on same page
-  if (url.pathname === currentUrl.pathname && url.hash) return false
+    // Only intercept same-origin links
+    if (url.origin !== currentUrl.origin) return false
 
-  // Don't intercept WordPress admin links
-  if (url.pathname.includes('/wp-admin/') || url.pathname.includes('/wp-login.php')) return false
+    // Don't intercept hash links on same page
+    if (url.pathname === currentUrl.pathname && url.hash) return false
 
-  return true
+    // Don't intercept if we're already on the exact same URL
+    if (url.href === currentUrl.href) return false
+
+    // Don't intercept WordPress admin links
+    if (url.pathname.includes('/wp-admin/') || url.pathname.includes('/wp-login.php')) return false
+
+    return true
+  } catch (e) {
+    // Invalid URL, don't intercept
+    console.warn('[ViewTransitions] Invalid URL:', link.href, e)
+    return false
+  }
 }
 
 /**
