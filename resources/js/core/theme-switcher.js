@@ -47,7 +47,8 @@ export function initThemeSwitcher() {
   }
 
   // Toggle theme
-  const toggleTheme = () => {
+  const toggleTheme = (e) => {
+    e.preventDefault()
     const current = html.dataset.theme
     const next = current === 'dark' ? 'light' : 'dark'
     applyTheme(next)
