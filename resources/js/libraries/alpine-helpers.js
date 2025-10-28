@@ -4,6 +4,7 @@
  */
 
 import { gsap } from 'gsap'
+import { createPlane, getCurtains } from './curtains-init.js'
 
 /**
  * Alpine Data: Swiper Controller
@@ -228,6 +229,137 @@ export function alpineTimelineController() {
   }
 }
 
+/**
+ * Alpine Data: Curtains.js Plane Controller
+ * Manage WebGL planes with Curtains.js
+ */
+export function alpineCurtainsPlane(effect = 'displacement') {
+  return {
+    plane: null,
+    effect: effect,
+    isHovered: false,
+
+    init() {
+      // Wait for Curtains to be initialized
+      this.$nextTick(() => {
+        const curtains = getCurtains()
+        if (!curtains) {
+          console.warn('⚠️ Curtains.js not initialized yet')
+          return
+        }
+
+        // Create plane with specified effect
+        this.plane = createPlane(this.$el, this.effect)
+
+        if (this.plane) {
+          // Add hover state tracking
+          this.$el.addEventListener('mouseenter', () => {
+            this.isHovered = true
+          })
+
+          this.$el.addEventListener('mouseleave', () => {
+            this.isHovered = false
+          })
+        }
+      })
+    },
+
+    destroy() {
+      if (this.plane) {
+        this.plane.remove()
+        this.plane = null
+      }
+    }
+  }
+}
+
+/**
+ * Alpine Data: Curtains Gallery Controller
+ * Manage multiple WebGL planes in a gallery
+ */
+export function alpineCurtainsGallery(effect = 'displacement') {
+  return {
+    planes: [],
+    effect: effect,
+    activeIndex: null,
+
+    init() {
+      this.$nextTick(() => {
+        const curtains = getCurtains()
+        if (!curtains) {
+          console.warn('⚠️ Curtains.js not initialized yet')
+          return
+        }
+
+        // Create planes for all gallery items
+        const items = this.$el.querySelectorAll('[data-gallery-item]')
+        items.forEach((item, index) => {
+          const plane = createPlane(item, this.effect)
+          if (plane) {
+            this.planes.push(plane)
+
+            // Track active item
+            item.addEventListener('mouseenter', () => {
+              this.activeIndex = index
+            })
+
+            item.addEventListener('mouseleave', () => {
+              this.activeIndex = null
+            })
+          }
+        })
+
+        console.log(`✅ Created ${this.planes.length} gallery planes`)
+      })
+    },
+
+    destroy() {
+      this.planes.forEach(plane => plane.remove())
+      this.planes = []
+    }
+  }
+}
+
+/**
+ * Alpine Data: Curtains Interactive Hero
+ * Full-screen WebGL hero with multiple effects
+ */
+export function alpineCurtainsHero() {
+  return {
+    plane: null,
+    effect: 'parallax',
+    scrollProgress: 0,
+
+    init() {
+      this.$nextTick(() => {
+        const curtains = getCurtains()
+        if (!curtains) return
+
+        // Create hero plane
+        this.plane = createPlane(this.$el, this.effect, {
+          uniforms: {
+            depth: { name: "uDepth", type: "1f", value: 2.0 }
+          }
+        })
+
+        // Track scroll progress
+        window.addEventListener('scroll', () => {
+          const scrolled = window.pageYOffset
+          const height = document.documentElement.scrollHeight - window.innerHeight
+          this.scrollProgress = (scrolled / height) * 100
+        })
+      })
+    },
+
+    destroy() {
+      if (this.plane) {
+        this.plane.remove()
+        this.plane = null
+      }
+    }
+  }
+}
+
 // Export helpers for Alpine.js
 export const AlpineLibraryHelpers = {
   swiperController: alpineSwiperController,
@@ -237,5 +369,8 @@ export const AlpineLibraryHelpers = {
   parallaxContainer: alpineParallaxContainer,
   scrollProgress: alpineScrollProgress,
   aosController: alpineAOSController,
-  timelineController: alpineTimelineController
+  timelineController: alpineTimelineController,
+  curtainsPlane: alpineCurtainsPlane,
+  curtainsGallery: alpineCurtainsGallery,
+  curtainsHero: alpineCurtainsHero
 }

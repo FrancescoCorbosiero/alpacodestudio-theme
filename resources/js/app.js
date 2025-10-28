@@ -38,6 +38,9 @@ Alpine.data('parallaxContainer', AlpineLibraryHelpers.parallaxContainer)
 Alpine.data('scrollProgress', AlpineLibraryHelpers.scrollProgress)
 Alpine.data('aosController', AlpineLibraryHelpers.aosController)
 Alpine.data('timelineController', AlpineLibraryHelpers.timelineController)
+Alpine.data('curtainsPlane', AlpineLibraryHelpers.curtainsPlane)
+Alpine.data('curtainsGallery', AlpineLibraryHelpers.curtainsGallery)
+Alpine.data('curtainsHero', AlpineLibraryHelpers.curtainsHero)
 
 // Import static assets
 import.meta.glob([
