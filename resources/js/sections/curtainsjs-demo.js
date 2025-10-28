@@ -9,6 +9,14 @@ import { TextTexture } from '../libraries/text-texture.js';
 import { textVertexShader, textFragmentShader, scrollTextFragmentShader } from '../libraries/curtains-effects.js';
 
 /**
+ * Check if container has valid dimensions
+ */
+function hasValidDimensions(element) {
+  const rect = element.getBoundingClientRect();
+  return rect.width > 0 && rect.height > 0;
+}
+
+/**
  * Initialize Curtains.js Text Demo
  */
 export function initCurtainsTextDemo() {
@@ -16,6 +24,24 @@ export function initCurtainsTextDemo() {
 
   // Exit if container doesn't exist
   if (!canvasContainer) {
+    return;
+  }
+
+  // Check if container has valid dimensions
+  if (!hasValidDimensions(canvasContainer)) {
+    console.warn('⚠️ Canvas container has zero dimensions, delaying initialization...');
+
+    // Wait for layout to complete
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (hasValidDimensions(canvasContainer)) {
+          initCurtainsTextDemo();
+        } else {
+          console.error('❌ Canvas container still has zero dimensions after delay');
+          document.body.classList.add('no-curtains');
+        }
+      });
+    });
     return;
   }
 
@@ -137,10 +163,13 @@ export function initCurtainsTextDemo() {
   return cleanup;
 }
 
-// Auto-initialize when DOM is ready
+// Auto-initialize when DOM is ready and layout is complete
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initCurtainsTextDemo);
+  document.addEventListener('DOMContentLoaded', () => {
+    // Small delay to ensure layout is complete
+    setTimeout(initCurtainsTextDemo, 100);
+  });
 } else {
-  // DOM already loaded
-  initCurtainsTextDemo();
+  // DOM already loaded, still wait for layout
+  setTimeout(initCurtainsTextDemo, 100);
 }
