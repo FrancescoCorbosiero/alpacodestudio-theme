@@ -18,7 +18,7 @@ let activePlanes = [];
 
 /**
  * Initialize Curtains.js
- * @param {string} containerSelector - CSS selector for the canvas container
+ * @param {string|HTMLElement} containerSelector - CSS selector or DOM element for the canvas container
  * @returns {Curtains} Curtains instance
  */
 export function initCurtains(containerSelector = 'body') {
@@ -29,8 +29,18 @@ export function initCurtains(containerSelector = 'body') {
   }
 
   try {
+    // Get the container element
+    const container = typeof containerSelector === 'string'
+      ? document.querySelector(containerSelector)
+      : containerSelector;
+
+    if (!container) {
+      console.error('❌ Container element not found:', containerSelector);
+      return null;
+    }
+
     curtainsInstance = new Curtains({
-      container: containerSelector,
+      container: container,
       pixelRatio: Math.min(1.5, window.devicePixelRatio), // Cap for performance
       watchScroll: true, // Enable scroll detection
       production: process.env.NODE_ENV === 'production',
@@ -141,14 +151,20 @@ function autoInitializePlanes() {
 function setupPlaneInteractions(plane, effectType) {
   let mouseStrength = 0;
   let time = 0;
+  let mousePos = { x: 0.5, y: 0.5 };
 
-  // Mouse move interaction
-  plane.onMouseMove((mouseCoords) => {
-    // Update mouse uniform (normalized coordinates)
-    if (plane.uniforms.mouse) {
-      plane.uniforms.mouse.value = [mouseCoords.x, mouseCoords.y];
-    }
-  });
+  // Track mouse position relative to plane
+  const updateMousePosition = (e) => {
+    const rect = plane.htmlElement.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = 1 - (e.clientY - rect.top) / rect.height; // Invert Y for WebGL
+
+    mousePos.x = Math.max(0, Math.min(1, x));
+    mousePos.y = Math.max(0, Math.min(1, y));
+  };
+
+  // Mouse move tracking
+  plane.htmlElement.addEventListener('mousemove', updateMousePosition);
 
   // Mouse enter - animate strength
   plane.htmlElement.addEventListener('mouseenter', () => {
@@ -189,6 +205,11 @@ function setupPlaneInteractions(plane, effectType) {
   // Render loop for time-based effects
   plane.onRender(() => {
     time += 0.01;
+
+    // Update mouse uniform
+    if (plane.uniforms.mouse) {
+      plane.uniforms.mouse.value = [mousePos.x, mousePos.y];
+    }
 
     // Update time uniform
     if (plane.uniforms.time) {
