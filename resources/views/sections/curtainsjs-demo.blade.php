@@ -1,305 +1,199 @@
-<div id="canvas"></div>
-<div id="content">
-    <h1>
-        <span class="text-plane">Martin Laxenaire</span>
-    </h1>
+{{--
+  Curtains.js Text Demo Section
 
-    <h2>
-        <span class="text-plane">
-            Rendering text<br />
-            to WebGL
-        </span>
-    </h2>
-
-    <div id="process" class="text-block">
-        <p>
-            <span class="text-plane">
-                This is an example of how we can render whole blocks of text to WebGL thanks to curtains.js and the TextTexture class.
-            </span>
-        </p>
-        <p>
-            <span class="text-plane">
-                A WebGL plane is created for all elements that have a "text-plane" class and their text contents are drawn inside a 2D canvas, which is then used as a WebGL texture.
-            </span>
-        </p>
-    </div>
-
-    <div id="scroll" class="text-block">
-        <p>
-            <span class="text-plane">
-                We're using an additional shader pass to add a cool effect on scroll that makes you feel like the content is actually dragged.
-            </span>
-        </p>
-        <p>
-            <span class="text-plane">
-                Try to scroll down to see what happens!
-            </span>
-        </p>
-    </div>
-
-    <div id="lipsum" class="text-block">
-        <p>
-            <span class="text-plane">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a dolor posuere nisi tempus rhoncus. Curabitur venenatis velit a tellus porttitor, sed efficitur ipsum volutpat. Nunc ante ante, convallis in commodo eget, semper ac ex. Fusce lobortis risus vel nisl interdum imperdiet. Nulla facilisi
-            </span>
-        </p>
-        <p>
-            <span class="text-plane">
-                Cras hendrerit iaculis est at vestibulum. Integer tincidunt mi id metus mollis, in fermentum odio sagittis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus in efficitur diam.
-            </span>
-        </p>
-    </div>
-</div>
+  Demonstrates WebGL text rendering with scroll effects using Curtains.js.
+  Features dynamic text-to-texture rendering with scroll-based distortion.
+--}}
 
 @push('styles')
-<style>
-    body {
-    margin: 0;
-    width: 100%;
-    min-height: 100vh;
-    font-family: 'Merriweather Sans', sans-serif;
-    line-height: 1.2;
-    color: #0505AF;
-    font-size: 2vw;
-}
-
-#canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-}
-
-.text-plane {
-    display: inline-block;
-
-    /* apply negative margins and padding to avoid chars from being cropped */
-    margin: -1em;
-    padding: 1em;
-
-    /* hide the original text content */
-    opacity: 0;
-}
-
-#content {
-    width: 100%;
-    padding: 2.5vw;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 2;
-}
-
-#content h1 {
-    text-align: center;
-    margin: 25vh 0;
-    font-size: 6vw;
-    text-transform: uppercase;
-    font-family: 'Archivo Black', sans-serif;
-    font-weight: 400;
-    line-height: 1;
-}
-
-#content h2 {
-    width: 50%;
-    margin: 15vh 0 15vh 50%;
-    font-size: 4vw;
-    text-transform: uppercase;
-    font-family: 'Archivo Black', sans-serif;
-    font-weight: 400;
-    line-height: 1;
-}
-
-.text-block {
-    width: 50%;
-    margin: 15vh 0;
-}
-
-#scroll {
-    margin-left: 25%;
-}
-
-#lipsum {
-    margin-left: 50%;
-}
-</style>
+{{-- Load Google Fonts for the demo --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Merriweather+Sans:wght@300;400;700&display=swap" rel="stylesheet">
 @endpush
+
+<section class="curtains-text-demo" role="region" aria-label="WebGL Text Demo">
+  {{-- WebGL Canvas Container --}}
+  <div id="curtains-text-canvas" class="curtains-text-demo__canvas"></div>
+
+  {{-- Text Content --}}
+  <div class="curtains-text-demo__content">
+    {{-- Main Heading --}}
+    <h1 class="curtains-text-demo__title">
+      <span class="text-plane">Alpacode Studio</span>
+    </h1>
+
+    {{-- Subtitle --}}
+    <h2 class="curtains-text-demo__subtitle">
+      <span class="text-plane">
+        Rendering text<br />
+        to WebGL
+      </span>
+    </h2>
+
+    {{-- Process Explanation --}}
+    <div class="curtains-text-demo__block">
+      <p>
+        <span class="text-plane">
+          This is an example of how we can render whole blocks of text to WebGL thanks to Curtains.js and the TextTexture class.
+        </span>
+      </p>
+      <p>
+        <span class="text-plane">
+          A WebGL plane is created for all elements that have a "text-plane" class and their text contents are drawn inside a 2D canvas, which is then used as a WebGL texture.
+        </span>
+      </p>
+    </div>
+
+    {{-- Scroll Effect --}}
+    <div class="curtains-text-demo__block curtains-text-demo__block--center">
+      <p>
+        <span class="text-plane">
+          We're using an additional shader pass to add a cool effect on scroll that makes you feel like the content is actually dragged.
+        </span>
+      </p>
+      <p>
+        <span class="text-plane">
+          Try to scroll down to see what happens!
+        </span>
+      </p>
+    </div>
+
+    {{-- Additional Content --}}
+    <div class="curtains-text-demo__block curtains-text-demo__block--right">
+      <p>
+        <span class="text-plane">
+          This technique opens up amazing possibilities for creative web experiences. You can apply any WebGL effect to text while maintaining full accessibility.
+        </span>
+      </p>
+      <p>
+        <span class="text-plane">
+          The text remains in the DOM for screen readers and SEO, while the visual rendering happens in WebGL for stunning effects.
+        </span>
+      </p>
+    </div>
+  </div>
+</section>
 
 @push('scripts')
 <script type="module">
-import {Curtains, Plane, RenderTarget, ShaderPass} from 'https://cdn.jsdelivr.net/npm/curtainsjs@8.1.2/src/index.mjs';
-import {TextTexture} from 'https://gistcdn.githack.com/martinlaxenaire/549b3b01ff4bd9d29ce957edd8b56f16/raw/2f111abf99c8dc63499e894af080c198755d1b7a/TextTexture.js';
+import { Curtains, Plane, ShaderPass } from 'curtainsjs';
+import { TextTexture } from '/resources/js/libraries/text-texture.js';
+import { textVertexShader, textFragmentShader, scrollTextFragmentShader } from '/resources/js/libraries/curtains-effects.js';
 
+/**
+ * Initialize Curtains.js Text Demo
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  const canvasContainer = document.getElementById('curtains-text-canvas');
 
-const scrollFs = `
-    #ifdef GL_FRAGMENT_PRECISION_HIGH
-    precision highp float;
-    #else
-    precision mediump float;
-    #endif
+  if (!canvasContainer) {
+    console.warn('Curtains text canvas not found');
+    return;
+  }
 
-    varying vec3 vVertexPosition;
-    varying vec2 vTextureCoord;
+  // Create Curtains instance
+  const curtains = new Curtains({
+    container: canvasContainer,
+    pixelRatio: Math.min(1.5, window.devicePixelRatio),
+    watchScroll: true,
+    alpha: true,
+  });
 
-    uniform sampler2D uRenderTexture;
+  // Track scroll values
+  const scroll = {
+    value: 0,
+    lastValue: 0,
+    effect: 0,
+    delta: 0,
+  };
 
-    // lerped scroll deltas
-    // negative when scrolling down, positive when scrolling up
-    uniform float uScrollEffect;
+  // Handle errors
+  curtains.onError(() => {
+    console.error('Curtains.js error - falling back to regular text');
+    document.body.classList.add('no-curtains');
+  });
 
-    // default to 2.5
-    uniform float uScrollStrength;
+  // On successful initialization
+  curtains.onSuccess(() => {
+    // Define fonts to load
+    const fonts = [
+      'normal 900 1em "Archivo Black", sans-serif',
+      'normal 400 1em "Merriweather Sans", sans-serif',
+    ];
 
+    // Load fonts
+    Promise.all(fonts.map(font => document.fonts.load(font)))
+      .then(() => {
+        // Create scroll effect shader pass
+        const scrollPass = new ShaderPass(curtains, {
+          fragmentShader: scrollTextFragmentShader,
+          depth: false,
+          uniforms: {
+            scrollEffect: {
+              name: "uScrollEffect",
+              type: "1f",
+              value: 0,
+            },
+            scrollStrength: {
+              name: "uScrollStrength",
+              type: "1f",
+              value: 2.5,
+            },
+          }
+        });
 
-    void main() {
-        vec2 scrollTextCoords = vTextureCoord;
-        float horizontalStretch;
+        // Update scroll effect on each frame
+        scrollPass.onRender(() => {
+          scroll.lastValue = scroll.value;
+          scroll.value = curtains.getScrollValues().y;
 
-        // branching on an uniform is ok
-        if(uScrollEffect >= 0.0) {
-            scrollTextCoords.y *= 1.0 + -uScrollEffect * 0.00625 * uScrollStrength;
-            horizontalStretch = sin(scrollTextCoords.y);
-        }
-        else if(uScrollEffect < 0.0) {
-            scrollTextCoords.y += (scrollTextCoords.y - 1.0) * uScrollEffect * 0.00625 * uScrollStrength;
-            horizontalStretch = sin(-1.0 * (1.0 - scrollTextCoords.y));
-        }
+          // Clamp delta for smooth effect
+          scroll.delta = Math.max(-30, Math.min(30, scroll.lastValue - scroll.value));
 
-        scrollTextCoords.x = scrollTextCoords.x * 2.0 - 1.0;
-        scrollTextCoords.x *= 1.0 + uScrollEffect * 0.0035 * horizontalStretch * uScrollStrength;
-        scrollTextCoords.x = (scrollTextCoords.x + 1.0) * 0.5;
+          // Lerp for smooth transitions
+          scroll.effect = curtains.lerp(scroll.effect, scroll.delta, 0.05);
 
-        gl_FragColor = texture2D(uRenderTexture, scrollTextCoords);
+          // Update uniform
+          scrollPass.uniforms.scrollEffect.value = scroll.effect;
+        });
+
+        // Create text planes for all .text-plane elements
+        const textElements = document.querySelectorAll('.text-plane');
+
+        textElements.forEach(textElement => {
+          // Create plane for this text element
+          const textPlane = new Plane(curtains, textElement, {
+            vertexShader: textVertexShader,
+            fragmentShader: textFragmentShader,
+          });
+
+          // Create text texture
+          new TextTexture({
+            plane: textPlane,
+            textElement: textElement,
+            sampler: "uTexture",
+            resolution: 1.5,
+            skipFontLoading: true, // Already loaded fonts
+          });
+        });
+
+        // Mark as ready
+        document.body.classList.add('curtains-ready');
+        console.log('✅ Curtains.js text demo initialized');
+      })
+      .catch(error => {
+        console.error('Failed to load fonts:', error);
+        document.body.classList.add('no-curtains');
+      });
+  });
+
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    if (curtains) {
+      curtains.dispose();
     }
-`;
-
-const vs = `
-    #ifdef GL_FRAGMENT_PRECISION_HIGH
-    precision highp float;
-    #else
-    precision mediump float;
-    #endif
-
-    // default mandatory variables
-    attribute vec3 aVertexPosition;
-    attribute vec2 aTextureCoord;
-
-    uniform mat4 uMVMatrix;
-    uniform mat4 uPMatrix;
-
-    // custom variables
-    varying vec3 vVertexPosition;
-    varying vec2 vTextureCoord;
-
-    void main() {
-        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-
-        // varyings
-        vVertexPosition = aVertexPosition;
-        vTextureCoord = aTextureCoord;
-    }
-`;
-
-const fs = `
-    #ifdef GL_FRAGMENT_PRECISION_HIGH
-    precision highp float;
-    #else
-    precision mediump float;
-    #endif
-
-    varying vec3 vVertexPosition;
-    varying vec2 vTextureCoord;
-
-    uniform sampler2D uTexture;
-
-    void main( void ) {
-        gl_FragColor = texture2D(uTexture, vTextureCoord);
-    }
-`;
-
-window.addEventListener('load', () => {
-    // create curtains instance
-    const curtains = new Curtains({
-        container: "canvas",
-        pixelRatio: Math.min(1.5, window.devicePixelRatio)
-    });
-
-    // track scroll values
-    const scroll = {
-        value: 0,
-        lastValue: 0,
-        effect: 0,
-    };
-
-    // on success
-    curtains.onSuccess(() => {
-        const fonts = {
-            list: [
-                'normal 400 1em "Archivo Black", sans-serif',
-                'normal 300 1em "Merriweather Sans", sans-serif',
-            ],
-            loaded: 0
-        };
-
-        // load the fonts first
-        fonts.list.forEach(font => {
-            document.fonts.load(font).then(() => {
-                fonts.loaded++;
-
-                if(fonts.loaded === fonts.list.length) {
-
-                    // create our shader pass
-                    const scrollPass = new ShaderPass(curtains, {
-                        fragmentShader: scrollFs,
-                        depth: false,
-                        uniforms: {
-                            scrollEffect: {
-                                name: "uScrollEffect",
-                                type: "1f",
-                                value: scroll.effect,
-                            },
-                            scrollStrength: {
-                                name: "uScrollStrength",
-                                type: "1f",
-                                value: 2.5,
-                            },
-                        }
-                    });
-
-                    // calculate the lerped scroll effect
-                    scrollPass.onRender(() => {
-                        scroll.lastValue = scroll.value;
-                        scroll.value = curtains.getScrollValues().y;
-
-                        // clamp delta
-                        scroll.delta = Math.max(-30, Math.min(30, scroll.lastValue - scroll.value));
-
-                        scroll.effect = curtains.lerp(scroll.effect, scroll.delta, 0.05);
-                        scrollPass.uniforms.scrollEffect.value = scroll.effect;
-                    });
-
-                    // create our text planes
-                    const textEls = document.querySelectorAll('.text-plane');
-                    textEls.forEach(textEl => {
-                        const textPlane = new Plane(curtains, textEl, {
-                            vertexShader: vs,
-                            fragmentShader: fs
-                        });
-
-                        // create the text texture and... that's it!
-                        const textTexture = new TextTexture({
-                            plane: textPlane,
-                            textElement: textPlane.htmlElement,
-                            sampler: "uTexture",
-                            resolution: 1.5,
-                            skipFontLoading: true, // we've already loaded the fonts
-                        });
-                    });
-                }
-            })
-        })
-    });
+  });
 });
 </script>
 @endpush
