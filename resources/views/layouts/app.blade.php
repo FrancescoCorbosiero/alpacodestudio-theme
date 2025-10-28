@@ -14,6 +14,9 @@
     @php(wp_head())
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Component Styles Stack --}}
+    @stack('styles')
   </head>
 
   <body @php(body_class())>

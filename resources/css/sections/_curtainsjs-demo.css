@@ -1,0 +1,224 @@
+/**
+ * Curtains.js Text Demo Section
+ *
+ * Styles for the WebGL text rendering demo with scroll effects
+ */
+
+/* Main canvas container */
+.curtains-text-demo__canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content wrapper */
+.curtains-text-demo {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-sizing: border-box;
+  z-index: 2;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+  line-height: 1.2;
+  color: var(--color-primary, #0505AF);
+}
+
+/* Text plane elements - hide original text */
+.text-plane {
+  display: inline-block;
+
+  /* Apply negative margins and padding to avoid chars from being cropped */
+  margin: -1em;
+  padding: 1em;
+
+  /* Hide the original text content - WebGL will render it */
+  opacity: 0;
+}
+
+/* Main heading */
+.curtains-text-demo__title {
+  text-align: center;
+  margin: clamp(15vh, 25vh, 30vh) 0;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  text-transform: uppercase;
+  font-family: 'Archivo Black', var(--font-display, sans-serif);
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Subtitle */
+.curtains-text-demo__subtitle {
+  width: min(50%, 600px);
+  margin: clamp(10vh, 15vh, 20vh) 0 clamp(10vh, 15vh, 20vh) auto;
+  margin-left: 50%;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  text-transform: uppercase;
+  font-family: 'Archivo Black', var(--font-display, sans-serif);
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Text blocks */
+.curtains-text-demo__block {
+  width: min(50%, 700px);
+  margin: clamp(10vh, 15vh, 20vh) 0;
+  font-size: clamp(0.9rem, 2vw, 1.25rem);
+
+  p {
+    margin-bottom: 1.5em;
+    line-height: 1.6;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* Specific positioning for text blocks */
+.curtains-text-demo__block--center {
+  margin-left: 25%;
+}
+
+.curtains-text-demo__block--right {
+  margin-left: 50%;
+}
+
+/* Dark theme support */
+[data-theme="dark"] {
+  .curtains-text-demo {
+    color: var(--color-text-primary, #e0e0e0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .curtains-text-demo {
+    /* Disable WebGL effects if user prefers reduced motion */
+    .text-plane {
+      opacity: 1;
+    }
+  }
+
+  .curtains-text-demo__canvas {
+    display: none;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .curtains-text-demo {
+    font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  }
+
+  .curtains-text-demo__title {
+    margin: 20vh 0;
+    font-size: clamp(1.75rem, 7vw, 3.5rem);
+  }
+
+  .curtains-text-demo__subtitle {
+    width: 60%;
+    margin-left: 40%;
+    font-size: clamp(1.25rem, 5vw, 2.5rem);
+  }
+
+  .curtains-text-demo__block {
+    width: 70%;
+  }
+
+  .curtains-text-demo__block--center {
+    margin-left: 15%;
+  }
+
+  .curtains-text-demo__block--right {
+    margin-left: 30%;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .curtains-text-demo {
+    padding: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(0.875rem, 3vw, 1rem);
+  }
+
+  .curtains-text-demo__title {
+    margin: 15vh 0;
+    font-size: clamp(1.5rem, 10vw, 2.5rem);
+  }
+
+  .curtains-text-demo__subtitle {
+    width: 100%;
+    margin-left: 0;
+    margin: 10vh 0;
+    font-size: clamp(1.125rem, 7vw, 1.75rem);
+  }
+
+  .curtains-text-demo__block {
+    width: 100%;
+    margin: 10vh 0;
+  }
+
+  .curtains-text-demo__block--center,
+  .curtains-text-demo__block--right {
+    margin-left: 0;
+  }
+
+  /* Show original text on very small screens */
+  .text-plane {
+    opacity: 1;
+  }
+
+  .curtains-text-demo__canvas {
+    display: none;
+  }
+}
+
+/* Performance optimization */
+.curtains-text-demo__canvas,
+.text-plane {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Loading state */
+.curtains-text-demo--loading {
+  .text-plane {
+    animation: textFadeIn 0.6s ease-out forwards;
+    animation-delay: 0.3s;
+  }
+}
+
+@keyframes textFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* WebGL ready state */
+.curtains-ready .curtains-text-demo {
+  .text-plane {
+    opacity: 0; /* Hide original text when WebGL is ready */
+  }
+}
+
+/* No WebGL fallback */
+.no-curtains .curtains-text-demo {
+  .text-plane {
+    opacity: 1; /* Show original text */
+  }
+
+  .curtains-text-demo__canvas {
+    display: none;
+  }
+}
