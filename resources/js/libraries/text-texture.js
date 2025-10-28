@@ -24,6 +24,10 @@ export class TextTexture {
     this.resolution = options.resolution || 1.5;
     this.skipFontLoading = options.skipFontLoading || false;
 
+    // Track initialization state
+    this.isInitialized = false;
+    this.updateCount = 0;
+
     if (!this.plane) {
       console.error('TextTexture: Plane is required');
       return;
@@ -60,7 +64,10 @@ export class TextTexture {
     // Create texture from canvas
     this.createTexture();
 
-    // Set up resize observer
+    // Mark as initialized AFTER first render
+    this.isInitialized = true;
+
+    // Set up resize observer (with debouncing)
     this.observeResize();
   }
 
@@ -153,10 +160,17 @@ export class TextTexture {
     // Restore context state
     ctx.restore();
 
-    // Debug: Save canvas to window for inspection
-    if (!window.textCanvases) window.textCanvases = [];
-    window.textCanvases.push(this.canvas);
-    console.log('🖼️ Canvas saved to window.textCanvases[' + (window.textCanvases.length - 1) + ']');
+    // Track update count
+    this.updateCount++;
+
+    // Debug: Save canvas to window for inspection (ONLY on first render)
+    if (!this.isInitialized) {
+      if (!window.textCanvases) window.textCanvases = [];
+      window.textCanvases.push(this.canvas);
+      console.log('🖼️ Canvas saved to window.textCanvases[' + (window.textCanvases.length - 1) + '] - FIRST RENDER');
+    } else {
+      console.log(`♻️ Canvas updated (update #${this.updateCount})`);
+    }
   }
 
   /**
@@ -232,22 +246,37 @@ export class TextTexture {
    * Update texture with new content
    */
   update() {
+    if (!this.isInitialized) {
+      console.warn('⚠️ Attempted to update before initialization complete');
+      return;
+    }
+
+    console.log('🔄 Updating TextTexture...');
+
     this.updateCanvasSize();
     this.renderTextToCanvas();
 
     if (this.texture) {
       this.texture.needUpdate();
+      console.log('✅ Texture updated');
     }
   }
 
   /**
-   * Observe element size changes
+   * Observe element size changes (with debouncing)
    */
   observeResize() {
     if (!window.ResizeObserver) return;
 
+    let resizeTimeout;
+
     this.resizeObserver = new ResizeObserver(() => {
-      this.update();
+      // Debounce resize events - only update after 250ms of no resizing
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        console.log('📏 ResizeObserver triggered - updating texture');
+        this.update();
+      }, 250);
     });
 
     this.resizeObserver.observe(this.textElement);
