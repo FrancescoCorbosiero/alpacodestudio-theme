@@ -17,6 +17,9 @@ import { GSAPUtils } from './utilities.js'
 // Vanta.js - Import effect from src
 import VantaWaves from 'vanta/src/vanta.waves'
 
+// Curtains.js - WebGL library
+import { initCurtains, getCurtains } from './curtains-init.js'
+
 //import "splitting/dist/splitting.css";
 //import "splitting/dist/splitting-cells.css";
 //import Splitting from "splitting";
@@ -147,6 +150,37 @@ export function initVanta(selector = '#vanta-bg') {
 }
 
 /**
+ * Initialize Curtains.js WebGL Library
+ * @param {string} container - Container selector for Curtains canvas
+ * @returns {Curtains} Curtains instance
+ */
+export function initCurtainsJS(container = 'body') {
+  try {
+    const curtains = initCurtains(container)
+
+    if (curtains) {
+      console.log('✅ Curtains.js initialized')
+
+      // Make globally available for debugging
+      window.Curtains = curtains
+
+      return curtains
+    }
+  } catch (error) {
+    console.error('❌ Failed to initialize Curtains.js:', error)
+    return null
+  }
+}
+
+/**
+ * Get Curtains.js instance
+ * @returns {Curtains} Curtains instance
+ */
+export function getCurtainsJS() {
+  return getCurtains()
+}
+
+/**
  * Initialize Splitting.js
 export function initSplitting() {
   Splitting();
@@ -184,6 +218,9 @@ export function initAllLibraries() {
   // Media libraries
   initSwipers()
   initPhotoSwipe()
+
+  // WebGL libraries
+  initCurtainsJS()
 
   //initSplitting()
 
