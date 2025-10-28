@@ -124,26 +124,41 @@ function initCurtainsTextDemo() {
 
         console.log(`📝 Found ${textElements.length} text elements to render`);
 
-        textElements.forEach(textElement => {
+        textElements.forEach((textElement, index) => {
+          console.log(`Creating plane ${index + 1} for:`, textElement.textContent.substring(0, 50) + '...');
+
           // Create plane for this text element
           const textPlane = new Plane(curtainsInstance, textElement, {
             vertexShader: textVertexShader,
             fragmentShader: textFragmentShader,
           });
 
+          console.log(`Plane ${index + 1} created:`, textPlane);
+
           // Create text texture
-          new TextTexture({
+          const textTexture = new TextTexture({
             plane: textPlane,
             textElement: textElement,
             sampler: "uTexture",
             resolution: 1.5,
             skipFontLoading: true, // Already loaded fonts
           });
+
+          console.log(`TextTexture ${index + 1} created:`, textTexture);
+
+          // Log plane rendering
+          textPlane.onRender(() => {
+            if (index === 0) { // Only log first plane to avoid spam
+              console.log('Plane rendering, texture:', textPlane.textures);
+            }
+          });
         });
 
         // Mark as ready
         document.body.classList.add('curtains-ready');
         console.log('✅ Curtains.js text demo initialized successfully');
+        console.log('Canvas element:', curtainsInstance.canvas);
+        console.log('All planes:', curtainsInstance.planes);
       })
       .catch(error => {
         console.error('❌ Failed to load fonts:', error);
