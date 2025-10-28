@@ -24,6 +24,7 @@ import { initShowcaseAnimations } from './libraries/showcase-init'
 
 // Import section-specific modules
 import { initOrbitingHero } from './sections/orbiting-hero'
+import './sections/curtainsjs-demo' // Curtains.js text demo (auto-initializes)
 
 // Make Alpine & utilities available globally
 window.Alpine = Alpine
