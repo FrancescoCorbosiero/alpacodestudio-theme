@@ -8,6 +8,9 @@ import { Curtains, Plane, ShaderPass } from 'curtainsjs';
 import { TextTexture } from '../libraries/text-texture.js';
 import { textVertexShader, textFragmentShader, scrollTextFragmentShader } from '../libraries/curtains-effects.js';
 
+let curtainsInstance = null;
+let isInitialized = false;
+
 /**
  * Check if container has valid dimensions
  */
@@ -19,36 +22,32 @@ function hasValidDimensions(element) {
 /**
  * Initialize Curtains.js Text Demo
  */
-export function initCurtainsTextDemo() {
+function initCurtainsTextDemo() {
+  // Prevent multiple initializations
+  if (isInitialized) {
+    return;
+  }
+
+  const section = document.querySelector('.curtains-text-demo');
   const canvasContainer = document.getElementById('curtains-text-canvas');
 
-  // Exit if container doesn't exist
-  if (!canvasContainer) {
+  // Exit if elements don't exist
+  if (!section || !canvasContainer) {
     return;
   }
 
   // Check if container has valid dimensions
   if (!hasValidDimensions(canvasContainer)) {
-    console.warn('⚠️ Canvas container has zero dimensions, delaying initialization...');
-
-    // Wait for layout to complete
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        if (hasValidDimensions(canvasContainer)) {
-          initCurtainsTextDemo();
-        } else {
-          console.error('❌ Canvas container still has zero dimensions after delay');
-          document.body.classList.add('no-curtains');
-        }
-      });
-    });
+    console.warn('⚠️ Canvas container has zero dimensions, cannot initialize');
+    document.body.classList.add('no-curtains');
     return;
   }
 
   console.log('🎨 Initializing Curtains.js text demo...');
+  isInitialized = true;
 
   // Create Curtains instance
-  const curtains = new Curtains({
+  curtainsInstance = new Curtains({
     container: canvasContainer,
     pixelRatio: Math.min(1.5, window.devicePixelRatio),
     watchScroll: true,
@@ -65,13 +64,14 @@ export function initCurtainsTextDemo() {
   };
 
   // Handle errors
-  curtains.onError(() => {
+  curtainsInstance.onError(() => {
     console.error('❌ Curtains.js text demo error - falling back to regular text');
     document.body.classList.add('no-curtains');
+    isInitialized = false;
   });
 
   // On successful initialization
-  curtains.onSuccess(() => {
+  curtainsInstance.onSuccess(() => {
     // Define fonts to load
     const fonts = [
       'normal 900 1em "Archivo Black", sans-serif',
@@ -82,7 +82,7 @@ export function initCurtainsTextDemo() {
     Promise.all(fonts.map(font => document.fonts.load(font)))
       .then(() => {
         // Create scroll effect shader pass
-        const scrollPass = new ShaderPass(curtains, {
+        const scrollPass = new ShaderPass(curtainsInstance, {
           fragmentShader: scrollTextFragmentShader,
           depth: false,
           uniforms: {
@@ -102,29 +102,31 @@ export function initCurtainsTextDemo() {
         // Update scroll effect on each frame
         scrollPass.onRender(() => {
           scroll.lastValue = scroll.value;
-          scroll.value = curtains.getScrollValues().y;
+          scroll.value = curtainsInstance.getScrollValues().y;
 
           // Clamp delta for smooth effect
           scroll.delta = Math.max(-30, Math.min(30, scroll.lastValue - scroll.value));
 
           // Lerp for smooth transitions
-          scroll.effect = curtains.lerp(scroll.effect, scroll.delta, 0.05);
+          scroll.effect = curtainsInstance.lerp(scroll.effect, scroll.delta, 0.05);
 
           // Update uniform
           scrollPass.uniforms.scrollEffect.value = scroll.effect;
         });
 
         // Create text planes for all .text-plane elements
-        const textElements = document.querySelectorAll('.text-plane');
+        const textElements = document.querySelectorAll('.curtains-text-demo .text-plane');
 
         if (textElements.length === 0) {
           console.warn('⚠️ No .text-plane elements found');
           return;
         }
 
+        console.log(`📝 Found ${textElements.length} text elements to render`);
+
         textElements.forEach(textElement => {
           // Create plane for this text element
-          const textPlane = new Plane(curtains, textElement, {
+          const textPlane = new Plane(curtainsInstance, textElement, {
             vertexShader: textVertexShader,
             fragmentShader: textFragmentShader,
           });
@@ -151,8 +153,10 @@ export function initCurtainsTextDemo() {
 
   // Cleanup on page unload
   const cleanup = () => {
-    if (curtains) {
-      curtains.dispose();
+    if (curtainsInstance) {
+      curtainsInstance.dispose();
+      curtainsInstance = null;
+      isInitialized = false;
       console.log('🧹 Curtains.js text demo cleaned up');
     }
   };
@@ -163,13 +167,57 @@ export function initCurtainsTextDemo() {
   return cleanup;
 }
 
-// Auto-initialize when DOM is ready and layout is complete
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    // Small delay to ensure layout is complete
-    setTimeout(initCurtainsTextDemo, 100);
+/**
+ * Setup IntersectionObserver to initialize when section is visible
+ */
+function setupObserver() {
+  const section = document.querySelector('.curtains-text-demo');
+
+  if (!section) {
+    return;
+  }
+
+  // Skip initialization on small screens or reduced motion
+  const isMobile = window.matchMedia('(max-width: 640px)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (isMobile || prefersReducedMotion) {
+    console.log('📱 Skipping Curtains.js init (mobile or reduced motion)');
+    document.body.classList.add('no-curtains');
+    return;
+  }
+
+  // Use IntersectionObserver to detect when section enters viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !isInitialized) {
+        console.log('📍 Curtains demo section is visible, initializing...');
+
+        // Give it a moment for layout to settle
+        setTimeout(() => {
+          initCurtainsTextDemo();
+        }, 300);
+
+        // Unobserve after initialization attempt
+        observer.unobserve(section);
+      }
+    });
+  }, {
+    threshold: 0.1, // Trigger when 10% visible
+    rootMargin: '100px' // Start loading a bit before it's visible
   });
+
+  observer.observe(section);
+}
+
+// Wait for page to be fully loaded (after loader disappears)
+if (document.readyState === 'complete') {
+  // Page already loaded
+  setupObserver();
 } else {
-  // DOM already loaded, still wait for layout
-  setTimeout(initCurtainsTextDemo, 100);
+  // Wait for load event
+  window.addEventListener('load', () => {
+    // Extra delay to ensure page loader has finished
+    setTimeout(setupObserver, 500);
+  }, { once: true });
 }

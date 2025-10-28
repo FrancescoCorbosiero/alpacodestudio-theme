@@ -9,6 +9,8 @@
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100vw;
   height: 100vh;
   min-width: 100vw;
@@ -17,6 +19,14 @@
   pointer-events: none;
   visibility: visible;
   opacity: 1;
+  display: block;
+}
+
+/* Ensure canvas element inside has proper size */
+.curtains-text-demo__canvas > canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 /* Content wrapper */
@@ -34,7 +44,7 @@
   color: var(--color-primary, #0505AF);
 }
 
-/* Text plane elements - hide original text */
+/* Text plane elements */
 .text-plane {
   display: inline-block;
 
@@ -42,7 +52,13 @@
   margin: -1em;
   padding: 1em;
 
-  /* Hide the original text content - WebGL will render it */
+  /* Keep text visible initially */
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide text only when Curtains is ready */
+.curtains-ready .text-plane {
   opacity: 0;
 }
 
@@ -103,15 +119,13 @@
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .curtains-text-demo {
-    /* Disable WebGL effects if user prefers reduced motion */
-    .text-plane {
-      opacity: 1;
-    }
+  /* Disable WebGL effects if user prefers reduced motion */
+  .curtains-text-demo .text-plane {
+    opacity: 1 !important;
   }
 
   .curtains-text-demo__canvas {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -174,13 +188,13 @@
     margin-left: 0;
   }
 
-  /* Show original text on very small screens */
+  /* Show original text on very small screens - disable WebGL */
   .text-plane {
-    opacity: 1;
+    opacity: 1 !important;
   }
 
   .curtains-text-demo__canvas {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -211,20 +225,11 @@
   }
 }
 
-/* WebGL ready state */
-.curtains-ready .curtains-text-demo {
-  .text-plane {
-    opacity: 0; /* Hide original text when WebGL is ready */
-  }
+/* No WebGL fallback */
+.no-curtains .curtains-text-demo .text-plane {
+  opacity: 1 !important;
 }
 
-/* No WebGL fallback */
-.no-curtains .curtains-text-demo {
-  .text-plane {
-    opacity: 1; /* Show original text */
-  }
-
-  .curtains-text-demo__canvas {
-    display: none;
-  }
+.no-curtains .curtains-text-demo__canvas {
+  display: none !important;
 }
