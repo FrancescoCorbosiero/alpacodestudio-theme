@@ -77,6 +77,15 @@ export class TextTexture {
     // Store dimensions
     this.width = rect.width;
     this.height = rect.height;
+
+    console.log('📐 TextTexture canvas size:', {
+      width: this.canvas.width,
+      height: this.canvas.height,
+      elementWidth: rect.width,
+      elementHeight: rect.height,
+      dpr,
+      resolution: this.resolution
+    });
   }
 
   /**
@@ -118,6 +127,15 @@ export class TextTexture {
     const padding = 20;
     let y = padding;
 
+    console.log('✏️ Drawing text:', {
+      lines: lines.length,
+      font: ctx.font,
+      fillStyle: ctx.fillStyle,
+      textAlign: ctx.textAlign,
+      lineHeight,
+      firstLine: lines[0]?.substring(0, 50)
+    });
+
     lines.forEach(line => {
       let x = padding;
 
@@ -134,6 +152,11 @@ export class TextTexture {
 
     // Restore context state
     ctx.restore();
+
+    // Debug: Save canvas to window for inspection
+    if (!window.textCanvases) window.textCanvases = [];
+    window.textCanvases.push(this.canvas);
+    console.log('🖼️ Canvas saved to window.textCanvases[' + (window.textCanvases.length - 1) + ']');
   }
 
   /**
@@ -176,7 +199,17 @@ export class TextTexture {
    * Create Curtains texture from canvas
    */
   createTexture() {
-    if (!this.plane) return;
+    if (!this.plane) {
+      console.error('❌ No plane available for texture creation');
+      return;
+    }
+
+    console.log('🎨 Creating texture with:', {
+      sampler: this.sampler,
+      canvasWidth: this.canvas.width,
+      canvasHeight: this.canvas.height,
+      hasCanvasData: this.canvas.width > 0 && this.canvas.height > 0
+    });
 
     // Create texture using Curtains
     this.texture = this.plane.createTexture({
@@ -184,9 +217,14 @@ export class TextTexture {
       fromTexture: this.canvas,
     });
 
+    console.log('📦 Texture created:', this.texture);
+
     // Initial texture update
     if (this.texture) {
       this.texture.needUpdate();
+      console.log('✅ Texture update triggered');
+    } else {
+      console.error('❌ Texture creation failed');
     }
   }
 
