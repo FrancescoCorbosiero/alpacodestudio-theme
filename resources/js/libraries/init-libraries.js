@@ -18,7 +18,7 @@ import { GSAPUtils } from './utilities.js'
 import VantaWaves from 'vanta/src/vanta.waves'
 
 // Curtains.js - WebGL library
-import { initCurtains, getCurtains } from './curtains-init.js'
+//import { initCurtains, getCurtains } from './curtains-init.js'
 
 //import "splitting/dist/splitting.css";
 //import "splitting/dist/splitting-cells.css";

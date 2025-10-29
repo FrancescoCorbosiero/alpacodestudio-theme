@@ -14,13 +14,4 @@
 
 @section('content')
 
-  @include('sections.curtainsjs-demo')
-
-  @include('sections.hero')
-  @include('sections.features')
-  @include('sections.pricing-preview')
-  @include('sections.social-proof')
-  @include('sections.value-proposition')
-  @include('sections.final-cta')
-
 @endsection
