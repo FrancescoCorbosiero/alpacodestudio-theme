@@ -1,35 +1,41 @@
-{{-- Alpacode Orbiting Hero - Advanced 3D Ecosystem --}}
-<section id="about" class="orbiting-hero" aria-label="Chi Siamo">
-  <div class="wrapper">
-    {{-- Main Content --}}
-    <div class="orbiting-hero__content">
-      <div class="orbiting-hero__text">
-        <h1 class="orbiting-hero__title">
-          Concentrati sulla tua attività,<br>
-          <span class="orbiting-hero__title-accent">al resto ci pensiamo noi</span>
-        </h1>
-        <p class="orbiting-hero__subtitle">
-          Siti web professionali per freelance, creator e piccole attività.<br>
-          Tutto quello che ti serve, in un unico ecosistema.
-        </p>
-        <div class="orbiting-hero__actions">
-          <a href="/contatti" class="button button--primary button--lg">
-            <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-              <path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7l-9-5z"/>
-            </svg>
-            Inizia il tuo progetto
-          </a>
-          <a href="#servizi" class="button button--secondary button--lg">
-            <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/>
-            </svg>
-            Esplora i servizi
-          </a>
+{{-- Alpacode Orbiting Hero - Advanced 3D Ecosystem with Parallax --}}
+<x-parallax-section
+  :speed="0.3"
+  :layers="[
+    ['speed' => 0.2, 'class' => 'parallax-layer-ecosystem']
+  ]"
+>
+  <section id="about" class="orbiting-hero" aria-label="Chi Siamo">
+    <div class="wrapper">
+      {{-- Main Content --}}
+      <div class="orbiting-hero__content">
+        <div class="orbiting-hero__text">
+          <h1 class="orbiting-hero__title">
+            Concentrati sulla tua attività,<br>
+            <span class="orbiting-hero__title-accent">al resto ci pensiamo noi</span>
+          </h1>
+          <p class="orbiting-hero__subtitle">
+            Siti web professionali per freelance, creator e piccole attività.<br>
+            Tutto quello che ti serve, in un unico ecosistema.
+          </p>
+          <div class="orbiting-hero__actions">
+            <a href="/contatti" class="button button--primary button--lg">
+              <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7l-9-5z"/>
+              </svg>
+              Inizia il tuo progetto
+            </a>
+            <a href="#servizi" class="button button--secondary button--lg">
+              <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/>
+              </svg>
+              Esplora i servizi
+            </a>
+          </div>
         </div>
-      </div>
 
-      {{-- Orbital Ecosystem - 3D Interactive --}}
-      <div class="orbiting-hero__ecosystem">
+        {{-- Orbital Ecosystem - 3D Interactive --}}
+        <div class="orbiting-hero__ecosystem parallax-layer-ecosystem">
         {{-- Center Core --}}
         <div class="ecosystem__core">
           <div class="ecosystem__logo">
@@ -184,10 +190,11 @@
 
         {{-- Particle effects container (dynamically filled by JS) --}}
         <div class="ecosystem__particles" aria-hidden="true"></div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</x-parallax-section>
 
 {{--
   Enhanced Orbiting Hero Section
@@ -195,7 +202,7 @@
   Features:
   - Advanced GSAP animations with 3D transforms
   - Mouse parallax for immersive depth
-  - Scroll-triggered parallax effects
+  - Scroll-triggered parallax via parallax-section component
   - Dynamic connection lines on hover
   - Particle system for ambient effects
   - Fully responsive and accessible

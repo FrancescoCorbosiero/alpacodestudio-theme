@@ -189,36 +189,10 @@ export function initOrbitingHero() {
   }
 
   // ═══════════════════════════════════════════════════
-  // SCROLL-TRIGGERED PARALLAX
+  // SCROLL PARALLAX - Handled by parallax-section component
   // ═══════════════════════════════════════════════════
-
-  function initScrollParallax() {
-    gsap.to(ecosystem, {
-      y: 100,
-      scale: 0.95,
-      opacity: 0.8,
-      scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-      }
-    })
-
-    // Parallax orbits at different speeds
-    orbits.forEach((orbit, index) => {
-      gsap.to(orbit, {
-        y: (index + 1) * 50,
-        rotation: (index % 2 === 0 ? 180 : -180),
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.5,
-        }
-      })
-    })
-  }
+  // The parallax-section.blade.php component handles scroll-based
+  // parallax effects using GSAPUtils.parallax() automatically
 
   // ═══════════════════════════════════════════════════
   // DYNAMIC CONNECTION LINES
@@ -489,7 +463,6 @@ export function initOrbitingHero() {
 
   initEntranceAnimations()
   initMouseParallax()
-  initScrollParallax()
   setupConnectionLines()
   setupHoverInteractions()
   initParticleSystem()
