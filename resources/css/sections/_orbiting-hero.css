@@ -5,91 +5,144 @@
 
   .orbiting-hero {
     position: relative;
-    min-height: 100vh;
+    min-height: clamp(80vh, 100vh, 120vh);
     display: flex;
     align-items: center;
     overflow: hidden;
     background: var(--color-surface-base);
     padding: 0;
-    perspective: 1500px;
+    perspective: clamp(1200px, 150vw, 2000px);
+    isolation: isolate;
   }
 
-  /* Add subtle animated gradient background */
+  /* Premium animated gradient background */
   .orbiting-hero::before {
     content: '';
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      circle at 70% 50%,
+      circle at clamp(50%, 70%, 80%) 50%,
       color-mix(in oklch, var(--color-brand-primary), transparent 95%) 0%,
-      transparent 50%
+      color-mix(in oklch, var(--color-brand-secondary), transparent 97%) 40%,
+      transparent 65%
     );
     opacity: 0.5;
     animation: breathe 8s ease-in-out infinite;
     pointer-events: none;
+    z-index: 0;
   }
 
   @keyframes breathe {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.05); }
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1) translateX(0);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.05) translateX(2%);
+    }
   }
 
-  /* Content Layout */
+  /* Ultra-responsive content grid with golden ratio */
   .orbiting-hero__content {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: var(--space-3xl);
+    grid-template-columns: minmax(clamp(280px, 35vw, 520px), 1fr) minmax(clamp(380px, 45vw, 800px), 1.618fr);
+    gap: clamp(2.5rem, 8vw + 1rem, 10rem);
     align-items: center;
     position: relative;
     z-index: var(--z-base);
-    padding: var(--space-3xl) 0;
+    /* Fluid spacing system */
+    padding-block: clamp(3rem, 5vh + 2rem, 12rem);
+    padding-inline: clamp(1.5rem, 3vw + 1rem, 6rem);
+    margin-block: clamp(0rem, 2vh, 4rem);
   }
 
-  /* Text Content */
+  /* Premium content wrapper with breathing space */
+  .orbiting-hero__content::before {
+    content: '';
+    position: absolute;
+    inset: clamp(-1rem, -2vw, -3rem);
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--color-brand-primary), transparent 98%) 0%,
+      transparent 30%,
+      color-mix(in oklch, var(--color-brand-secondary), transparent 97%) 100%
+    );
+    border-radius: clamp(1rem, 2vw, 3rem);
+    opacity: 0.3;
+    z-index: -1;
+    backdrop-filter: blur(clamp(20px, 3vw, 40px));
+  }
+
+  /* Text Content - Ultra fluid */
   .orbiting-hero__text {
-    max-width: 600px;
+    max-width: clamp(420px, 50vw, 640px);
   }
 
   .orbiting-hero__title {
-    font-size: var(--font-size-5xl);
+    font-size: clamp(2.5rem, 5vw + 1rem, 6rem);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
-    margin: 0 0 var(--space-md) 0;
+    margin: 0 0 clamp(1rem, 2vh, 2rem) 0;
     color: var(--color-text-primary);
+    letter-spacing: clamp(-0.03em, -0.01vw, -0.01em);
   }
 
   .orbiting-hero__title-accent {
     color: var(--color-brand-primary);
     display: inline-block;
+    background: linear-gradient(
+      135deg,
+      var(--color-brand-primary) 0%,
+      color-mix(in oklch, var(--color-brand-primary), var(--color-brand-secondary) 30%) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .orbiting-hero__subtitle {
-    font-size: var(--font-size-lg);
+    font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.75rem);
     line-height: var(--line-height-relaxed);
     color: var(--color-text-secondary);
-    margin: 0 0 var(--space-xl) 0;
+    margin: 0 0 clamp(1.5rem, 3vh, 3rem) 0;
+    max-width: clamp(380px, 45vw, 560px);
   }
 
   .orbiting-hero__actions {
     display: flex;
-    gap: var(--space-md);
+    gap: clamp(0.75rem, 2vw, 1.5rem);
     flex-wrap: wrap;
     margin: 0;
   }
 
   /* ═══════════════════════════════════════════════════
-     ECOSYSTEM VISUALIZATION - 3D Space
+     ECOSYSTEM VISUALIZATION - MASSIVE 3D Space with Overlay
      ═══════════════════════════════════════════════════ */
 
   .orbiting-hero__ecosystem {
     position: relative;
-    width: 650px;
-    height: 650px;
+    /* Ultra-fluid sizing - MASSIVE on desktop, scales down responsively */
+    width: clamp(340px, 80vw, 1200px);
+    height: clamp(340px, 80vw, 1200px);
     margin: 0 auto;
     transform-style: preserve-3d;
+    /* Allow visual overflow without scrollbars */
+    overflow: visible;
+    /* Premium visual depth */
+    filter: drop-shadow(0 clamp(20px, 3vw, 60px) clamp(40px, 5vw, 120px) color-mix(in oklch, var(--color-brand-primary), transparent 85%));
   }
 
-  /* Center Core Logo - Enhanced 3D */
+  /* Prevent horizontal overflow on container level */
+  .orbiting-hero__ecosystem::before {
+    content: '';
+    position: absolute;
+    inset: clamp(-5%, -10%, -15%);
+    pointer-events: none;
+    z-index: -2;
+  }
+
+  /* Center Core Logo - Enhanced 3D with fluid sizing */
   .ecosystem__core {
     position: absolute;
     top: 50%;
@@ -100,31 +153,31 @@
   }
 
   .ecosystem__logo {
-    width: 200px;
-    height: 200px;
+    width: clamp(120px, 15vw, 280px);
+    height: clamp(120px, 15vw, 280px);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--color-surface-raised);
     border-radius: var(--radius-full);
-    border: var(--border-width-thick) solid color-mix(in oklch, var(--color-brand-primary), transparent 70%);
+    border: clamp(2px, 0.3vw, 4px) solid color-mix(in oklch, var(--color-brand-primary), transparent 70%);
     overflow: visible;
     cursor: pointer;
     transition: all var(--duration-slow) var(--easing-spring);
     box-shadow:
       0 0 0 1px color-mix(in oklch, var(--color-brand-primary), transparent 90%),
-      0 20px 60px -15px color-mix(in oklch, var(--color-brand-primary), transparent 50%),
+      0 clamp(20px, 3vw, 40px) clamp(40px, 6vw, 80px) clamp(-15px, -2vw, -30px) color-mix(in oklch, var(--color-brand-primary), transparent 50%),
       inset 0 1px 0 0 color-mix(in oklch, var(--color-neutral-0), transparent 90%);
     transform-style: preserve-3d;
   }
 
   .ecosystem__logo:hover {
-    transform: scale(1.15) translateZ(30px);
+    transform: scale(1.15) translateZ(clamp(20px, 3vw, 40px));
     border-color: var(--color-brand-primary);
     box-shadow:
-      0 0 0 2px var(--color-brand-primary),
-      0 30px 80px -15px color-mix(in oklch, var(--color-brand-primary), transparent 30%),
+      0 0 0 clamp(2px, 0.3vw, 3px) var(--color-brand-primary),
+      0 clamp(30px, 4vw, 50px) clamp(60px, 8vw, 100px) clamp(-15px, -2vw, -30px) color-mix(in oklch, var(--color-brand-primary), transparent 30%),
       inset 0 1px 0 0 color-mix(in oklch, var(--color-neutral-0), transparent 80%);
   }
 
@@ -134,19 +187,19 @@
     object-fit: contain;
     position: relative;
     z-index: 2;
-    filter: drop-shadow(0 4px 12px color-mix(in oklch, var(--color-brand-primary), transparent 70%));
+    filter: drop-shadow(0 clamp(4px, 0.5vw, 8px) clamp(8px, 1vw, 16px) color-mix(in oklch, var(--color-brand-primary), transparent 70%));
   }
 
   .ecosystem__glow {
     position: absolute;
-    inset: -40px;
+    inset: clamp(-30px, -5vw, -60px);
     background: radial-gradient(
       circle,
       color-mix(in oklch, var(--color-brand-primary), transparent 40%) 0%,
       color-mix(in oklch, var(--color-brand-secondary), transparent 70%) 40%,
       transparent 70%
     );
-    filter: blur(30px);
+    filter: blur(clamp(20px, 3vw, 40px));
     animation: glowPulse 4s ease-in-out infinite;
     opacity: 0.8;
   }
@@ -163,7 +216,7 @@
   }
 
   /* ═══════════════════════════════════════════════════
-     ORBIT RINGS - Invisible Guides (No Visible Borders!)
+     ORBIT RINGS - Invisible Guides with Ultra-Responsive Sizing
      ═══════════════════════════════════════════════════ */
 
   .ecosystem__orbit {
@@ -177,21 +230,24 @@
     pointer-events: none;
   }
 
+  /* Inner orbit - closest to core */
   .ecosystem__orbit--1 {
-    width: 420px;
-    height: 420px;
+    width: clamp(260px, 50vw, 700px);
+    height: clamp(260px, 50vw, 700px);
     animation: rotateOrbit3D 40s linear infinite;
   }
 
+  /* Outer orbit - largest circle */
   .ecosystem__orbit--2 {
-    width: 540px;
-    height: 540px;
+    width: clamp(320px, 65vw, 950px);
+    height: clamp(320px, 65vw, 950px);
     animation: rotateOrbitReverse3D 60s linear infinite;
   }
 
+  /* Middle orbit */
   .ecosystem__orbit--3 {
-    width: 320px;
-    height: 320px;
+    width: clamp(200px, 40vw, 550px);
+    height: clamp(200px, 40vw, 550px);
     animation: rotateOrbit3D 35s linear infinite;
   }
 
@@ -228,18 +284,18 @@
   .orbit__badge {
     display: flex;
     align-items: center;
-    gap: var(--space-xs);
-    padding: var(--space-sm) var(--space-md);
+    gap: clamp(0.5rem, 1vw, 0.75rem);
+    padding: clamp(0.5rem, 1.5vw, 1rem) clamp(0.75rem, 2vw, 1.5rem);
     background: color-mix(in oklch, var(--color-surface-raised), transparent 10%);
-    border: 2px solid color-mix(in oklch, var(--color-brand-primary), transparent 80%);
+    border: clamp(1px, 0.2vw, 2px) solid color-mix(in oklch, var(--color-brand-primary), transparent 80%);
     border-radius: var(--radius-full);
-    backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(clamp(15px, 2vw, 25px)) saturate(180%);
     transition: all var(--duration-slow) var(--easing-spring);
     white-space: nowrap;
     position: relative;
     overflow: hidden;
     box-shadow:
-      0 2px 8px color-mix(in oklch, var(--color-neutral-1000), transparent 90%),
+      0 clamp(2px, 0.3vw, 4px) clamp(6px, 1vw, 10px) color-mix(in oklch, var(--color-neutral-1000), transparent 90%),
       inset 0 1px 0 color-mix(in oklch, var(--color-neutral-0), transparent 90%);
   }
 
@@ -273,21 +329,21 @@
   }
 
   .orbit__icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    stroke-width: 2.5;
+    width: clamp(1.125rem, 2vw, 1.75rem);
+    height: clamp(1.125rem, 2vw, 1.75rem);
+    stroke-width: clamp(2, 0.3vw, 2.5);
     color: var(--color-brand-primary);
     transition: all var(--duration-base) var(--easing-out);
-    filter: drop-shadow(0 0 4px color-mix(in oklch, var(--color-brand-primary), transparent 70%));
+    filter: drop-shadow(0 0 clamp(3px, 0.5vw, 6px) color-mix(in oklch, var(--color-brand-primary), transparent 70%));
   }
 
   .orbit__item:hover .orbit__icon {
     transform: rotate(15deg) scale(1.1);
-    filter: drop-shadow(0 0 8px color-mix(in oklch, var(--color-brand-primary), transparent 40%));
+    filter: drop-shadow(0 0 clamp(6px, 1vw, 10px) color-mix(in oklch, var(--color-brand-primary), transparent 40%));
   }
 
   .orbit__label {
-    font-size: var(--font-size-sm);
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
     transition: color var(--duration-base) var(--easing-out);
@@ -297,73 +353,74 @@
     color: var(--color-brand-primary);
   }
 
-  /* Orbit Item Positioning - Orbit 1 */
+  /* Orbit Item Positioning - Fluid and responsive */
+  /* Orbit 1 - Inner ring */
   .ecosystem__orbit--1 .orbit__item:nth-child(1) {
-    top: -25px;
+    top: clamp(-20px, -3vw, -30px);
     left: 50%;
     transform: translateX(-50%);
   }
 
   .ecosystem__orbit--1 .orbit__item:nth-child(2) {
     top: 50%;
-    right: -25px;
+    right: clamp(-20px, -3vw, -30px);
     transform: translateY(-50%);
   }
 
   .ecosystem__orbit--1 .orbit__item:nth-child(3) {
-    bottom: -25px;
+    bottom: clamp(-20px, -3vw, -30px);
     left: 50%;
     transform: translateX(-50%);
   }
 
   .ecosystem__orbit--1 .orbit__item:nth-child(4) {
     top: 50%;
-    left: -25px;
+    left: clamp(-20px, -3vw, -30px);
     transform: translateY(-50%);
   }
 
-  /* Orbit Item Positioning - Orbit 2 */
+  /* Orbit 2 - Outer ring */
   .ecosystem__orbit--2 .orbit__item:nth-child(1) {
-    top: 10%;
-    left: 10%;
+    top: clamp(8%, 10%, 12%);
+    left: clamp(8%, 10%, 12%);
   }
 
   .ecosystem__orbit--2 .orbit__item:nth-child(2) {
-    top: 10%;
-    right: 10%;
+    top: clamp(8%, 10%, 12%);
+    right: clamp(8%, 10%, 12%);
   }
 
   .ecosystem__orbit--2 .orbit__item:nth-child(3) {
-    bottom: 10%;
-    right: 10%;
+    bottom: clamp(8%, 10%, 12%);
+    right: clamp(8%, 10%, 12%);
   }
 
   .ecosystem__orbit--2 .orbit__item:nth-child(4) {
-    bottom: 10%;
-    left: 10%;
+    bottom: clamp(8%, 10%, 12%);
+    left: clamp(8%, 10%, 12%);
   }
 
   .ecosystem__orbit--2 .orbit__item:nth-child(5) {
     top: 50%;
-    left: -25px;
+    left: clamp(-20px, -3vw, -30px);
     transform: translateY(-50%);
   }
 
-  /* Orbit Item Positioning - Orbit 3 */
+  /* Orbit 3 - Middle ring */
   .ecosystem__orbit--3 .orbit__item:nth-child(1) {
-    top: -25px;
+    top: clamp(-20px, -3vw, -30px);
     left: 50%;
     transform: translateX(-50%);
   }
 
   .ecosystem__orbit--3 .orbit__item:nth-child(2) {
-    bottom: 20%;
-    right: 5%;
+    bottom: clamp(18%, 20%, 22%);
+    right: clamp(3%, 5%, 7%);
   }
 
   .ecosystem__orbit--3 .orbit__item:nth-child(3) {
-    bottom: 20%;
-    left: 5%;
+    bottom: clamp(18%, 20%, 22%);
+    left: clamp(3%, 5%, 7%);
   }
 
   /* Counter-rotation to keep text readable + 3D depth */
@@ -551,14 +608,15 @@
   }
 
   /* ═══════════════════════════════════════════════════
-     RESPONSIVE DESIGN
+     RESPONSIVE DESIGN - Ultra-Fluid with Strategic Breakpoints
      ═══════════════════════════════════════════════════ */
 
+  /* Tablet and below - Single column layout */
   @media (max-width: 1200px) {
     .orbiting-hero__content {
       grid-template-columns: 1fr;
       text-align: center;
-      gap: var(--space-2xl);
+      gap: clamp(2rem, 5vw, 4rem);
     }
 
     .orbiting-hero__text {
@@ -569,104 +627,83 @@
       justify-content: center;
     }
 
+    /* Ecosystem takes full visual space */
     .orbiting-hero__ecosystem {
-      width: 550px;
-      height: 550px;
+      /* Allow it to be even bigger on tablets where it's the focus */
+      max-width: 90vw;
     }
   }
 
+  /* Mobile landscape and portrait */
   @media (max-width: 768px) {
     .orbiting-hero__content {
-      padding: var(--space-2xl) 0;
+      padding-block: clamp(2rem, 4vh, 6rem);
     }
 
-    .orbiting-hero__ecosystem {
-      width: 450px;
-      height: 450px;
-    }
-
-    .ecosystem__logo {
-      width: 150px;
-      height: 150px;
-    }
-
-    .ecosystem__orbit--1 {
-      width: 320px;
-      height: 320px;
-    }
-
-    .ecosystem__orbit--2 {
-      width: 420px;
-      height: 420px;
-    }
-
-    .ecosystem__orbit--3 {
-      width: 240px;
-      height: 240px;
-    }
-
+    /* Hide labels on smaller screens for cleaner look */
     .orbit__label {
       display: none;
     }
 
     .orbit__badge {
-      padding: var(--space-sm);
+      padding: clamp(0.5rem, 2vw, 0.75rem);
       gap: 0;
     }
 
-    .orbit__icon {
-      width: 1.5rem;
-      height: 1.5rem;
+    /* Reduce particle count on mobile */
+    .particle:nth-child(n+8) {
+      display: none;
     }
   }
 
+  /* Small mobile devices */
   @media (max-width: 480px) {
     .orbiting-hero {
-      min-height: auto;
-      perspective: 1000px;
+      min-height: clamp(70vh, 85vh, 100vh);
     }
 
     .orbiting-hero__content {
-      padding: var(--space-xl) 0;
-    }
-
-    .orbiting-hero__ecosystem {
-      width: 340px;
-      height: 340px;
-    }
-
-    .ecosystem__logo {
-      width: 120px;
-      height: 120px;
-    }
-
-    .ecosystem__orbit--1 {
-      width: 260px;
-      height: 260px;
-    }
-
-    .ecosystem__orbit--2 {
-      width: 320px;
-      height: 320px;
-    }
-
-    .ecosystem__orbit--3 {
-      width: 200px;
-      height: 200px;
+      padding-block: clamp(1.5rem, 3vh, 4rem);
+      padding-inline: clamp(1rem, 2vw, 1.5rem);
     }
 
     .orbiting-hero__actions {
       flex-direction: column;
       width: 100%;
+      gap: clamp(0.75rem, 2vw, 1rem);
     }
 
     .button {
       width: 100%;
+      justify-content: center;
     }
 
-    /* Reduce 3D effects on mobile for performance */
+    /* Further simplify 3D on very small screens */
     .orbit__item:hover .orbit__badge {
-      transform: scale(1.1);
+      transform: scale(1.08);
+    }
+
+    /* Reduce glow intensity for performance */
+    .ecosystem__glow {
+      opacity: 0.5;
+    }
+
+    /* Fewer particles on small mobile */
+    .particle:nth-child(n+6) {
+      display: none;
+    }
+  }
+
+  /* Ultra-wide screens - prevent ecosystem from getting too large */
+  @media (min-width: 2000px) {
+    .orbiting-hero__ecosystem {
+      max-width: 1200px;
+      max-height: 1200px;
+    }
+
+    .orbiting-hero__content {
+      max-width: 1800px;
+      margin-inline: auto;
     }
   }
 
