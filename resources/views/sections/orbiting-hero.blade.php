@@ -1,9 +1,9 @@
-{{-- Alpacode Orbiting Hero Component --}}
+{{-- Alpacode Orbiting Hero - Advanced 3D Ecosystem --}}
 <section id="about" class="orbiting-hero" aria-label="Chi Siamo">
   <div class="wrapper">
     {{-- Main Content --}}
     <div class="orbiting-hero__content">
-      <div class="orbiting-hero__text" data-aos="fade-down">
+      <div class="orbiting-hero__text">
         <h1 class="orbiting-hero__title">
           Concentrati sulla tua attività,<br>
           <span class="orbiting-hero__title-accent">al resto ci pensiamo noi</span>
@@ -28,8 +28,8 @@
         </div>
       </div>
 
-      {{-- Orbital Ecosystem --}}
-      <div class="orbiting-hero__ecosystem" data-aos="fade-up" data-aos-delay="200">
+      {{-- Orbital Ecosystem - 3D Interactive --}}
+      <div class="orbiting-hero__ecosystem">
         {{-- Center Core --}}
         <div class="ecosystem__core">
           <div class="ecosystem__logo">
@@ -160,19 +160,46 @@
           </div>
         </div>
 
-        {{-- Connection Lines --}}
-        <svg class="ecosystem__connections" viewBox="0 0 600 600" aria-hidden="true">
+        {{-- Connection Lines SVG Canvas --}}
+        <svg class="ecosystem__connections" viewBox="0 0 650 650" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
           <defs>
+            {{-- Enhanced gradient for connection lines --}}
             <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="var(--color-brand-primary)" stop-opacity="0.3" />
-              <stop offset="100%" stop-color="var(--color-brand-primary)" stop-opacity="0" />
+              <stop offset="0%" stop-color="var(--color-brand-primary)" stop-opacity="0.8">
+                <animate attributeName="stop-opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite" />
+              </stop>
+              <stop offset="50%" stop-color="var(--color-brand-secondary)" stop-opacity="0.5" />
+              <stop offset="100%" stop-color="var(--color-brand-primary)" stop-opacity="0">
+                <animate attributeName="stop-opacity" values="0;0.2;0" dur="2s" repeatCount="indefinite" />
+              </stop>
             </linearGradient>
+
+            {{-- Glow filter for enhanced visual effect --}}
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
           </defs>
         </svg>
+
+        {{-- Particle effects container (dynamically filled by JS) --}}
+        <div class="ecosystem__particles" aria-hidden="true"></div>
       </div>
     </div>
   </div>
 </section>
 
-{{-- Styles for this section are in /resources/css/sections/_orbiting-hero.css --}}
-{{-- JavaScript for this section is in /resources/js/sections/orbiting-hero.js --}}
+{{--
+  Enhanced Orbiting Hero Section
+  ───────────────────────────────
+  Features:
+  - Advanced GSAP animations with 3D transforms
+  - Mouse parallax for immersive depth
+  - Scroll-triggered parallax effects
+  - Dynamic connection lines on hover
+  - Particle system for ambient effects
+  - Fully responsive and accessible
+
+  Styles: /resources/css/sections/_orbiting-hero.css
+  JavaScript: /resources/js/sections/orbiting-hero.js
+--}}
