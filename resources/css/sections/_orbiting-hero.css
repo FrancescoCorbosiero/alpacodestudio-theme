@@ -1,16 +1,37 @@
 @layer sections {
   /* ═══════════════════════════════════════════════════
-     ORBITING HERO - Interactive Ecosystem Visualization
+     ORBITING HERO - Advanced 3D Ecosystem Visualization
      ═══════════════════════════════════════════════════ */
 
   .orbiting-hero {
     position: relative;
-    min-height: 80vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     overflow: hidden;
     background: var(--color-surface-base);
     padding: var(--space-3xl) 0;
+    perspective: 1500px;
+  }
+
+  /* Add subtle animated gradient background */
+  .orbiting-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 70% 50%,
+      color-mix(in oklch, var(--color-brand-primary), transparent 95%) 0%,
+      transparent 50%
+    );
+    opacity: 0.5;
+    animation: breathe 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.05); }
   }
 
   /* Content Layout */
@@ -38,13 +59,14 @@
 
   .orbiting-hero__title-accent {
     color: var(--color-brand-primary);
+    display: inline-block;
   }
 
   .orbiting-hero__subtitle {
     font-size: var(--font-size-lg);
     line-height: var(--line-height-relaxed);
     color: var(--color-text-secondary);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-xl);
   }
 
   .orbiting-hero__actions {
@@ -54,76 +76,92 @@
   }
 
   /* ═══════════════════════════════════════════════════
-     ECOSYSTEM VISUALIZATION
+     ECOSYSTEM VISUALIZATION - 3D Space
      ═══════════════════════════════════════════════════ */
 
   .orbiting-hero__ecosystem {
     position: relative;
-    width: 600px;
-    height: 600px;
+    width: 650px;
+    height: 650px;
     margin: 0 auto;
+    transform-style: preserve-3d;
   }
 
-  /* Center Core Logo */
+  /* Center Core Logo - Enhanced 3D */
   .ecosystem__core {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: var(--z-dropdown);
+    transform-style: preserve-3d;
   }
 
   .ecosystem__logo {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--color-surface-raised);
     border-radius: var(--radius-full);
-    border: var(--border-width-medium) solid color-mix(in oklch, var(--color-brand-primary), transparent 70%);
-    overflow: hidden;
+    border: var(--border-width-thick) solid color-mix(in oklch, var(--color-brand-primary), transparent 70%);
+    overflow: visible;
     cursor: pointer;
-    transition: all var(--duration-slow) var(--easing-out);
+    transition: all var(--duration-slow) var(--easing-spring);
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--color-brand-primary), transparent 90%),
+      0 20px 60px -15px color-mix(in oklch, var(--color-brand-primary), transparent 50%),
+      inset 0 1px 0 0 color-mix(in oklch, var(--color-neutral-0), transparent 90%);
+    transform-style: preserve-3d;
   }
 
   .ecosystem__logo:hover {
-    transform: scale(1.1);
+    transform: scale(1.15) translateZ(30px);
     border-color: var(--color-brand-primary);
+    box-shadow:
+      0 0 0 2px var(--color-brand-primary),
+      0 30px 80px -15px color-mix(in oklch, var(--color-brand-primary), transparent 30%),
+      inset 0 1px 0 0 color-mix(in oklch, var(--color-neutral-0), transparent 80%);
   }
 
   .ecosystem__logo-image {
-    width: 80%;
-    height: 80%;
+    width: 70%;
+    height: 70%;
     object-fit: contain;
     position: relative;
     z-index: 2;
+    filter: drop-shadow(0 4px 12px color-mix(in oklch, var(--color-brand-primary), transparent 70%));
   }
 
   .ecosystem__glow {
     position: absolute;
-    inset: -20px;
+    inset: -40px;
     background: radial-gradient(
       circle,
-      color-mix(in oklch, var(--color-brand-primary), transparent 60%) 0%,
+      color-mix(in oklch, var(--color-brand-primary), transparent 40%) 0%,
+      color-mix(in oklch, var(--color-brand-secondary), transparent 70%) 40%,
       transparent 70%
     );
-    filter: blur(20px);
-    animation: pulse 3s ease-in-out infinite;
+    filter: blur(30px);
+    animation: glowPulse 4s ease-in-out infinite;
+    opacity: 0.8;
   }
 
-  @keyframes pulse {
+  @keyframes glowPulse {
     0%, 100% {
       opacity: 0.6;
+      transform: scale(1) rotate(0deg);
     }
     50% {
       opacity: 1;
+      transform: scale(1.1) rotate(180deg);
     }
   }
 
   /* ═══════════════════════════════════════════════════
-     ORBIT RINGS
+     ORBIT RINGS - 3D Perspective
      ═══════════════════════════════════════════════════ */
 
   .ecosystem__orbit {
@@ -132,79 +170,148 @@
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: var(--radius-full);
-    border: 1px dashed color-mix(in oklch, var(--color-text-primary), transparent 90%);
+    border: 2px solid transparent;
+    background:
+      linear-gradient(var(--color-surface-base), var(--color-surface-base)) padding-box,
+      linear-gradient(
+        135deg,
+        color-mix(in oklch, var(--color-brand-primary), transparent 85%) 0%,
+        color-mix(in oklch, var(--color-brand-secondary), transparent 90%) 50%,
+        color-mix(in oklch, var(--color-brand-primary), transparent 85%) 100%
+      ) border-box;
+    transform-style: preserve-3d;
+    box-shadow: 0 0 20px color-mix(in oklch, var(--color-brand-primary), transparent 90%);
+  }
+
+  .ecosystem__orbit::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: inherit;
+    opacity: 0.5;
+    filter: blur(4px);
+    z-index: -1;
   }
 
   .ecosystem__orbit--1 {
-    width: 400px;
-    height: 400px;
-    animation: rotateOrbit 40s linear infinite;
+    width: 420px;
+    height: 420px;
+    animation: rotateOrbit3D 40s linear infinite;
   }
 
   .ecosystem__orbit--2 {
-    width: 500px;
-    height: 500px;
-    animation: rotateOrbitReverse 60s linear infinite;
+    width: 540px;
+    height: 540px;
+    animation: rotateOrbitReverse3D 60s linear infinite;
   }
 
   .ecosystem__orbit--3 {
-    width: 300px;
-    height: 300px;
-    animation: rotateOrbit 30s linear infinite;
+    width: 320px;
+    height: 320px;
+    animation: rotateOrbit3D 35s linear infinite;
   }
 
-  @keyframes rotateOrbit {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+  @keyframes rotateOrbit3D {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg) rotateY(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg) rotateY(20deg);
+    }
   }
 
-  @keyframes rotateOrbitReverse {
-    from { transform: translate(-50%, -50%) rotate(360deg); }
-    to { transform: translate(-50%, -50%) rotate(0deg); }
+  @keyframes rotateOrbitReverse3D {
+    from {
+      transform: translate(-50%, -50%) rotate(360deg) rotateY(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(0deg) rotateY(-20deg);
+    }
   }
 
   /* ═══════════════════════════════════════════════════
-     ORBIT ITEMS
+     ORBIT ITEMS - Enhanced 3D Badges
      ═══════════════════════════════════════════════════ */
 
   .orbit__item {
     position: absolute;
     cursor: pointer;
     transition: all var(--duration-base) var(--easing-out);
+    transform-style: preserve-3d;
+    filter: drop-shadow(0 4px 8px color-mix(in oklch, var(--color-neutral-1000), transparent 85%));
   }
 
   .orbit__badge {
     display: flex;
     align-items: center;
     gap: var(--space-xs);
-    padding: var(--space-sm) var(--space-lg);
-    background: var(--color-surface-raised);
-    border: 1px solid color-mix(in oklch, var(--color-text-primary), transparent 90%);
+    padding: var(--space-sm) var(--space-md);
+    background: color-mix(in oklch, var(--color-surface-raised), transparent 10%);
+    border: 2px solid color-mix(in oklch, var(--color-brand-primary), transparent 80%);
     border-radius: var(--radius-full);
-    backdrop-filter: blur(10px);
-    transition: all var(--duration-base) var(--easing-out);
+    backdrop-filter: blur(20px) saturate(180%);
+    transition: all var(--duration-slow) var(--easing-spring);
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 2px 8px color-mix(in oklch, var(--color-neutral-1000), transparent 90%),
+      inset 0 1px 0 color-mix(in oklch, var(--color-neutral-0), transparent 90%);
+  }
+
+  /* Shimmer effect on badges */
+  .orbit__badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      color-mix(in oklch, var(--color-brand-primary), transparent 90%) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%) skewX(-15deg);
+    transition: transform var(--duration-slow) var(--easing-out);
+  }
+
+  .orbit__item:hover .orbit__badge::before {
+    transform: translateX(100%) skewX(-15deg);
   }
 
   .orbit__item:hover .orbit__badge {
-    transform: scale(1.1);
+    transform: scale(1.15) translateZ(20px);
     border-color: var(--color-brand-primary);
-    background: color-mix(in oklch, var(--color-brand-primary), transparent 90%);
-    box-shadow: var(--shadow-md);
+    background: color-mix(in oklch, var(--color-brand-primary), transparent 85%);
+    box-shadow:
+      0 8px 24px color-mix(in oklch, var(--color-brand-primary), transparent 60%),
+      0 0 0 1px var(--color-brand-primary),
+      inset 0 1px 0 color-mix(in oklch, var(--color-neutral-0), transparent 80%);
   }
 
   .orbit__icon {
     width: 1.25rem;
     height: 1.25rem;
-    stroke-width: 2;
+    stroke-width: 2.5;
     color: var(--color-brand-primary);
-    transition: color var(--duration-base) var(--easing-out);
+    transition: all var(--duration-base) var(--easing-out);
+    filter: drop-shadow(0 0 4px color-mix(in oklch, var(--color-brand-primary), transparent 70%));
+  }
+
+  .orbit__item:hover .orbit__icon {
+    transform: rotate(15deg) scale(1.1);
+    filter: drop-shadow(0 0 8px color-mix(in oklch, var(--color-brand-primary), transparent 40%));
   }
 
   .orbit__label {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
+    transition: color var(--duration-base) var(--easing-out);
+  }
+
+  .orbit__item:hover .orbit__label {
+    color: var(--color-brand-primary);
   }
 
   /* Orbit Item Positioning - Orbit 1 */
@@ -276,39 +383,65 @@
     left: 5%;
   }
 
-  /* Counter-rotation to keep text readable */
+  /* Counter-rotation to keep text readable + 3D depth */
   .ecosystem__orbit--1 .orbit__item {
-    animation: counterRotate 40s linear infinite;
+    animation: counterRotate3D 40s linear infinite;
   }
 
   .ecosystem__orbit--2 .orbit__item {
-    animation: counterRotateReverse 60s linear infinite;
+    animation: counterRotateReverse3D 60s linear infinite;
   }
 
   .ecosystem__orbit--3 .orbit__item {
-    animation: counterRotate 30s linear infinite;
+    animation: counterRotate3D 35s linear infinite;
   }
 
-  @keyframes counterRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(-360deg); }
+  @keyframes counterRotate3D {
+    from {
+      transform: rotate(0deg) translateZ(0px);
+    }
+    25% {
+      transform: rotate(-90deg) translateZ(15px);
+    }
+    50% {
+      transform: rotate(-180deg) translateZ(0px);
+    }
+    75% {
+      transform: rotate(-270deg) translateZ(15px);
+    }
+    to {
+      transform: rotate(-360deg) translateZ(0px);
+    }
   }
 
-  @keyframes counterRotateReverse {
-    from { transform: rotate(-360deg); }
-    to { transform: rotate(0deg); }
+  @keyframes counterRotateReverse3D {
+    from {
+      transform: rotate(-360deg) translateZ(0px);
+    }
+    25% {
+      transform: rotate(-270deg) translateZ(-15px);
+    }
+    50% {
+      transform: rotate(-180deg) translateZ(0px);
+    }
+    75% {
+      transform: rotate(-90deg) translateZ(-15px);
+    }
+    to {
+      transform: rotate(0deg) translateZ(0px);
+    }
   }
 
   /* ═══════════════════════════════════════════════════
-     TOOLTIPS
+     TOOLTIPS - Enhanced
      ═══════════════════════════════════════════════════ */
 
   .orbit__tooltip {
     position: absolute;
-    bottom: -35px;
+    bottom: calc(100% + var(--space-sm));
     left: 50%;
-    transform: translateX(-50%) scale(0.8);
-    background: var(--color-surface-base);
+    transform: translateX(-50%) translateY(10px) scale(0.8);
+    background: color-mix(in oklch, var(--color-surface-overlay), transparent 5%);
     color: var(--color-text-primary);
     padding: var(--space-xs) var(--space-md);
     border-radius: var(--radius-md);
@@ -316,18 +449,35 @@
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: all var(--duration-base) var(--easing-out);
-    border: 1px solid color-mix(in oklch, var(--color-brand-primary), transparent 70%);
-    box-shadow: var(--shadow-lg);
+    transition: all var(--duration-slow) var(--easing-spring);
+    border: 2px solid var(--color-brand-primary);
+    box-shadow:
+      0 8px 32px color-mix(in oklch, var(--color-brand-primary), transparent 70%),
+      inset 0 1px 0 color-mix(in oklch, var(--color-neutral-0), transparent 90%);
+    backdrop-filter: blur(20px) saturate(180%);
+    z-index: var(--z-tooltip);
+  }
+
+  .orbit__tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--color-brand-primary);
   }
 
   .orbit__item:hover .orbit__tooltip {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: translateX(-50%) translateY(0) scale(1);
   }
 
   /* ═══════════════════════════════════════════════════
-     CONNECTION LINES SVG
+     CONNECTION LINES SVG - Enhanced
      ═══════════════════════════════════════════════════ */
 
   .ecosystem__connections {
@@ -337,20 +487,63 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    opacity: 0.3;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 4px color-mix(in oklch, var(--color-brand-primary), transparent 70%));
   }
 
   .connection-line {
     stroke: url(#lineGradient);
-    stroke-width: 1;
+    stroke-width: 2;
     fill: none;
-    stroke-dasharray: 5, 5;
-    animation: dash 20s linear infinite;
+    stroke-dasharray: 8, 8;
+    animation: dashFlow 3s linear infinite;
+    opacity: 0;
+    transition: opacity var(--duration-slow) var(--easing-out);
   }
 
-  @keyframes dash {
+  .connection-line.active {
+    opacity: 1;
+  }
+
+  @keyframes dashFlow {
     to {
-      stroke-dashoffset: -100;
+      stroke-dashoffset: -160;
+    }
+  }
+
+  /* Particle effects container */
+  .ecosystem__particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--color-brand-primary);
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: particleFloat 8s ease-in-out infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes particleFloat {
+    0%, 100% {
+      transform: translateY(0) translateX(0) scale(1);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateY(-100vh) translateX(50px) scale(0.5);
+      opacity: 0;
     }
   }
 
@@ -392,27 +585,41 @@
     .orbiting-hero__actions {
       justify-content: center;
     }
+
+    .orbiting-hero__ecosystem {
+      width: 550px;
+      height: 550px;
+    }
   }
 
   @media (max-width: 768px) {
+    .orbiting-hero {
+      padding: var(--space-2xl) 0;
+    }
+
     .orbiting-hero__ecosystem {
-      width: 400px;
-      height: 400px;
+      width: 450px;
+      height: 450px;
+    }
+
+    .ecosystem__logo {
+      width: 150px;
+      height: 150px;
     }
 
     .ecosystem__orbit--1 {
-      width: 300px;
-      height: 300px;
+      width: 320px;
+      height: 320px;
     }
 
     .ecosystem__orbit--2 {
-      width: 380px;
-      height: 380px;
+      width: 420px;
+      height: 420px;
     }
 
     .ecosystem__orbit--3 {
-      width: 220px;
-      height: 220px;
+      width: 240px;
+      height: 240px;
     }
 
     .orbit__label {
@@ -421,33 +628,45 @@
 
     .orbit__badge {
       padding: var(--space-sm);
+      gap: 0;
+    }
+
+    .orbit__icon {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
   @media (max-width: 480px) {
     .orbiting-hero {
       min-height: auto;
-      padding: var(--space-2xl) 0;
+      padding: var(--space-xl) 0;
+      perspective: 1000px;
     }
 
     .orbiting-hero__ecosystem {
+      width: 340px;
+      height: 340px;
+    }
+
+    .ecosystem__logo {
+      width: 120px;
+      height: 120px;
+    }
+
+    .ecosystem__orbit--1 {
+      width: 260px;
+      height: 260px;
+    }
+
+    .ecosystem__orbit--2 {
       width: 320px;
       height: 320px;
     }
 
-    .ecosystem__orbit--1 {
-      width: 240px;
-      height: 240px;
-    }
-
-    .ecosystem__orbit--2 {
-      width: 300px;
-      height: 300px;
-    }
-
     .ecosystem__orbit--3 {
-      width: 180px;
-      height: 180px;
+      width: 200px;
+      height: 200px;
     }
 
     .orbiting-hero__actions {
@@ -458,6 +677,11 @@
     .button {
       width: 100%;
     }
+
+    /* Reduce 3D effects on mobile for performance */
+    .orbit__item:hover .orbit__badge {
+      transform: scale(1.1);
+    }
   }
 
   /* ═══════════════════════════════════════════════════
@@ -465,11 +689,33 @@
      ═══════════════════════════════════════════════════ */
 
   @media (prefers-reduced-motion: reduce) {
+    .orbiting-hero::before,
     .ecosystem__orbit,
     .orbit__item,
     .ecosystem__glow,
-    .connection-line {
-      animation: none;
+    .connection-line,
+    .particle {
+      animation: none !important;
     }
+
+    .ecosystem__orbit {
+      transform: translate(-50%, -50%);
+    }
+
+    .orbit__item {
+      transform: rotate(0deg);
+    }
+  }
+
+  /* Focus styles for keyboard navigation */
+  .orbit__item:focus-visible {
+    outline: 3px solid var(--color-brand-primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
+  }
+
+  .ecosystem__logo:focus-visible {
+    outline: 3px solid var(--color-brand-primary);
+    outline-offset: 6px;
   }
 }
