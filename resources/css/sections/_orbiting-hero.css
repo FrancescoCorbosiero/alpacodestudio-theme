@@ -10,7 +10,7 @@
     align-items: center;
     overflow: hidden;
     background: var(--color-surface-base);
-    padding: var(--space-3xl) 0;
+    padding: 0;
     perspective: 1500px;
   }
 
@@ -42,6 +42,7 @@
     align-items: center;
     position: relative;
     z-index: var(--z-base);
+    padding: var(--space-3xl) 0;
   }
 
   /* Text Content */
@@ -53,7 +54,7 @@
     font-size: var(--font-size-5xl);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
-    margin-bottom: var(--space-md);
+    margin: 0 0 var(--space-md) 0;
     color: var(--color-text-primary);
   }
 
@@ -66,13 +67,14 @@
     font-size: var(--font-size-lg);
     line-height: var(--line-height-relaxed);
     color: var(--color-text-secondary);
-    margin-bottom: var(--space-xl);
+    margin: 0 0 var(--space-xl) 0;
   }
 
   .orbiting-hero__actions {
     display: flex;
     gap: var(--space-md);
     flex-wrap: wrap;
+    margin: 0;
   }
 
   /* ═══════════════════════════════════════════════════
@@ -161,7 +163,7 @@
   }
 
   /* ═══════════════════════════════════════════════════
-     ORBIT RINGS - 3D Perspective
+     ORBIT RINGS - Invisible Guides (No Visible Borders!)
      ═══════════════════════════════════════════════════ */
 
   .ecosystem__orbit {
@@ -170,28 +172,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: var(--radius-full);
-    border: 2px solid transparent;
-    background:
-      linear-gradient(var(--color-surface-base), var(--color-surface-base)) padding-box,
-      linear-gradient(
-        135deg,
-        color-mix(in oklch, var(--color-brand-primary), transparent 85%) 0%,
-        color-mix(in oklch, var(--color-brand-secondary), transparent 90%) 50%,
-        color-mix(in oklch, var(--color-brand-primary), transparent 85%) 100%
-      ) border-box;
+    border: none;
     transform-style: preserve-3d;
-    box-shadow: 0 0 20px color-mix(in oklch, var(--color-brand-primary), transparent 90%);
-  }
-
-  .ecosystem__orbit::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    background: inherit;
-    opacity: 0.5;
-    filter: blur(4px);
-    z-index: -1;
+    pointer-events: none;
   }
 
   .ecosystem__orbit--1 {
@@ -214,19 +197,19 @@
 
   @keyframes rotateOrbit3D {
     from {
-      transform: translate(-50%, -50%) rotate(0deg) rotateY(0deg);
+      transform: translate(-50%, -50%) rotate(0deg);
     }
     to {
-      transform: translate(-50%, -50%) rotate(360deg) rotateY(20deg);
+      transform: translate(-50%, -50%) rotate(360deg);
     }
   }
 
   @keyframes rotateOrbitReverse3D {
     from {
-      transform: translate(-50%, -50%) rotate(360deg) rotateY(0deg);
+      transform: translate(-50%, -50%) rotate(360deg);
     }
     to {
-      transform: translate(-50%, -50%) rotate(0deg) rotateY(-20deg);
+      transform: translate(-50%, -50%) rotate(0deg);
     }
   }
 
@@ -593,7 +576,7 @@
   }
 
   @media (max-width: 768px) {
-    .orbiting-hero {
+    .orbiting-hero__content {
       padding: var(--space-2xl) 0;
     }
 
@@ -640,8 +623,11 @@
   @media (max-width: 480px) {
     .orbiting-hero {
       min-height: auto;
-      padding: var(--space-xl) 0;
       perspective: 1000px;
+    }
+
+    .orbiting-hero__content {
+      padding: var(--space-xl) 0;
     }
 
     .orbiting-hero__ecosystem {
