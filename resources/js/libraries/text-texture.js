@@ -266,6 +266,13 @@ export class TextTexture {
    * Observe element size changes (with debouncing)
    */
   observeResize() {
+    // DISABLED: ResizeObserver causing infinite loop
+    // Text elements in this demo have fixed layouts, don't need resize updates
+
+    console.log('ℹ️ ResizeObserver disabled (fixed layout)');
+    return;
+
+    /* ORIGINAL CODE - CAUSES INFINITE LOOP:
     if (!window.ResizeObserver) return;
 
     let resizeTimeout;
@@ -280,6 +287,7 @@ export class TextTexture {
     });
 
     this.resizeObserver.observe(this.textElement);
+    */
   }
 
   /**
