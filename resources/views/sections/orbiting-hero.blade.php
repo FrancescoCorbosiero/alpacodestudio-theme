@@ -1,38 +1,10 @@
 {{-- Orbiting Hero - Refactored from scratch --}}
 <section id="about" class="orbiting-hero" aria-label="Chi Siamo">
   <div class="wrapper">
-    {{-- Centered Content Container --}}
+    {{-- Centered Content Container with Overlay --}}
     <div class="orbiting-hero__container">
 
-      {{-- Text Content - Centered --}}
-      <div class="orbiting-hero__content">
-        <h1 class="orbiting-hero__title">
-          Concentrati sulla tua attività,
-        </h1>
-        <h2 class="orbiting-hero__title orbiting-hero__title--accent">
-          al resto ci pensiamo noi
-        </h2>
-        <p class="orbiting-hero__subtitle">
-          Siti web professionali per freelance, creator e piccole attività.<br>
-          Tutto quello che ti serve, in un unico ecosistema.
-        </p>
-        <div class="orbiting-hero__actions">
-          <a href="/contatti" class="button button--primary button--lg">
-            <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-              <path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7l-9-5z"/>
-            </svg>
-            Inizia il tuo progetto
-          </a>
-          <a href="#servizi" class="button button--secondary button--lg">
-            <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/>
-            </svg>
-            Esplora i servizi
-          </a>
-        </div>
-      </div>
-
-      {{-- Half Orbiting System (Top Half Only) --}}
+      {{-- Half Orbiting System (Top Half Only) - Background Layer --}}
       <div class="orbiting-hero__orbit-container">
         {{-- Center Core --}}
         <div class="orbit-system__core">
@@ -56,11 +28,10 @@
             <div class="orbit-item__tooltip">Design moderno e responsive</div>
           </div>
           <div class="orbit-ring__item" data-angle="60" data-service="development">
-            <div class="orbit-item__badge">
+            <div class="orbit-item__badge orbit-item__badge--icon-only">
               <svg class="orbit-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                 <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
               </svg>
-              <span class="orbit-item__label">Sviluppo</span>
             </div>
             <div class="orbit-item__tooltip">Codice pulito e performante</div>
           </div>
@@ -78,11 +49,10 @@
         {{-- Orbit Ring 2 (Middle) --}}
         <div class="orbit-system__ring orbit-ring--2" data-orbit="2">
           <div class="orbit-ring__item" data-angle="30" data-service="ecommerce">
-            <div class="orbit-item__badge orbit-item__badge--secondary">
+            <div class="orbit-item__badge orbit-item__badge--secondary orbit-item__badge--icon-only">
               <svg class="orbit-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                 <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
               </svg>
-              <span class="orbit-item__label">E-commerce</span>
             </div>
             <div class="orbit-item__tooltip">Vendi online facilmente</div>
           </div>
@@ -96,11 +66,10 @@
             <div class="orbit-item__tooltip">Prenotazioni automatiche</div>
           </div>
           <div class="orbit-ring__item" data-angle="150" data-service="portfolio">
-            <div class="orbit-item__badge orbit-item__badge--secondary">
+            <div class="orbit-item__badge orbit-item__badge--secondary orbit-item__badge--icon-only">
               <svg class="orbit-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
               </svg>
-              <span class="orbit-item__label">Portfolio</span>
             </div>
             <div class="orbit-item__tooltip">Mostra i tuoi lavori</div>
           </div>
@@ -118,11 +87,10 @@
             <div class="orbit-item__tooltip">Sempre al tuo fianco</div>
           </div>
           <div class="orbit-ring__item" data-angle="105" data-service="hosting">
-            <div class="orbit-item__badge orbit-item__badge--tertiary">
+            <div class="orbit-item__badge orbit-item__badge--tertiary orbit-item__badge--icon-only">
               <svg class="orbit-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                 <path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/>
               </svg>
-              <span class="orbit-item__label">Hosting</span>
             </div>
             <div class="orbit-item__tooltip">Veloce e sicuro</div>
           </div>
@@ -158,6 +126,34 @@
 
         {{-- Particle effects --}}
         <div class="orbit-system__particles" aria-hidden="true"></div>
+      </div>
+
+      {{-- Text Content - Overlaid on top --}}
+      <div class="orbiting-hero__content">
+        <h1 class="orbiting-hero__title">
+          Concentrati sulla tua attività,
+        </h1>
+        <h2 class="orbiting-hero__title orbiting-hero__title--accent">
+          al resto ci pensiamo noi
+        </h2>
+        <p class="orbiting-hero__subtitle">
+          Siti web professionali per freelance, creator e piccole attività.<br>
+          Tutto quello che ti serve, in un unico ecosistema.
+        </p>
+        <div class="orbiting-hero__actions">
+          <a href="/contatti" class="button button--primary button--lg">
+            <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7l-9-5z"/>
+            </svg>
+            Inizia il tuo progetto
+          </a>
+          <a href="#servizi" class="button button--secondary button--lg">
+            <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/>
+            </svg>
+            Esplora i servizi
+          </a>
+        </div>
       </div>
 
     </div>
