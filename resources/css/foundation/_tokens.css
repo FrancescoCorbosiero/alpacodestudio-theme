@@ -59,6 +59,11 @@
     --font-size-4xl: clamp(2.25rem, 1.9rem + 1.75vw, 3rem);
     --font-size-5xl: clamp(3rem, 2.5rem + 2.5vw, 4rem);
     --font-size-6xl: clamp(3.75rem, 3rem + 3.75vw, 5rem);
+    --font-size-7xl: clamp(4.5rem, 3.5rem + 4.5vw, 6rem);
+    --font-size-8xl: clamp(6rem, 4.5rem + 6vw, 8rem);
+    --font-size-9xl: clamp(7.5rem, 5.5rem + 7.5vw, 10rem);
+    --font-size-10xl: clamp(9rem, 6.5rem + 9vw, 12rem);
+
 
     /* Line heights */
     --line-height-tight: 1.2;
@@ -92,6 +97,12 @@
     --space-xl: clamp(3rem, 2.7rem + 1.5vw, 3.75rem);
     --space-2xl: clamp(4rem, 3.6rem + 2vw, 5rem);
     --space-3xl: clamp(6rem, 5.4rem + 3vw, 7.5rem);
+      --space-4xl: clamp(8rem, 7.2rem + 4vw, 10rem);
+      --space-5xl: clamp(10rem, 9rem + 5vw, 12.5rem);
+      --space-6xl: clamp(12rem, 10.8rem + 6vw, 15rem);
+      --space-7xl: clamp(14rem, 12.6rem + 7vw, 17.5rem);
+      --space-8xl: clamp(16rem, 14.4rem + 8vw, 20rem);
+      
 
     /* ═══════════════════════════════════════════════════
        LAYOUT - Containers & Breakpoints

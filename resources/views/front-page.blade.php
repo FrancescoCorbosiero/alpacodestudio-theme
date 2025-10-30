@@ -13,6 +13,6 @@
 @extends('layouts.app')
 
 @section('content')
-@include('sections.orbiting-hero')
+@include('sections.hero')
 @include('sections.features')
 @endsection

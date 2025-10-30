@@ -19,7 +19,7 @@
       @else
         <div class="loader-text" data-loader-text>
           <span class="loader-text__word">
-            @foreach(str_split(get_bloginfo('name')) as $char)
+            @foreach(str_split('alpacode.studio') as $char)
               <span class="loader-text__char">{{ $char }}</span>
             @endforeach
           </span>

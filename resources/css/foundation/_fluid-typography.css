@@ -5,7 +5,7 @@
      ============================================ */
 
   :root {
-    /* Ultra-massive display sizes (ReadyMag style) */
+    /* Ultra-massive display sizes */
     --font-size-display-1: clamp(8rem, 12vw + 2rem, 18rem);      /* 128px → 288px */
     --font-size-display-2: clamp(6rem, 10vw + 1.5rem, 15rem);    /* 96px → 240px */
     --font-size-display-3: clamp(4.5rem, 8vw + 1rem, 12rem);     /* 72px → 192px */

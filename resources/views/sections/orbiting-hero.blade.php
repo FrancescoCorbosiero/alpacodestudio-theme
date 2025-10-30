@@ -1,20 +1,20 @@
-{{-- Orbiting Hero - Orbit-Focused Design --}}
-<section id="about" class="orbiting-hero" aria-labelledby="orbiting-hero-title" itemscope itemtype="https://schema.org/Service">
+
+<section id="about" class="orbiting-hero" aria-labelledby="orbiting-hero-title" itemscope itemtype="https://schema.org/Service" >
   {{-- SEO-optimized hidden heading --}}
   <h2 id="orbiting-hero-title" class="sr-only">I Nostri Servizi Web: Design, Sviluppo, SEO e Performance</h2>
 
   {{-- Structured Data for SEO --}}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Alpacode Studio",
-    "description": "Web agency specializzata in design moderno, sviluppo web performante, SEO e ottimizzazione",
-    "url": "{{ url('/') }}",
-    "logo": "{{ Vite::asset('resources/images/logo.png') }}",
-    "serviceType": ["Web Design", "Sviluppo Web", "SEO", "Performance Optimization", "E-commerce", "Booking Systems", "Portfolio", "Blog", "Supporto", "Hosting", "Analytics", "Security"],
-    "areaServed": "IT"
-  }
+  <script type="application/ld+json" >
+  {!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'Organization',
+    'name' => 'Alpacode Studio',
+    'description' => 'Web agency specializzata in design moderno, sviluppo web performante, SEO e ottimizzazione',
+    'url' => url('/'),
+    'logo' => Vite::asset('resources/images/logo.png'),
+    'serviceType' => ['Web Design', 'Sviluppo Web', 'SEO', 'Performance Optimization', 'E-commerce', 'Booking Systems', 'Portfolio', 'Blog', 'Supporto', 'Hosting', 'Analytics', 'Security'],
+    'areaServed' => 'IT'
+  ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}
   </script>
 
   <div class="wrapper">
