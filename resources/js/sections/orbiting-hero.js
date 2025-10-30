@@ -1,384 +1,152 @@
 /**
- * Orbiting Hero - Advanced GSAP Animation System
+ * Orbiting Hero - Refactored from Scratch
  *
- * Creates an immersive 3D orbiting ecosystem with:
- * - Mouse parallax effects
- * - Scroll-triggered animations
+ * Handles:
+ * - Positioning orbit items in circular paths
+ * - Smooth hover interactions
  * - Dynamic connection lines
- * - Particle systems
- * - Interactive hover states
+ * - Particle system
+ * - Accessibility support
  */
-
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger)
 
 export function initOrbitingHero() {
   const section = document.querySelector('.orbiting-hero')
   if (!section) return
 
-  const ecosystem = section.querySelector('.orbiting-hero__ecosystem')
-  const core = section.querySelector('.ecosystem__core')
-  const orbitItems = section.querySelectorAll('.orbit__item')
-  const orbits = section.querySelectorAll('.ecosystem__orbit')
-  const svg = section.querySelector('.ecosystem__connections')
-  const title = section.querySelector('.orbiting-hero__title')
-  const titleAccent = section.querySelector('.orbiting-hero__title-accent')
-  const subtitle = section.querySelector('.orbiting-hero__subtitle')
-  const actions = section.querySelector('.orbiting-hero__actions')
+  const orbitContainer = section.querySelector('.orbiting-hero__orbit-container')
+  const core = section.querySelector('.orbit-core__logo')
+  const rings = section.querySelectorAll('.orbit-system__ring')
+  const svg = section.querySelector('.orbit-system__connections')
+  const particleContainer = section.querySelector('.orbit-system__particles')
 
   // Check if user prefers reduced motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   if (prefersReducedMotion) {
-    // Skip advanced animations for users who prefer reduced motion
+    // Skip advanced animations for accessibility
     setupBasicInteractions()
     return
   }
 
   // ═══════════════════════════════════════════════════
-  // ENTRANCE ANIMATIONS
+  // POSITION ORBIT ITEMS
   // ═══════════════════════════════════════════════════
 
-  function initEntranceAnimations() {
-    // Set initial states
-    gsap.set([title, subtitle, actions, ecosystem], {
-      opacity: 0,
-      y: 50
+  /**
+   * Position items in circular path based on data-angle attribute
+   * Since we're showing only the top half, items are positioned
+   * on the full circle but the container cuts off the bottom
+   */
+  function positionOrbitItems() {
+    rings.forEach((ring) => {
+      const items = ring.querySelectorAll('.orbit-ring__item')
+      const radius = ring.offsetWidth / 2
+
+      items.forEach((item) => {
+        const angle = parseInt(item.getAttribute('data-angle') || 0)
+
+        // Convert angle to radians (0° is top, clockwise)
+        // Subtract 90 to start from top instead of right
+        const radian = ((angle - 90) * Math.PI) / 180
+
+        // Calculate position
+        const x = radius + radius * Math.cos(radian)
+        const y = radius + radius * Math.sin(radian)
+
+        // Position item at calculated coordinates
+        item.style.left = `${x}px`
+        item.style.top = `${y}px`
+        item.style.transform = 'translate(-50%, -50%)'
+      })
     })
-
-    gsap.set(core, {
-      scale: 0,
-      rotation: -180
-    })
-
-    gsap.set(orbits, {
-      scale: 0,
-      opacity: 0
-    })
-
-    gsap.set(orbitItems, {
-      scale: 0,
-      opacity: 0
-    })
-
-    // Create entrance timeline
-    const tl = gsap.timeline({
-      defaults: {
-        ease: 'power3.out'
-      }
-    })
-
-    // Animate text content
-    tl.to(title, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: 'power4.out'
-    })
-    .to(titleAccent, {
-      color: 'var(--color-brand-primary)',
-      duration: 0.8,
-      ease: 'power2.inOut'
-    }, '-=0.5')
-    .to(subtitle, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8
-    }, '-=0.6')
-    .to(actions, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8
-    }, '-=0.4')
-
-    // Animate ecosystem
-    tl.to(ecosystem, {
-      opacity: 1,
-      y: 0,
-      duration: 1
-    }, '-=0.8')
-    .to(core, {
-      scale: 1,
-      rotation: 0,
-      duration: 1.2,
-      ease: 'elastic.out(1, 0.6)'
-    }, '-=0.8')
-
-    // Animate orbits
-    orbits.forEach((orbit, index) => {
-      tl.to(orbit, {
-        scale: 1,
-        opacity: 1,
-        duration: 0.8,
-        ease: 'back.out(1.4)'
-      }, `-=${0.6 - index * 0.1}`)
-    })
-
-    // Animate orbit items with stagger
-    tl.to(orbitItems, {
-      scale: 1,
-      opacity: 1,
-      duration: 0.6,
-      stagger: {
-        amount: 0.8,
-        from: 'random',
-        ease: 'power2.out'
-      },
-      ease: 'back.out(1.7)'
-    }, '-=0.4')
   }
 
-  // ═══════════════════════════════════════════════════
-  // MOUSE PARALLAX EFFECT
-  // ═══════════════════════════════════════════════════
+  // Initial positioning
+  positionOrbitItems()
 
-  function initMouseParallax() {
-    let mouseX = 0
-    let mouseY = 0
-    let currentX = 0
-    let currentY = 0
-
-    section.addEventListener('mousemove', (e) => {
-      const rect = section.getBoundingClientRect()
-      const centerX = rect.width / 2
-      const centerY = rect.height / 2
-
-      mouseX = (e.clientX - rect.left - centerX) / centerX
-      mouseY = (e.clientY - rect.top - centerY) / centerY
-    })
-
-    // Smooth parallax animation loop
-    function animate() {
-      currentX += (mouseX - currentX) * 0.05
-      currentY += (mouseY - currentY) * 0.05
-
-      // Apply parallax to ecosystem (3D tilt)
-      gsap.to(ecosystem, {
-        rotationY: currentX * 15,
-        rotationX: -currentY * 15,
-        duration: 0.5,
-        ease: 'power2.out'
-      })
-
-      // Apply parallax to orbits (layered depth)
-      orbits.forEach((orbit, index) => {
-        const depth = (index + 1) * 0.3
-        gsap.to(orbit, {
-          x: currentX * 20 * depth,
-          y: currentY * 20 * depth,
-          duration: 0.8,
-          ease: 'power2.out'
-        })
-      })
-
-      // Apply parallax to core (subtle movement)
-      gsap.to(core, {
-        x: currentX * 10,
-        y: currentY * 10,
-        duration: 1,
-        ease: 'power2.out'
-      })
-
-      requestAnimationFrame(animate)
-    }
-
-    animate()
-  }
+  // Reposition on window resize (debounced)
+  let resizeTimeout
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout)
+    resizeTimeout = setTimeout(positionOrbitItems, 150)
+  })
 
   // ═══════════════════════════════════════════════════
-  // SCROLL PARALLAX - Handled by parallax-section component
-  // ═══════════════════════════════════════════════════
-  // The parallax-section.blade.php component handles scroll-based
-  // parallax effects using GSAPUtils.parallax() automatically
-
-  // ═══════════════════════════════════════════════════
-  // DYNAMIC CONNECTION LINES
+  // CONNECTION LINES (Draw lines from core to items on hover)
   // ═══════════════════════════════════════════════════
 
   function setupConnectionLines() {
     if (!svg) return
 
-    orbitItems.forEach((item) => {
+    const allItems = section.querySelectorAll('.orbit-ring__item')
+
+    allItems.forEach((item) => {
       let line = null
-      let animationFrame = null
 
-      item.addEventListener('mouseenter', function () {
-        const rect = this.getBoundingClientRect()
-        const containerRect = svg.getBoundingClientRect()
-        const centerX = containerRect.width / 2
-        const centerY = containerRect.height / 2
-        const itemX = rect.left + rect.width / 2 - containerRect.left
-        const itemY = rect.top + rect.height / 2 - containerRect.top
+      item.addEventListener('mouseenter', function() {
+        // Get positions
+        const containerRect = orbitContainer.getBoundingClientRect()
+        const itemRect = this.getBoundingClientRect()
+        const coreRect = core.getBoundingClientRect()
 
-        // Create SVG path element
+        // Calculate center positions relative to container
+        const centerX = (coreRect.left + coreRect.width / 2) - containerRect.left
+        const centerY = (coreRect.top + coreRect.height / 2) - containerRect.top
+        const itemX = (itemRect.left + itemRect.width / 2) - containerRect.left
+        const itemY = (itemRect.top + itemRect.height / 2) - containerRect.top
+
+        // Create SVG path
         line = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-        line.setAttribute('class', 'connection-line active')
+        line.setAttribute('class', 'connection-line')
 
-        // Create a smooth bezier curve
+        // Create smooth bezier curve
         const controlX = (centerX + itemX) / 2
-        const controlY = (centerY + itemY) / 2 - Math.abs(itemX - centerX) * 0.3
+        const controlY = (centerY + itemY) / 2 - Math.abs(itemX - centerX) * 0.2
 
         const pathD = `M ${centerX} ${centerY} Q ${controlX} ${controlY} ${itemX} ${itemY}`
         line.setAttribute('d', pathD)
 
         svg.appendChild(line)
 
-        // Animate line appearance
-        const length = line.getTotalLength()
-        gsap.set(line, {
-          strokeDasharray: length,
-          strokeDashoffset: length
+        // Trigger animation
+        requestAnimationFrame(() => {
+          line.classList.add('active')
         })
-
-        gsap.to(line, {
-          strokeDashoffset: 0,
-          duration: 0.8,
-          ease: 'power2.out'
-        })
-
-        // Pulse animation
-        function pulse() {
-          gsap.to(line, {
-            opacity: 0.4,
-            duration: 0.5,
-            yoyo: true,
-            repeat: 1,
-            ease: 'sine.inOut'
-          })
-          animationFrame = setTimeout(pulse, 1000)
-        }
-        pulse()
       })
 
-      item.addEventListener('mouseleave', function () {
-        if (line) {
-          clearTimeout(animationFrame)
-          gsap.to(line, {
-            opacity: 0,
-            duration: 0.4,
-            onComplete: () => {
-              if (line && line.parentNode) {
-                line.remove()
-              }
+      item.addEventListener('mouseleave', function() {
+        if (line && line.parentNode) {
+          line.classList.remove('active')
+          setTimeout(() => {
+            if (line && line.parentNode) {
+              line.remove()
             }
-          })
+          }, 500)
         }
       })
     })
   }
 
   // ═══════════════════════════════════════════════════
-  // ENHANCED HOVER INTERACTIONS
+  // CORE HOVER EFFECT
   // ═══════════════════════════════════════════════════
 
-  function setupHoverInteractions() {
-    // Core logo hover effect
-    if (core) {
-      core.addEventListener('mouseenter', () => {
-        gsap.to(core, {
-          scale: 1.15,
-          rotation: 360,
-          duration: 0.8,
-          ease: 'back.out(1.4)'
-        })
+  function setupCoreHover() {
+    if (!core) return
 
-        // Pulse all orbits
-        orbits.forEach((orbit, index) => {
-          gsap.to(orbit, {
-            scale: 1.05,
-            duration: 0.6,
-            delay: index * 0.05,
-            ease: 'power2.out'
-          })
-        })
+    core.addEventListener('mouseenter', () => {
+      // Pulse effect on all rings
+      rings.forEach((ring, index) => {
+        setTimeout(() => {
+          ring.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'
+          ring.style.transform = 'translate(-50%, 50%) scale(1.03)'
+        }, index * 50)
       })
+    })
 
-      core.addEventListener('mouseleave', () => {
-        gsap.to(core, {
-          scale: 1,
-          rotation: 0,
-          duration: 0.6,
-          ease: 'power2.inOut'
-        })
-
-        orbits.forEach((orbit) => {
-          gsap.to(orbit, {
-            scale: 1,
-            duration: 0.4,
-            ease: 'power2.out'
-          })
-        })
-      })
-    }
-
-    // Orbit item hover effects
-    orbitItems.forEach((item) => {
-      const badge = item.querySelector('.orbit__badge')
-      const icon = item.querySelector('.orbit__icon')
-
-      item.addEventListener('mouseenter', function () {
-        // Scale and lift badge
-        gsap.to(badge, {
-          scale: 1.15,
-          z: 30,
-          duration: 0.4,
-          ease: 'back.out(1.7)'
-        })
-
-        // Rotate and glow icon
-        gsap.to(icon, {
-          rotation: 360,
-          scale: 1.2,
-          duration: 0.6,
-          ease: 'power2.out'
-        })
-
-        // Ripple effect on nearby items
-        orbitItems.forEach((otherItem) => {
-          if (otherItem !== item) {
-            const distance = Math.hypot(
-              item.offsetLeft - otherItem.offsetLeft,
-              item.offsetTop - otherItem.offsetTop
-            )
-            const strength = Math.max(0, 1 - distance / 300)
-
-            gsap.to(otherItem, {
-              scale: 1 + strength * 0.1,
-              duration: 0.3,
-              ease: 'power2.out'
-            })
-          }
-        })
-      })
-
-      item.addEventListener('mouseleave', function () {
-        gsap.to(badge, {
-          scale: 1,
-          z: 0,
-          duration: 0.3,
-          ease: 'power2.inOut'
-        })
-
-        gsap.to(icon, {
-          rotation: 0,
-          scale: 1,
-          duration: 0.4,
-          ease: 'power2.out'
-        })
-
-        // Reset ripple effect
-        orbitItems.forEach((otherItem) => {
-          if (otherItem !== item) {
-            gsap.to(otherItem, {
-              scale: 1,
-              duration: 0.3,
-              ease: 'power2.out'
-            })
-          }
-        })
+    core.addEventListener('mouseleave', () => {
+      rings.forEach((ring) => {
+        ring.style.transform = 'translate(-50%, 50%) scale(1)'
       })
     })
   }
@@ -387,17 +155,11 @@ export function initOrbitingHero() {
   // PARTICLE SYSTEM
   // ═══════════════════════════════════════════════════
 
-  function initParticleSystem() {
-    // Create particle container
-    let particleContainer = section.querySelector('.ecosystem__particles')
-    if (!particleContainer) {
-      particleContainer = document.createElement('div')
-      particleContainer.className = 'ecosystem__particles'
-      ecosystem.appendChild(particleContainer)
-    }
+  function initParticles() {
+    if (!particleContainer) return
 
-    // Generate particles
-    const particleCount = 15
+    const particleCount = 12
+
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div')
       particle.className = 'particle'
@@ -406,69 +168,157 @@ export function initOrbitingHero() {
       const startX = Math.random() * 100
       const startY = Math.random() * 100
 
-      gsap.set(particle, {
-        left: `${startX}%`,
-        top: `${startY}%`,
-        scale: Math.random() * 0.5 + 0.5
-      })
+      particle.style.left = `${startX}%`
+      particle.style.top = `${startY}%`
+
+      // Random animation delay and duration
+      const delay = Math.random() * 5
+      const duration = 8 + Math.random() * 4
+
+      particle.style.animationDelay = `${delay}s`
+      particle.style.animationDuration = `${duration}s`
 
       particleContainer.appendChild(particle)
-
-      // Animate particle
-      gsap.to(particle, {
-        y: -window.innerHeight,
-        x: (Math.random() - 0.5) * 200,
-        opacity: 0,
-        duration: Math.random() * 4 + 6,
-        delay: Math.random() * 3,
-        repeat: -1,
-        ease: 'none'
-      })
     }
   }
 
   // ═══════════════════════════════════════════════════
-  // BASIC INTERACTIONS (FALLBACK)
+  // ENHANCED HOVER INTERACTIONS
+  // ═══════════════════════════════════════════════════
+
+  function setupHoverInteractions() {
+    const allItems = section.querySelectorAll('.orbit-ring__item')
+
+    allItems.forEach((item) => {
+      item.addEventListener('mouseenter', function() {
+        // Scale up the badge
+        const badge = this.querySelector('.orbit-item__badge')
+        if (badge) {
+          badge.style.transform = 'scale(1.12)'
+        }
+
+        // Slight ripple effect on nearby items
+        allItems.forEach((otherItem) => {
+          if (otherItem !== item) {
+            const thisRect = item.getBoundingClientRect()
+            const otherRect = otherItem.getBoundingClientRect()
+
+            const distance = Math.hypot(
+              thisRect.left - otherRect.left,
+              thisRect.top - otherRect.top
+            )
+
+            // If items are close, create a subtle ripple
+            if (distance < 300) {
+              const strength = Math.max(0, 1 - distance / 300)
+              const otherBadge = otherItem.querySelector('.orbit-item__badge')
+              if (otherBadge) {
+                otherBadge.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                otherBadge.style.transform = `scale(${1 + strength * 0.08})`
+              }
+            }
+          }
+        })
+      })
+
+      item.addEventListener('mouseleave', function() {
+        // Reset all badges
+        allItems.forEach((anyItem) => {
+          const badge = anyItem.querySelector('.orbit-item__badge')
+          if (badge) {
+            badge.style.transform = ''
+          }
+        })
+      })
+
+      // Click handling (optional - can be extended)
+      item.addEventListener('click', function() {
+        const service = this.getAttribute('data-service')
+        console.log(`🎯 Service clicked: ${service}`)
+        // Add your custom click handling here
+      })
+    })
+  }
+
+  // ═══════════════════════════════════════════════════
+  // BASIC INTERACTIONS (Fallback for reduced motion)
   // ═══════════════════════════════════════════════════
 
   function setupBasicInteractions() {
-    orbitItems.forEach((item) => {
+    const allItems = section.querySelectorAll('.orbit-ring__item')
+
+    allItems.forEach((item) => {
       // Make items keyboard accessible
       if (!item.hasAttribute('tabindex')) {
         item.setAttribute('tabindex', '0')
       }
 
       // Handle keyboard interaction
-      item.addEventListener('keydown', function (e) {
+      item.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
           this.click()
         }
       })
 
-      // Optional: Add click handling
-      item.addEventListener('click', function () {
+      // Click handling
+      item.addEventListener('click', function() {
         const service = this.getAttribute('data-service')
-        if (service) {
-          console.log(`Service clicked: ${service}`)
-          // Add custom click handling here
-        }
+        const label = this.querySelector('.orbit-item__label')?.textContent
+        console.log(`🎯 Service: ${service} - ${label}`)
       })
     })
+
+    // Make core keyboard accessible
+    if (core) {
+      if (!core.hasAttribute('tabindex')) {
+        core.setAttribute('tabindex', '0')
+      }
+
+      core.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          console.log('🎯 Core logo clicked')
+        }
+      })
+    }
   }
+
+  // ═══════════════════════════════════════════════════
+  // SVG VIEWBOX SETUP
+  // ═══════════════════════════════════════════════════
+
+  function setupSVG() {
+    if (!svg || !orbitContainer) return
+
+    const width = orbitContainer.offsetWidth
+    const height = orbitContainer.offsetHeight
+
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`)
+    svg.setAttribute('width', width)
+    svg.setAttribute('height', height)
+  }
+
+  // Initial SVG setup
+  setupSVG()
+
+  // Update SVG on resize
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout)
+    resizeTimeout = setTimeout(setupSVG, 150)
+  })
 
   // ═══════════════════════════════════════════════════
   // INITIALIZE ALL FEATURES
   // ═══════════════════════════════════════════════════
 
-  initEntranceAnimations()
-  initMouseParallax()
   setupConnectionLines()
+  setupCoreHover()
   setupHoverInteractions()
-  initParticleSystem()
+  initParticles()
   setupBasicInteractions()
 
-  console.log('✨ Orbiting Hero initialized with advanced GSAP animations')
+  console.log('✨ Orbiting Hero initialized (refactored version)')
 }
 
 // Auto-initialize when DOM is ready
