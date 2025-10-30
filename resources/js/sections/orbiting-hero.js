@@ -13,7 +13,7 @@ export function initOrbitingHero() {
   const section = document.querySelector('.orbiting-hero')
   if (!section) return
 
-  const orbitContainer = section.querySelector('.orbiting-hero__orbit-container')
+  const orbitContainer = section.querySelector('.orbiting-hero__container')
   const core = section.querySelector('.orbit-core__logo')
   const rings = section.querySelectorAll('.orbit-system__ring')
   const svg = section.querySelector('.orbit-system__connections')
