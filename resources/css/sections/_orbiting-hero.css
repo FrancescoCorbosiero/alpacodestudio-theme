@@ -19,18 +19,19 @@
   }
 
   /* ───────────────────────────────────────────────────
-     SECTION CONTAINER
+     SECTION CONTAINER - WIXGSAP STYLE
      ─────────────────────────────────────────────────── */
   .orbiting-hero {
     position: relative;
-    /* Full viewport minus header height (~80px = 5rem) */
-    min-height: calc(100vh - 5rem);
+    /* Full viewport minus header height - generous spacing */
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     background: var(--color-surface-base);
-    padding: 0;
+    /* WIXGSAP style padding - more breathing room */
+    padding: var(--space-3xl) 0;
     isolation: isolate;
   }
 
@@ -63,20 +64,22 @@
   }
 
   /* ───────────────────────────────────────────────────
-     MAIN CONTAINER (OVERLAY GRID - Magic Trick!)
+     MAIN CONTAINER (OVERLAY GRID - Magic Trick!) - WIXGSAP STYLE
      ─────────────────────────────────────────────────── */
   .orbiting-hero__container {
     position: relative;
     width: 100%;
     max-width: var(--container-2xl);
     margin: 0 auto;
-    padding: clamp(2rem, 4vh, 6rem) clamp(1.5rem, 3vw, 3rem);
+    /* WIXGSAP generous padding using tokens */
+    padding: var(--space-3xl) var(--space-xl);
     /* Grid overlay - both layers in same space */
     display: grid;
     grid-template-areas: "overlay";
     align-items: center;
     justify-items: center;
     z-index: var(--z-base);
+    min-height: 80vh; /* Ensure generous vertical space */
   }
 
   /* ───────────────────────────────────────────────────
@@ -93,8 +96,8 @@
   .orbiting-hero__content {
     grid-area: overlay;
     text-align: center;
-    max-width: clamp(600px, 70vw, 900px);
-    z-index: 2;
+    max-width: clamp(700px, 75vw, 1000px); /* Wider for better Wix/Gsap feel */
+    z-index: var(--z-sticky); /* Above orbit items */
     pointer-events: none; /* Allow clicking through to orbit items */
   }
 
@@ -103,31 +106,45 @@
     pointer-events: all;
   }
 
-  /* Main Title - Archivio Black with smooth fade-in */
+  .orbiting-hero__content h1,
+  .orbiting-hero__content h2,
+  .orbiting-hero__content p {
+    pointer-events: none; /* Ensure text doesn't block */
+  }
+
+  /* Main Title - Archivio Black with smooth fade-in - WIXGSAP STYLE */
   .orbiting-hero__title {
     font-family: var(--font-archivio-black);
-    font-size: clamp(2.5rem, 6vw + 1rem, 5rem);
+    /* Bigger, more fluid typography from tokens */
+    font-size: var(--font-size-6xl); /* Matches Wix/Gsap hero style */
     font-weight: 900;
     line-height: 1.1;
     letter-spacing: -0.02em;
     color: var(--color-text-primary);
-    margin: 0 0 clamp(0.5rem, 1vh, 1rem) 0;
+    margin: 0 0 var(--space-md) 0;
     opacity: 0;
     transform: translateY(30px);
     animation: titleFadeIn 1s ease-out forwards;
   }
 
-  /* Accent Title - Brand color gradient */
+  /* Accent Title - Brand color gradient - FIXED for visibility */
   .orbiting-hero__title--accent {
+    /* Fallback color for browsers that don't support background-clip */
+    color: var(--color-brand-primary);
     background: linear-gradient(
       135deg,
       var(--color-brand-primary) 0%,
       color-mix(in oklch, var(--color-brand-primary), var(--color-brand-secondary) 40%) 100%
     );
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: clamp(1.5rem, 3vh, 3rem);
+    /* Support for Firefox/Safari fallback */
+    @supports not (background-clip: text) {
+      color: var(--color-brand-primary);
+      background: none;
+    }
+    margin-bottom: var(--space-xl);
     animation-delay: 0.2s;
   }
 
@@ -142,46 +159,60 @@
     }
   }
 
-  /* Subtitle */
+  /* Subtitle - WIXGSAP STYLE with fluid tokens */
   .orbiting-hero__subtitle {
-    font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem);
+    font-size: var(--font-size-xl); /* Using token for consistency */
     line-height: var(--line-height-relaxed);
     color: var(--color-text-secondary);
-    margin: 0 0 clamp(2rem, 4vh, 3rem) 0;
+    margin: 0 0 var(--space-2xl) 0; /* More breathing room */
+    max-width: 60ch; /* Optimal reading width */
+    margin-inline: auto; /* Center the subtitle */
     opacity: 0;
     transform: translateY(20px);
     animation: titleFadeIn 1s ease-out 0.4s forwards;
   }
 
-  /* Actions */
+  /* Actions - WIXGSAP STYLE spacing */
   .orbiting-hero__actions {
     display: flex;
-    gap: clamp(1rem, 2vw, 1.5rem);
+    gap: var(--space-md);
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: var(--space-lg); /* Extra breathing room */
     opacity: 0;
     transform: translateY(20px);
     animation: titleFadeIn 1s ease-out 0.6s forwards;
   }
 
   /* ───────────────────────────────────────────────────
-     ORBIT CONTAINER (Half System - Top Only)
+     ORBIT CONTAINER (Half System - Top Only) - FIXED FRAMING
      ─────────────────────────────────────────────────── */
   .orbiting-hero__orbit-container {
     position: relative;
-    /* Tighter, more compact size */
-    width: clamp(600px, 75vw, 1000px);
-    height: clamp(300px, 37.5vw, 500px); /* Half height to show only top */
-    overflow: hidden; /* Cut off bottom half */
+    /* Properly sized to avoid cutting off */
+    width: clamp(600px, 80vw, 1200px);
+    height: clamp(400px, 50vh, 700px); /* Taller to accommodate orbits */
+    /* Use clip-path instead of overflow to avoid framing issues */
+    clip-path: inset(0 0 50% 0); /* Clip bottom 50% */
+    /* Lower z-index to sit behind content */
+    z-index: 0;
   }
 
-  /* Visual indicator for dev: shows the orbit boundary */
+  /* Visual framing with subtle gradient fade */
   .orbiting-hero__orbit-container::before {
     content: '';
     position: absolute;
-    inset: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(
+      to top,
+      var(--color-surface-base) 0%,
+      transparent 100%
+    );
     pointer-events: none;
-    /* Uncomment for debugging: border: 2px dashed rgba(255, 0, 0, 0.2); */
+    z-index: 2;
   }
 
   /* ───────────────────────────────────────────────────
