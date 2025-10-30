@@ -9,7 +9,7 @@
         {{-- Center Core --}}
         <div class="orbit-system__core">
           <div class="orbit-core__logo">
-            <img src="/images/alpacode-logo.png"
+            <img src="{{ Vite::asset('resources/images/logo.png') }}"
                  alt="Alpacode Studio"
                  class="orbit-core__image">
             <div class="orbit-core__glow" aria-hidden="true"></div>

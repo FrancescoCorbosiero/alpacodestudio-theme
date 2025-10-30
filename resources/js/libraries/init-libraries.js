@@ -220,7 +220,7 @@ export function initAllLibraries() {
   initPhotoSwipe()
 
   // WebGL libraries
-  initCurtainsJS()
+  //initCurtainsJS()
 
   //initSplitting()
 
