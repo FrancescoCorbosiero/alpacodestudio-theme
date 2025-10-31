@@ -1,42 +1,82 @@
 @layer sections {
 
-  .hero-group {
-    display: flex;
-    gap: var(--space-xl);
+  /* Hero Container - Centers and constrains the hero content */
+  .hero-container {
     max-width: 85vw;
     margin: 0 auto;
-    text-align: left;
   }
 
-  .hero-group h1 {
+  /* PureCSS Grid Group - Main hero grid wrapper */
+  .hero-group {
+    align-items: center;
+  }
+
+  /* Hero Content Column - Left side with headings */
+  .hero-content {
+    text-align: left;
+    padding: var(--space-md);
+  }
+
+  .hero-content h1 {
     margin-bottom: var(--space-xl);
   }
 
-  .hero-group p {
+  .hero-content h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-content h2 {
+    margin-top: var(--space-lg);
+  }
+
+  /* Hero CTA Column - Right side with description and buttons */
+  .hero-cta {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .hero-cta p {
     font-size: var(--font-size-2xl);
     color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
     max-width: 45rem;
   }
 
-  .hero-group .col-2 {
-    margin-top: 20px; display: flex; 
-    gap: calc(var(--space-xs)); 
-    flex-direction: column;
+  /* Hero Buttons Container */
+  .hero-buttons {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
   }
 
-  @media screen and (max-width: 768px) {
-    .hero-group {
-      flex-direction: column;
+  /* Responsive styles for mobile */
+  @media screen and (max-width: 48em) {
+    .hero-container {
+      max-width: 95vw;
+    }
+
+    .hero-content {
       text-align: center;
     }
 
-    .hero-group h1 {
+    .hero-content h1 {
       font-size: var(--font-size-hero-1);
     }
 
-    .hero-group p {
+    .hero-cta {
+      text-align: center;
+    }
+
+    .hero-cta p {
       font-size: var(--font-size-2xl);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-buttons {
+      justify-content: center;
     }
   }
 

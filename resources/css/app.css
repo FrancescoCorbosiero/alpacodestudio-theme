@@ -1,6 +1,6 @@
 /**
  * Alpacode Studio Theme - Main Stylesheet
- * CSS4-First Architecture | No Framework Dependencies
+ * CSS4-First Architecture with PureCSS Grid System
  */
 
 /* Foundation - Design System */
@@ -11,6 +11,10 @@
 @import "./foundation/_layout.css";
 @import "./foundation/_utilities.css";
 @import "./foundation/_animations.css";
+
+/* PureCSS - Lightweight CSS Framework */
+@import "purecss/build/pure.css";
+@import "purecss/build/grids-responsive.css";
 
 /* Third-Party Libraries */
 @import "./vendor/_libraries.css";

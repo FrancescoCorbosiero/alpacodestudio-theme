@@ -21,6 +21,7 @@
     "curtainsjs": "^8.1.6",
     "gsap": "^3.13.0",
     "photoswipe": "^5.4.4",
+    "purecss": "^3.0.0",
     "swiper": "^11.2.10",
     "three": "^0.160.1",
     "vanta": "^0.5.24",
