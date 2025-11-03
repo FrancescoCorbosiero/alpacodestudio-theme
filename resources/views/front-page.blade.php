@@ -1,19 +1,15 @@
 {{--
   Template Name: Front Page (Homepage)
 
-  SHOWCASE landing page demonstrating all integrated libraries:
-  - Vanta.js 3D backgrounds
-  - GSAP professional animations
+  Modern portfolio grid layout with:
+  - Clean CSS Grid layout
+  - Responsive sidebar navigation
   - AOS scroll animations
-  - Swiper carousels
-  - PhotoSwipe galleries
-  - Alpine.js reactive utilities
+  - Native CSS design system
 --}}
 
 @extends('layouts.app')
 
 @section('content')
-
-  @include('sections.header')
-  @include('sections.home')
+  @include('sections.home-modern')
 @endsection

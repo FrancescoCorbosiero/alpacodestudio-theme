@@ -13,6 +13,7 @@ import { initNavigation } from './core/navigation'
 import { initViewTransitions } from './core/view-transitions' // Re-enabled with improved safeguards
 import { initPerformance } from './core/performance'
 import { initAccessibility } from './core/accessibility'
+import { initPortfolioGrid } from './core/portfolio-grid'
 import './core/animations' // Scroll-triggered animations
 import './utils/animations' // Advanced animation utilities
 
@@ -115,6 +116,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initAccessibility()
   } catch (error) {
     console.error('Failed to initialize accessibility features:', error)
+  }
+
+  try {
+    // Initialize portfolio grid (mobile nav)
+    initPortfolioGrid()
+  } catch (error) {
+    console.error('Failed to initialize portfolio grid:', error)
   }
 
   try {
