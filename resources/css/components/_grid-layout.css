@@ -1,0 +1,200 @@
+@layer components {
+  /* Modern Grid Layout - Clean & Simple */
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Sidebar */
+  .portfolio-sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: var(--space-lg);
+    background: var(--color-surface-raised);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .portfolio-sidebar__logo {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    margin-bottom: var(--space-md);
+  }
+
+  .portfolio-sidebar__bio {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin-top: var(--space-md);
+    margin-bottom: auto;
+  }
+
+  .portfolio-sidebar__social {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .portfolio-sidebar__social-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast);
+  }
+
+  .portfolio-sidebar__social-link:hover {
+    color: var(--color-brand-primary);
+  }
+
+  .portfolio-sidebar__info {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+  }
+
+  /* Main Content */
+  .portfolio-main {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    overflow-x: hidden;
+  }
+
+  .portfolio-content {
+    min-width: 0; /* Prevent grid blowout */
+  }
+
+  .portfolio-skills {
+    padding: var(--space-lg);
+  }
+
+  .skill-item {
+    margin-bottom: var(--space-xl);
+  }
+
+  .skill-item__number {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+
+  .skill-item__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .skill-item__description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+  }
+
+  /* Mobile Navigation */
+  .mobile-nav-toggle {
+    display: none;
+    position: fixed;
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    background: var(--color-brand-primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .mobile-nav-toggle__line {
+    width: 24px;
+    height: 2px;
+    background: white;
+    transition: all var(--duration-base);
+  }
+
+  .mobile-nav-toggle.active .mobile-nav-toggle__line:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+  }
+
+  .mobile-nav-toggle.active .mobile-nav-toggle__line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-nav-toggle.active .mobile-nav-toggle__line:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .portfolio-main {
+      grid-template-columns: 1fr;
+    }
+
+    .portfolio-skills {
+      display: none; /* Hide on tablet */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .portfolio-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .portfolio-sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      z-index: 999;
+      transition: left var(--duration-base) var(--easing-out);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .portfolio-sidebar.active {
+      left: 0;
+    }
+
+    .mobile-nav-toggle {
+      display: flex;
+    }
+
+    .portfolio-main {
+      padding: var(--space-md);
+      margin-top: 60px;
+    }
+  }
+
+  /* Overlay for mobile sidebar */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: opacity var(--duration-base);
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+  }
+}
