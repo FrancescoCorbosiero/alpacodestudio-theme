@@ -224,7 +224,7 @@ var init_slider = function() {
   });
 
   // preloader
-	$(window).load(function() {
+  $(window).on('load', function() {
 		// $("#overlayer").fadeOut("slow");
 		$('body').addClass('loaded');
     initIsotope();
