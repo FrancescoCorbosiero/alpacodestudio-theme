@@ -42,7 +42,7 @@
 
       {{-- Hero Swiper Carousel --}}
       <div class="hero-carousel" data-aos="fade-up">
-        <div class="swiper hero-swiper">
+        <div class="hero-swiper">
           <div class="swiper-wrapper">
 
             {{-- Slide 1 --}}
@@ -124,34 +124,43 @@
 
 {{-- Initialize Hero Swiper --}}
 @push('scripts')
-<script type="module">
-import Swiper from 'swiper';
-import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
-
+<script>
+// Wait for libraries to load, then initialize hero swiper
 document.addEventListener('DOMContentLoaded', () => {
-  const heroSwiper = new Swiper('.hero-swiper', {
-    modules: [Navigation, Pagination, Autoplay, EffectFade],
-    effect: 'fade',
-    fadeEffect: {
-      crossFade: true
-    },
-    speed: 1000,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-    loop: true,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-  });
+  // Small delay to ensure Swiper is fully loaded
+  setTimeout(() => {
+    if (typeof Swiper === 'undefined') {
+      console.error('❌ Swiper not loaded');
+      return;
+    }
 
-  console.log('✅ Hero Swiper initialized');
+    try {
+      const heroSwiper = new Swiper('.hero-swiper', {
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true
+        },
+        speed: 1000,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        loop: false, // 3 slides - no loop needed
+        navigation: {
+          nextEl: '.hero-swiper .swiper-button-next',
+          prevEl: '.hero-swiper .swiper-button-prev',
+        },
+        pagination: {
+          el: '.hero-swiper .swiper-pagination',
+          clickable: true,
+        },
+      });
+
+      console.log('✅ Hero Swiper initialized');
+    } catch (error) {
+      console.error('❌ Hero Swiper initialization failed:', error);
+    }
+  }, 100);
 });
 </script>
 @endpush
