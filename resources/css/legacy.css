@@ -1,10 +1,7 @@
 /**
- * Legacy Theme Integration - Bootstrap + Font Awesome
- * This file loads all legacy CSS for your migrated theme
+ * Modern Refactored Theme CSS - No Bootstrap/jQuery
+ * Uses modern CSS Grid, Flexbox, and vanilla JavaScript
  */
-
-/* Bootstrap CSS */
-@import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Font Awesome */
 @import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -18,19 +15,226 @@
 @import "swiper/css/pagination";
 @import "swiper/css/effect-fade";
 
-/* Chocolat Lightbox */
-@import "chocolat/dist/css/chocolat.css";
-
-/* Jarallax (no CSS import needed) */
+/* PhotoSwipe Lightbox */
+@import "photoswipe/style.css";
 
 /**
- * Place your old theme's CSS below this line
- * You can paste your existing CSS files' content here
+ * Modern Grid System - Replaces Bootstrap Grid
  */
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
-/* ============================================
-   YOUR OLD THEME CSS GOES HERE
-   ============================================ */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.row.g-0 {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.row.g-0 > [class*="col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.row.g-5 {
+  margin-right: -3rem;
+  margin-left: -3rem;
+}
+
+.row.g-5 > [class*="col-"] {
+  padding-right: 3rem;
+  padding-left: 3rem;
+}
+
+[class*="col-"] {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-lg-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.col-lg-4 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+}
+
+.col-lg-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.col-lg-8 {
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}
+
+.col-lg-9 {
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+
+.offset-lg-3 {
+  margin-left: 25%;
+}
+
+/* Mobile first - all columns full width by default */
+@media (max-width: 991.98px) {
+  [class*="col-lg-"] {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .offset-lg-3 {
+    margin-left: 0;
+  }
+}
+
+/* Utility Classes - Replace Bootstrap Utilities */
+.p-0 { padding: 0 !important; }
+.p-4 { padding: 1.5rem !important; }
+.p-5 { padding: 3rem !important; }
+.pt-3 { padding-top: 1rem !important; }
+.pt-4 { padding-top: 1.5rem !important; }
+.pt-5 { padding-top: 3rem !important; }
+.pb-5 { padding-bottom: 3rem !important; }
+.px-4 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+.px-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+.py-3 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+.py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+.py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+.m-0 { margin: 0 !important; }
+.mt-3 { margin-top: 1rem !important; }
+.mt-4 { margin-top: 1.5rem !important; }
+.mt-5 { margin-top: 3rem !important; }
+.mt-auto { margin-top: auto !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mb-5 { margin-bottom: 3rem !important; }
+.my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+
+.w-100 { width: 100% !important; }
+.h-100 { height: 100% !important; }
+.vh-100 { height: 100vh !important; }
+
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-inline-block { display: inline-block !important; }
+.d-flex { display: flex !important; }
+
+@media (min-width: 992px) {
+  .d-lg-none { display: none !important; }
+  .d-lg-block { display: block !important; }
+  .d-lg-flex { display: flex !important; }
+}
+
+@media (max-width: 991.98px) {
+  .d-lg-none { display: block !important; }
+  .d-none.d-lg-block { display: none !important; }
+  .d-none.d-lg-flex { display: none !important; }
+  .mt-5.mt-lg-0 { margin-top: 0 !important; }
+  .p-4.p-lg-5 { padding: 1.5rem !important; }
+  .pt-4.pt-lg-5 { padding-top: 1.5rem !important; }
+  .px-4.px-lg-5 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+}
+
+@media (min-width: 992px) {
+  .mt-lg-0 { margin-top: 0 !important; }
+  .p-lg-5 { padding: 3rem !important; }
+  .pt-lg-4 { padding-top: 1.5rem !important; }
+  .pt-lg-5 { padding-top: 3rem !important; }
+  .px-lg-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+}
+
+.flex-column { flex-direction: column !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+.align-items-center { align-items: center !important; }
+.justify-content-between { justify-content: space-between !important; }
+.text-center { text-align: center !important; }
+.text-uppercase { text-transform: uppercase !important; }
+.text-decoration-none { text-decoration: none !important; }
+.list-unstyled { list-style: none !important; padding-left: 0 !important; }
+
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.position-fixed { position: fixed !important; }
+
+.top-0 { top: 0 !important; }
+.bottom-0 { bottom: 0 !important; }
+.end-0 { right: 0 !important; }
+.z-1 { z-index: 1 !important; }
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table tbody tr.no-border-bottom {
+  border-bottom: none;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-dark {
+  color: #fff;
+  background-color: #212529;
+  border-color: #212529;
+}
+
+.btn-dark:hover {
+  color: #fff;
+  background-color: #1c1f23;
+  border-color: #1a1e21;
+}
+
+/* Theme-specific styles */
 :root,
 [data-bs-theme=light] {
   --heading-font: "Roboto", Verdana, serif;
