@@ -1,31 +1,7 @@
 /**
- * Legacy Theme Integration - Bootstrap + jQuery Stack
- * This file loads all legacy dependencies for your migrated theme
+ * Modern Refactored Theme - Vanilla JS + Modern Libraries
+ * No jQuery, No Bootstrap JS
  */
-
-// Import jQuery and make it globally available
-import $ from 'jquery'
-window.jQuery = $
-window.$ = $
-
-// Import jQuery Easing
-import 'jquery.easing'
-
-// Import Bootstrap JS (includes Popper.js)
-import * as bootstrap from 'bootstrap'
-window.bootstrap = bootstrap
-
-// Import Jarallax for parallax effects
-import { jarallax } from 'jarallax'
-window.jarallax = jarallax
-
-// Import Chocolat lightbox
-import Chocolat from 'chocolat'
-window.Chocolat = Chocolat
-
-// Import anime.js for animations
-import anime from 'animejs'
-window.anime = anime
 
 // Import AOS (Animate On Scroll)
 import AOS from 'aos'
@@ -33,199 +9,235 @@ window.AOS = AOS
 
 // Import Swiper
 import Swiper from 'swiper'
-import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
+import { Navigation, Pagination, Autoplay, EffectFade, Thumbs } from 'swiper/modules'
 window.Swiper = Swiper
 
+// Import PhotoSwipe for lightbox
+import PhotoSwipeLightbox from 'photoswipe/lightbox'
+import PhotoSwipe from 'photoswipe'
+window.PhotoSwipeLightbox = PhotoSwipeLightbox
+window.PhotoSwipe = PhotoSwipe
+
 /**
- * Initialize libraries on DOM ready
+ * Modern Theme Functions - Vanilla JavaScript
+ * No jQuery dependencies
  */
-$(document).ready(function() {
-  console.log('🔧 Legacy theme libraries loaded')
-  console.log('✅ jQuery version:', $.fn.jquery)
-  console.log('✅ Bootstrap version:', bootstrap.VERSION || '5.3+')
+
+// Initialize Swiper Sliders
+function initSliders() {
+  // Navigation swiper for banner
+  const navSwiper = new Swiper(".swiper.banner-nav-slider", {
+    slidesPerView: "auto",
+    spaceBetween: 10,
+  });
+
+  // Main banner swiper
+  const bannerSwiper = new Swiper(".swiper.banner-slider", {
+    modules: [Autoplay, Thumbs],
+    slidesPerView: 1,
+    speed: 900,
+    autoplay: {
+      delay: 4000,
+    },
+    thumbs: {
+      swiper: navSwiper,
+    },
+  });
+
+  // Background image swiper
+  const imageSlider = new Swiper(".swiper.image-slider", {
+    slidesPerView: 1,
+    speed: 900,
+  });
+
+  // Sync background image with banner
+  bannerSwiper.on('slideChange', function() {
+    imageSlider.slideTo(bannerSwiper.activeIndex);
+  });
+
+  // Portfolio Slider
+  const portfolioSwiper = new Swiper(".portfolio-Swiper", {
+    modules: [Pagination],
+    slidesPerView: 4,
+    spaceBetween: 30,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    breakpoints: {
+      300: {
+        slidesPerView: 2,
+      },
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1200: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+
+  console.log('✅ Swiper sliders initialized');
+}
+
+// Animate Text Effects (Vanilla JS replacement for jQuery version)
+function initTextFx() {
+  const txtFxElements = document.querySelectorAll('.txt-fx');
+
+  txtFxElements.forEach(function(element) {
+    let newHTML = '';
+    let count = 0;
+    const delay = 300;
+    const stagger = 10;
+    const words = element.textContent.split(/\s/);
+    const arrWords = [];
+
+    words.forEach(function(word) {
+      let wordHTML = '<span class="word">';
+
+      for (let i = 0; i < word.length; i++) {
+        const char = word[i];
+        const transitionDelay = delay + (stagger * count);
+        wordHTML += `<span class='letter' style='transition-delay:${transitionDelay}ms;'>${char}</span>`;
+        count++;
+      }
+      wordHTML += '</span>';
+
+      arrWords.push(wordHTML);
+      count++;
+    });
+
+    element.innerHTML = arrWords.join(`<span class='letter' style='transition-delay:${delay}ms;'>&nbsp;</span>`);
+  });
+
+  console.log('✅ Text effects initialized');
+}
+
+// Portfolio Filter (Vanilla JS replacement for Isotope)
+function initPortfolioFilter() {
+  const grids = document.querySelectorAll('.grid');
+
+  grids.forEach(function(grid) {
+    const buttonGroup = grid.parentElement.querySelector('.button-group');
+    if (!buttonGroup) return;
+
+    const filterButtons = buttonGroup.querySelectorAll('a');
+    const portfolioItems = grid.querySelectorAll('.portfolio-item');
+
+    // Filter function
+    function filterItems(filterValue) {
+      portfolioItems.forEach(function(item) {
+        if (filterValue === '*' || item.classList.contains(filterValue.replace('.', ''))) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Get initial filter
+    const checkedButton = buttonGroup.querySelector('.is-checked');
+    if (checkedButton) {
+      const initialFilter = checkedButton.getAttribute('data-filter');
+      filterItems(initialFilter);
+    }
+
+    // Add click handlers
+    filterButtons.forEach(function(button) {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Remove is-checked from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('is-checked'));
+
+        // Add is-checked to clicked button
+        this.classList.add('is-checked');
+
+        // Filter items
+        const filterValue = this.getAttribute('data-filter');
+        filterItems(filterValue);
+      });
+    });
+  });
+
+  console.log('✅ Portfolio filter initialized');
+}
+
+// Initialize PhotoSwipe Lightbox (replacement for Chocolat)
+function initLightbox() {
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: '.portfolio-content',
+    children: '.image-link',
+    pswpModule: () => PhotoSwipe,
+    padding: { top: 20, bottom: 20, left: 20, right: 20 },
+    bgOpacity: 0.9,
+  });
+
+  lightbox.init();
+
+  console.log('✅ PhotoSwipe lightbox initialized');
+}
+
+// Toggle mobile menu (Vanilla JS replacement for jQuery)
+function initMobileMenu() {
+  const menuBtn = document.querySelector('.menu-btn');
+  const menuToggle = document.querySelector('#menu-toggle');
+
+  if (menuBtn) {
+    menuBtn.addEventListener('click', function(e) {
+      document.body.classList.toggle('nav-active');
+    });
+  }
+
+  if (menuToggle) {
+    menuToggle.addEventListener('change', function() {
+      if (this.checked) {
+        document.body.classList.add('nav-active');
+      } else {
+        document.body.classList.remove('nav-active');
+      }
+    });
+  }
+
+  console.log('✅ Mobile menu initialized');
+}
+
+// Initialize everything on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🚀 Modern theme initializing...');
+
+  // Initialize sliders
+  initSliders();
+
+  // Initialize text effects
+  initTextFx();
+
+  // Initialize lightbox
+  initLightbox();
+
+  // Initialize portfolio filter
+  initPortfolioFilter();
+
+  // Initialize mobile menu
+  initMobileMenu();
 
   // Initialize AOS
   AOS.init({
-    duration: 800,
-    easing: 'ease-in-out',
-    once: true,
-    offset: 100
-  })
-
-  // Initialize all tooltips
-  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-  })
-
-  // Initialize all popovers
-  const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-  popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl)
-  })
-
-  console.log('✅ Legacy theme initialized')
-})
-
-/**
- * Place your old theme's JavaScript code below this line
- * You can paste your existing JS files' content here
- */
-
-// ============================================
-// YOUR OLD THEME CODE GOES HERE
-// ============================================
-var init_slider = function() {
-    var nav_swiper = new Swiper(".swiper.banner-nav-slider", {
-      slidesPerView: "auto",
-      spaceBetween: 10,
-    });
-    
-    // banner swiper slide
-    var banner_swiper = new Swiper(".swiper.banner-slider", {
-      slidesPerView: 1,
-      // loop: true,
-      speed: 900,
-      autoplay: {
-        delay: 4000,
-      },
-      thumbs: {
-        swiper: nav_swiper,
-      },
-    });
-    
-    // banner bg image swiper
-    var image_slider = new Swiper(".swiper.image-slider", {
-      slidesPerView: 1,
-      speed: 900,
-    });
-    
-    // Update bg image
-    function updatePagination() {
-      image_slider.slideTo(banner_swiper.activeIndex);
-    }
-    
-    // Listen to slide changes from both sliders
-    banner_swiper.on('slideChange', updatePagination);
-
-    // Portfolio Slider
-    var swiper = new Swiper(".portfolio-Swiper", {
-      slidesPerView: 4,
-      spaceBetween: 30,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      breakpoints: {
-        300: {
-          slidesPerView: 2,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        1200: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
-      },
-    });
-  }
-
-  // Animate Texts
-  var initTextFx = function () {
-    $('.txt-fx').each(function () {
-      var newstr = '';
-      var count = 0;
-      var delay = 300;
-      var stagger = 10;
-      var words = this.textContent.split(/\s/);
-      var arrWords = new Array();
-      
-      $.each( words, function( key, value ) {
-        newstr = '<span class="word">';
-
-        for ( var i = 0, l = value.length; i < l; i++ ) {
-          newstr += "<span class='letter' style='transition-delay:"+ ( delay + stagger * count ) +"ms;'>"+ value[ i ] +"</span>";
-          count++;
-        }
-        newstr += '</span>';
-
-        arrWords.push(newstr);
-        count++;
-      });
-
-      this.innerHTML = arrWords.join("<span class='letter' style='transition-delay:"+ delay +"ms;'>&nbsp;</span>");
-    });
-  }
-
-  // init Isotope
-  var initIsotope = function() {
-    
-    $('.grid').each(function(){
-
-      // $('.grid').imagesLoaded( function() {
-        // images have loaded
-        var $buttonGroup = $( '.button-group' );
-        var $checked = $buttonGroup.find('.is-checked');
-        var filterValue = $checked.attr('data-filter');
-  
-        var $grid = $('.grid').isotope({
-          itemSelector: '.portfolio-item',
-          // layoutMode: 'fitRows',
-          filter: filterValue
-        });
-    
-        // bind filter button click
-        $('.button-group').on( 'click', 'a', function(e) {
-          e.preventDefault();
-          filterValue = $( this ).attr('data-filter');
-          $grid.isotope({ filter: filterValue });
-        });
-    
-        // change is-checked class on buttons
-        $('.button-group').each( function( i, buttonGroup ) {
-          $buttonGroup.on( 'click', 'a', function() {
-            $buttonGroup.find('.is-checked').removeClass('is-checked');
-            $( this ).addClass('is-checked');
-          });
-        });
-      // });
-
-    });
-  }
-
-  // init Chocolat light box
-  var initChocolat = function() {
-    Chocolat(document.querySelectorAll('.image-link'), {
-      imageSize: 'contain',
-      loop: true,
-    })
-  }
-
-  $(document).ready(function () {
-    // overlayMenu();
-    init_slider();
-    initTextFx();
-    initChocolat();
-    initIsotope();
-
-    // mobile menu
-    $('.menu-btn').click(function(e){
-      // e.preventDefault();
-      $('body').toggleClass('nav-active');
-    });
-
-    AOS.init({
-      duration: 1200,
-      // once: true,
-    })
-
+    duration: 1200,
+    // once: true,
   });
 
-  // preloader
-  $(window).on('load', function() {
-		// $("#overlayer").fadeOut("slow");
-		$('body').addClass('loaded');
-    initIsotope();
-	});
+  console.log('✅ Modern theme fully initialized');
+});
+
+// Page load event
+window.addEventListener('load', function() {
+  document.body.classList.add('loaded');
+
+  // Re-initialize portfolio filter after images load
+  initPortfolioFilter();
+
+  console.log('✅ Page fully loaded');
+});
