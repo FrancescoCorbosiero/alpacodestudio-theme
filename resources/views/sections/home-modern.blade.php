@@ -1,27 +1,11 @@
-{{-- Mobile Navigation Toggle (Hamburger) --}}
-<button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
-  <span class="mobile-nav-toggle__line"></span>
-  <span class="mobile-nav-toggle__line"></span>
-  <span class="mobile-nav-toggle__line"></span>
-</button>
+{{-- Navigation Overlay Component --}}
+<x-nav-overlay />
 
-{{-- Fullscreen Nav Overlay with Cool Animation! --}}
-<div class="nav nav-overlay">
-  <div class="nav__content">
-    <ul class="nav__list">
-      <li class="nav__list-item active-nav"><a href="/">Home</a></li>
-      <li class="nav__list-item"><a href="#about">About</a></li>
-      <li class="nav__list-item"><a href="#portfolio">Portfolio</a></li>
-      <li class="nav__list-item"><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</div>
-
-{{-- Modern Portfolio Grid Layout --}}
+{{-- Portfolio Grid Layout --}}
 <div class="portfolio-grid">
 
   {{-- Sidebar --}}
-  <aside class="portfolio-sidebar" id="portfolioSidebar" data-aos="fade-right">
+  <aside class="portfolio-sidebar" data-aos="fade-right">
     <a href="/" class="portfolio-sidebar__logo">Chris.</a>
 
     <p class="portfolio-sidebar__bio">
@@ -53,89 +37,60 @@
   {{-- Main Content Area --}}
   <div class="portfolio-main">
 
-    {{-- Content Column --}}
+    {{-- Hero Content with Swiper Carousel --}}
     <div class="portfolio-content">
 
-      {{-- Hero Section --}}
-      <section class="hero-section" data-aos="fade-up">
-        <span class="text-caption" style="color: var(--color-brand-primary);">Digital Transformation - Made in Italy</span>
-        <h1 class="heading-1" style="margin-top: var(--space-md);">IL WEB IN CONTINUO CAMBIAMENTO.</h1>
-        <p class="body-large" style="margin-top: var(--space-md); color: var(--color-text-secondary);">
-          Labore accusam in modo compungi, iacentem substantiales um se sed esse haec.
-        </p>
-        <a href="#contact" class="btn-primary" style="margin-top: var(--space-lg); display: inline-block;">Let's Talk</a>
-      </section>
+      {{-- Hero Swiper Carousel --}}
+      <div class="hero-carousel" data-aos="fade-up">
+        <div class="swiper hero-swiper">
+          <div class="swiper-wrapper">
 
-      {{-- About Section --}}
-      <section class="about-section" style="margin-top: var(--space-3xl);" data-aos="fade-up" data-aos-delay="200">
-        <span class="text-caption">BIODATA</span>
-        <h2 class="heading-2" style="margin-top: var(--space-md);">Education</h2>
+            {{-- Slide 1 --}}
+            <div class="swiper-slide">
+              <div class="hero-slide">
+                <span class="hero-slide__eyebrow">Digital Transformation - Made in Italy</span>
+                <h1 class="hero-slide__title heading-1">IL WEB IN CONTINUO CAMBIAMENTO.</h1>
+                <p class="hero-slide__description body-large">
+                  Labore accusam in modo compungi, iacentem substantiales um se sed esse haec.
+                </p>
+                <a href="#contact" class="btn-primary" style="margin-top: var(--space-lg); display: inline-block;">Let's Talk</a>
+              </div>
+            </div>
 
-        <div class="timeline-item" style="margin-top: var(--space-lg); padding: var(--space-md); border-left: 2px solid var(--color-brand-primary);">
-          <span class="text-caption">1998 - 2004</span>
-          <h3 class="heading-5" style="margin-top: var(--space-xs);">Bachelors in Engineering in Information Technology</h3>
-          <p class="body-normal" style="margin-top: var(--space-xs); color: var(--color-text-secondary);">Harvard School of Science and management</p>
-        </div>
+            {{-- Slide 2 --}}
+            <div class="swiper-slide">
+              <div class="hero-slide">
+                <span class="hero-slide__eyebrow">Web Designer / Developer</span>
+                <h1 class="hero-slide__title heading-1">UX/UI OPTIMIZATION</h1>
+                <p class="hero-slide__description body-large">
+                  Creating beautiful, functional digital experiences that users love.
+                </p>
+                <a href="#portfolio" class="btn-primary" style="margin-top: var(--space-lg); display: inline-block;">View Work</a>
+              </div>
+            </div>
 
-        <div class="timeline-item" style="margin-top: var(--space-md); padding: var(--space-md); border-left: 2px solid var(--color-brand-primary);">
-          <span class="text-caption">2004 - 2006</span>
-          <h3 class="heading-5" style="margin-top: var(--space-xs);">Masters in Data Analysis</h3>
-          <p class="body-normal" style="margin-top: var(--space-xs); color: var(--color-text-secondary);">Harvard School of Science and management</p>
-        </div>
-      </section>
+            {{-- Slide 3 --}}
+            <div class="swiper-slide">
+              <div class="hero-slide">
+                <span class="hero-slide__eyebrow">Front-End Development</span>
+                <h1 class="hero-slide__title heading-1">FULL STACK SOLUTIONS</h1>
+                <p class="hero-slide__description body-large">
+                  Modern, scalable applications built with cutting-edge technology.
+                </p>
+                <a href="#contact" class="btn-primary" style="margin-top: var(--space-lg); display: inline-block;">Get Started</a>
+              </div>
+            </div>
 
-      {{-- Experience Section --}}
-      <section class="experience-section" style="margin-top: var(--space-3xl);" data-aos="fade-up" data-aos-delay="300">
-        <h2 class="heading-2">Experiences</h2>
-
-        <div class="timeline-item" style="margin-top: var(--space-lg); padding: var(--space-md); border-left: 2px solid var(--color-brand-primary);">
-          <span class="text-caption">2007 - 2012</span>
-          <h3 class="heading-5" style="margin-top: var(--space-xs);">Creative Agency Inc.: Design head</h3>
-          <p class="body-normal" style="margin-top: var(--space-xs); color: var(--color-text-secondary);">iacentem substantiales um se sed esse haec Possit facis qui a a a patriam.</p>
-        </div>
-
-        <div class="timeline-item" style="margin-top: var(--space-md); padding: var(--space-md); border-left: 2px solid var(--color-brand-primary);">
-          <span class="text-caption">2013 - present</span>
-          <h3 class="heading-5" style="margin-top: var(--space-xs);">Studio Alpha.: Project Manager</h3>
-          <p class="body-normal" style="margin-top: var(--space-xs); color: var(--color-text-secondary);">iacentem substantiales um se sed esse haec Possit facis qui a a a patriam.</p>
-        </div>
-      </section>
-
-      {{-- Portfolio Section --}}
-      <section class="portfolio-section" style="margin-top: var(--space-3xl);" data-aos="fade-up" data-aos-delay="400">
-        <span class="text-caption">some of my recent works</span>
-        <h2 class="heading-2" style="margin-top: var(--space-md);">Portfolio</h2>
-
-        <div class="portfolio-grid-items" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg);">
-          <div class="portfolio-item" data-aos="fade-up" data-aos-delay="100">
-            <div class="portfolio-item__image" style="aspect-ratio: 4/3; background: var(--color-neutral-200); border-radius: var(--radius-md);"></div>
-            <h4 class="heading-6" style="margin-top: var(--space-sm);">Project Title 1</h4>
-            <span class="text-caption">Web Design</span>
           </div>
 
-          <div class="portfolio-item" data-aos="fade-up" data-aos-delay="200">
-            <div class="portfolio-item__image" style="aspect-ratio: 4/3; background: var(--color-neutral-200); border-radius: var(--radius-md);"></div>
-            <h4 class="heading-6" style="margin-top: var(--space-sm);">Project Title 2</h4>
-            <span class="text-caption">Branding</span>
-          </div>
+          {{-- Navigation --}}
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
 
-          <div class="portfolio-item" data-aos="fade-up" data-aos-delay="300">
-            <div class="portfolio-item__image" style="aspect-ratio: 4/3; background: var(--color-neutral-200); border-radius: var(--radius-md);"></div>
-            <h4 class="heading-6" style="margin-top: var(--space-sm);">Project Title 3</h4>
-            <span class="text-caption">UI/UX</span>
-          </div>
+          {{-- Pagination --}}
+          <div class="swiper-pagination"></div>
         </div>
-      </section>
-
-      {{-- Contact Section --}}
-      <section class="contact-section" style="margin-top: var(--space-3xl); margin-bottom: var(--space-3xl);" data-aos="fade-up" data-aos-delay="500">
-        <span class="text-caption">Personal Info</span>
-        <h2 class="heading-2" style="margin-top: var(--space-md);">Contact Me</h2>
-        <p class="body-large" style="margin-top: var(--space-md); color: var(--color-text-secondary);">
-          Labore accusam in modo compungi, iacentem substantiales um se sed esse haec.
-        </p>
-        <a href="mailto:hello@yourwebsite.com" class="btn-primary" style="margin-top: var(--space-lg); display: inline-block;">Get in Touch</a>
-      </section>
+      </div>
 
     </div>
 
@@ -144,25 +99,135 @@
       <div class="skill-item" data-aos="fade-left" data-aos-delay="100">
         <span class="skill-item__number">01</span>
         <h3 class="skill-item__title">UI/UX Design</h3>
-        <p class="skill-item__description">At in proin consequat ut cursus venenatis sapien.</p>
+        <p class="skill-item__description">Creating intuitive and beautiful user experiences.</p>
       </div>
 
       <div class="skill-item" data-aos="fade-left" data-aos-delay="200">
         <span class="skill-item__number">02</span>
-        <h3 class="skill-item__title">Illustration</h3>
-        <p class="skill-item__description">At in proin consequat ut cursus venenatis sapien.</p>
+        <h3 class="skill-item__title">Development</h3>
+        <p class="skill-item__description">Building modern, performant web applications.</p>
       </div>
 
       <div class="skill-item" data-aos="fade-left" data-aos-delay="300">
         <span class="skill-item__number">03</span>
-        <h3 class="skill-item__title">Graphic Design</h3>
-        <p class="skill-item__description">At in proin consequat ut cursus venenatis sapien.</p>
+        <h3 class="skill-item__title">Branding</h3>
+        <p class="skill-item__description">Crafting memorable brand identities.</p>
       </div>
 
-      <a href="#portfolio" class="btn-primary" style="margin-top: var(--space-xl); width: 100%; text-align: center;" data-aos="fade-left" data-aos-delay="400">
+      <a href="#contact" class="btn-primary" style="margin-top: var(--space-xl); width: 100%; text-align: center;" data-aos="fade-left" data-aos-delay="400">
         HIRE ME
       </a>
     </aside>
 
   </div>
 </div>
+
+{{-- Initialize Hero Swiper --}}
+@push('scripts')
+<script type="module">
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const heroSwiper = new Swiper('.hero-swiper', {
+    modules: [Navigation, Pagination, Autoplay, EffectFade],
+    effect: 'fade',
+    fadeEffect: {
+      crossFade: true
+    },
+    speed: 1000,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    loop: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
+
+  console.log('✅ Hero Swiper initialized');
+});
+</script>
+@endpush
+
+@push('styles')
+<style>
+.hero-carousel {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-swiper {
+  width: 100%;
+}
+
+.hero-slide {
+  padding: var(--space-lg) 0;
+}
+
+.hero-slide__eyebrow {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  margin-bottom: var(--space-md);
+}
+
+.hero-slide__title {
+  margin-bottom: var(--space-md);
+}
+
+.hero-slide__description {
+  color: var(--color-text-secondary);
+  max-width: 600px;
+}
+
+/* Swiper buttons */
+.swiper-button-prev,
+.swiper-button-next {
+  color: var(--color-brand-primary);
+  width: 44px;
+  height: 44px;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 24px;
+}
+
+.swiper-pagination-bullet {
+  background: var(--color-brand-primary);
+  opacity: 0.3;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .hero-carousel {
+    min-height: 50vh;
+  }
+
+  .hero-slide {
+    padding: var(--space-md) 0;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none; /* Hide arrows on mobile for cleaner UI */
+  }
+}
+</style>
+@endpush
