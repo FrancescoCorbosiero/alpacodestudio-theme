@@ -1,15 +1,24 @@
+{{-- Mobile Navigation Toggle (Hamburger) --}}
+<button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+  <span class="mobile-nav-toggle__line"></span>
+  <span class="mobile-nav-toggle__line"></span>
+  <span class="mobile-nav-toggle__line"></span>
+</button>
+
+{{-- Fullscreen Nav Overlay with Cool Animation! --}}
+<div class="nav nav-overlay">
+  <div class="nav__content">
+    <ul class="nav__list">
+      <li class="nav__list-item active-nav"><a href="/">Home</a></li>
+      <li class="nav__list-item"><a href="#about">About</a></li>
+      <li class="nav__list-item"><a href="#portfolio">Portfolio</a></li>
+      <li class="nav__list-item"><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
 {{-- Modern Portfolio Grid Layout --}}
 <div class="portfolio-grid">
-
-  {{-- Mobile Navigation Toggle --}}
-  <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
-    <span class="mobile-nav-toggle__line"></span>
-    <span class="mobile-nav-toggle__line"></span>
-    <span class="mobile-nav-toggle__line"></span>
-  </button>
-
-  {{-- Sidebar Overlay (Mobile) --}}
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   {{-- Sidebar --}}
   <aside class="portfolio-sidebar" id="portfolioSidebar" data-aos="fade-right">
