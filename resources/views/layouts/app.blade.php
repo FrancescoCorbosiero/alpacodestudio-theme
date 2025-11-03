@@ -32,7 +32,6 @@
       </a>
 
       {{-- Header --}}
-      @include('sections.header')
 
       <main id="main" class="main" role="main">
         @yield('content')

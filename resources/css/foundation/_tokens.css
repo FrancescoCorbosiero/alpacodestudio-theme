@@ -45,8 +45,11 @@
        ═══════════════════════════════════════════════════ */
 
     /* Font families */
-    --font-family-base: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+   --font-family-base: var(--font-body);
+   --font-family-mono: var(--font-mono);
+
+   --font-heading: 'Merriweather Sans', 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+   --font-body: 'Archivio Black', 'Merriweather Sans', 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
     /* Fluid type scale (min 375px → max 1920px) */
     --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);

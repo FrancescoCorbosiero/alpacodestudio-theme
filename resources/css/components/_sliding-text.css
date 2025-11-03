@@ -5,7 +5,7 @@
 
   .sliding-text-track {
     position: relative;
-    width: 97vw;
+    width: 50%;
     left: 50%;
     transform: translateX(-50%);
     overflow: hidden;
