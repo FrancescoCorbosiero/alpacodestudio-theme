@@ -70,11 +70,16 @@
 
   .portfolio-content {
     min-width: 0; /* Prevent grid blowout */
+    position: relative;
+    z-index: 0;
   }
 
   /* Skills column - Hidden on mobile */
   .portfolio-skills {
     display: none;
+    background: var(--color-surface-raised);
+    position: relative;
+    z-index: 1;
   }
 
   .skill-item {

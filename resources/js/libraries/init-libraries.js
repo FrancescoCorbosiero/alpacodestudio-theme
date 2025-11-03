@@ -14,6 +14,9 @@ import * as THREE from 'three'
 // Import GSAP utilities and make globally available
 import { GSAPUtils } from './utilities.js'
 
+// Make Swiper globally available for component usage
+window.Swiper = Swiper
+
 // Vanta.js - Import effect from src
 import VantaWaves from 'vanta/src/vanta.waves'
 

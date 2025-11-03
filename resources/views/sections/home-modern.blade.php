@@ -172,10 +172,12 @@ document.addEventListener('DOMContentLoaded', () => {
   min-height: 60vh;
   display: flex;
   align-items: center;
+  z-index: 0; /* Ensure it doesn't overlay other columns */
 }
 
 .hero-swiper {
   width: 100%;
+  max-width: 100%; /* Prevent overflow */
 }
 
 .hero-slide {
