@@ -1,58 +1,58 @@
 /**
  * Portfolio Grid - Mobile Navigation Toggle
+ * Toggles fullscreen nav overlay with cool circular reveal animation!
  */
 
 export function initPortfolioGrid() {
   const toggle = document.getElementById('mobileNavToggle')
-  const sidebar = document.getElementById('portfolioSidebar')
-  const overlay = document.getElementById('sidebarOverlay')
+  const navOverlay = document.querySelector('.nav-overlay')
 
-  if (!toggle || !sidebar || !overlay) {
+  if (!toggle) {
     return
   }
 
-  function openSidebar() {
-    sidebar.classList.add('active')
-    overlay.classList.add('active')
-    toggle.classList.add('active')
-    document.body.style.overflow = 'hidden'
+  function openNav() {
+    document.body.classList.add('nav-active')
   }
 
-  function closeSidebar() {
-    sidebar.classList.remove('active')
-    overlay.classList.remove('active')
-    toggle.classList.remove('active')
-    document.body.style.overflow = ''
+  function closeNav() {
+    document.body.classList.remove('nav-active')
+  }
+
+  function toggleNav() {
+    if (document.body.classList.contains('nav-active')) {
+      closeNav()
+    } else {
+      openNav()
+    }
   }
 
   // Toggle button click
-  toggle.addEventListener('click', () => {
-    if (sidebar.classList.contains('active')) {
-      closeSidebar()
-    } else {
-      openSidebar()
-    }
-  })
+  toggle.addEventListener('click', toggleNav)
 
-  // Overlay click to close
-  overlay.addEventListener('click', closeSidebar)
-
-  // Close sidebar on link click (mobile)
-  const sidebarLinks = sidebar.querySelectorAll('a')
-  sidebarLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        closeSidebar()
-      }
+  // Close nav when clicking on a link
+  if (navOverlay) {
+    const navLinks = navOverlay.querySelectorAll('a')
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeNav()
+      })
     })
-  })
+  }
 
-  // Close sidebar when resizing to desktop
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-      closeSidebar()
+  // Close nav when pressing Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('nav-active')) {
+      closeNav()
     }
   })
 
-  console.log('✅ Portfolio grid initialized')
+  // Close nav when resizing to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && document.body.classList.contains('nav-active')) {
+      closeNav()
+    }
+  })
+
+  console.log('✅ Portfolio grid with nav overlay initialized')
 }
