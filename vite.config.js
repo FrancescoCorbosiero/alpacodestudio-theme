@@ -15,6 +15,8 @@ export default defineConfig({
         'resources/js/app.js',
         'resources/css/editor.css',
         'resources/js/editor.js',
+        'resources/css/legacy.css',
+        'resources/js/legacy.js',
       ],
       refresh: true,
     }),

@@ -1,0 +1,33 @@
+/**
+ * Legacy Theme Integration - Bootstrap + Font Awesome
+ * This file loads all legacy CSS for your migrated theme
+ */
+
+/* Bootstrap CSS */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Font Awesome */
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+/* AOS (Animate On Scroll) */
+@import "aos/dist/aos.css";
+
+/* Swiper Carousel */
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import "swiper/css/effect-fade";
+
+/* Chocolat Lightbox */
+@import "chocolat/dist/css/chocolat.css";
+
+/* Jarallax (no CSS import needed) */
+
+/**
+ * Place your old theme's CSS below this line
+ * You can paste your existing CSS files' content here
+ */
+
+/* ============================================
+   YOUR OLD THEME CSS GOES HERE
+   ============================================ */
