@@ -10,6 +10,13 @@
     {{-- Schema.org Markup --}}
     {!! $schemaMarkup !!}
 
+    {{-- Preconnect for Google Fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    {{-- Font stylesheet with display=swap --}}
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto:wght@400;700;900&family=Six+Caps&display=swap" rel="stylesheet">
+
     @php(do_action('get_header'))
     @php(wp_head())
 
@@ -27,15 +34,13 @@
     @php(wp_body_open())
 
     {{-- Page Loader --}}
-    @include('components.loader')
+    {{-- @include('components.loader') --}}
 
     <div id="app">
       {{-- Skip to content link for accessibility --}}
       <a class="skip-link sr-only focus:not-sr-only" href="#main">
         {{ __('Skip to content', 'sage') }}
       </a>
-
-      {{-- Header --}}
 
       <main id="main" class="main" role="main">
         @yield('content')
@@ -47,8 +52,6 @@
         </aside>
       @endif
 
-      {{-- Footer --}}
-      @include('sections.footer')
     </div>
 
     @php(do_action('get_footer'))
