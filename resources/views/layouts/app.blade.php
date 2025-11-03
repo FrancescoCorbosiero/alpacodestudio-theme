@@ -13,7 +13,11 @@
     @php(do_action('get_header'))
     @php(wp_head())
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- Legacy Theme Assets (Bootstrap + jQuery) --}}
+    @vite(['resources/css/legacy.css', 'resources/js/legacy.js'])
+
+    {{-- Modern Theme Assets (Alpine + Custom CSS) - DISABLED for legacy theme --}}
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
     {{-- Component Styles Stack --}}
     @stack('styles')
