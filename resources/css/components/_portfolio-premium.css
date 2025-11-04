@@ -48,7 +48,7 @@
     margin-right: auto;
   }
 
-  .section-eyebrow {
+  .portfolio-showcase__eyebrow {
     display: inline-block;
     font-size: clamp(11px, 1.2vw, 13px);
     color: var(--color-brand-primary);
@@ -62,7 +62,7 @@
     background: rgba(255, 255, 255, 0.03);
   }
 
-  .section-title {
+  .portfolio-showcase__title {
     font-size: clamp(32px, 5vw, 56px);
     font-weight: 700;
     line-height: 1.2;
@@ -71,7 +71,7 @@
     letter-spacing: -0.02em;
   }
 
-  .section-description {
+  .portfolio-showcase__description {
     font-size: clamp(16px, 1.8vw, 20px);
     line-height: 1.7;
     color: var(--color-text-secondary);
