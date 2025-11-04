@@ -1,0 +1,149 @@
+/**
+ * Mini Orbit Component
+ * Simplified orbiting system for small spaces
+ */
+
+@layer components {
+  .mini-orbit {
+    width: 100%;
+    padding: 40px 20px;
+  }
+
+  .mini-orbit__container {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin: 0 auto;
+  }
+
+  /* Center Core */
+  .mini-orbit__core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  .mini-orbit__logo {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-brand-primary), #2563eb);
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
+                0 0 0 8px rgba(255, 255, 255, 0.05);
+    font-size: 24px;
+    color: white;
+    animation: miniPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes miniPulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
+                  0 0 0 8px rgba(255, 255, 255, 0.05);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
+                  0 0 0 12px rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  /* Orbit Ring */
+  .mini-orbit__ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: miniRotate 30s linear infinite;
+  }
+
+  @keyframes miniRotate {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  /* Orbiting Items */
+  .mini-orbit__item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+  }
+
+  .mini-orbit__badge {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: var(--color-surface-raised);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 8px;
+    font-size: 16px;
+    color: var(--color-brand-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .mini-orbit__badge span {
+    font-size: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+  }
+
+  .mini-orbit__badge:hover {
+    transform: scale(1.1);
+    border-color: var(--color-brand-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+
+  /* Tablet (768px+) */
+  @media (min-width: 768px) {
+    .mini-orbit__container {
+      width: 300px;
+      height: 300px;
+    }
+
+    .mini-orbit__logo {
+      width: 80px;
+      height: 80px;
+      font-size: 32px;
+    }
+
+    .mini-orbit__ring {
+      width: 260px;
+      height: 260px;
+    }
+
+    .mini-orbit__badge {
+      width: 60px;
+      height: 60px;
+      font-size: 20px;
+    }
+
+    .mini-orbit__badge span {
+      font-size: 9px;
+    }
+  }
+}
