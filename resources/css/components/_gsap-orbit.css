@@ -1,0 +1,311 @@
+/**
+ * GSAP Orbit System Styles
+ * A fucking beautiful orbit animation
+ */
+
+.gsap-orbit-system {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.orbit-canvas {
+  position: relative;
+  width: 90vmin;
+  height: 90vmin;
+  max-width: 800px;
+  max-height: 800px;
+}
+
+/* ═══════════════════════════════════════════════════
+   CORE
+   ═══════════════════════════════════════════════════ */
+
+.orbit-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.core-inner {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.core-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 30px rgba(99, 102, 241, 0.6),
+    0 0 60px rgba(236, 72, 153, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.core-icon {
+  font-size: 48px;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.core-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════
+   ORBIT RINGS
+   ═══════════════════════════════════════════════════ */
+
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+}
+
+.ring-1 {
+  width: 300px;
+  height: 300px;
+}
+
+.ring-2 {
+  width: 480px;
+  height: 480px;
+}
+
+.ring-3 {
+  width: 660px;
+  height: 660px;
+}
+
+/* ═══════════════════════════════════════════════════
+   ORBIT ITEMS
+   ═══════════════════════════════════════════════════ */
+
+.orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+/* Position items evenly around each ring */
+.ring-1 .item-1 { transform: translate(-50%, -50%) translateY(-150px); }
+.ring-1 .item-2 { transform: translate(-50%, -50%) translateY(-150px) rotate(120deg) translateY(150px) rotate(-120deg); }
+.ring-1 .item-3 { transform: translate(-50%, -50%) translateY(-150px) rotate(240deg) translateY(150px) rotate(-240deg); }
+
+.ring-2 .item-1 { transform: translate(-50%, -50%) translateY(-240px); }
+.ring-2 .item-2 { transform: translate(-50%, -50%) translateY(-240px) rotate(90deg) translateY(240px) rotate(-90deg); }
+.ring-2 .item-3 { transform: translate(-50%, -50%) translateY(-240px) rotate(180deg) translateY(240px) rotate(-180deg); }
+.ring-2 .item-4 { transform: translate(-50%, -50%) translateY(-240px) rotate(270deg) translateY(240px) rotate(-270deg); }
+
+.ring-3 .item-1 { transform: translate(-50%, -50%) translateY(-330px); }
+.ring-3 .item-2 { transform: translate(-50%, -50%) translateY(-330px) rotate(72deg) translateY(330px) rotate(-72deg); }
+.ring-3 .item-3 { transform: translate(-50%, -50%) translateY(-330px) rotate(144deg) translateY(330px) rotate(-144deg); }
+.ring-3 .item-4 { transform: translate(-50%, -50%) translateY(-330px) rotate(216deg) translateY(330px) rotate(-216deg); }
+.ring-3 .item-5 { transform: translate(-50%, -50%) translateY(-330px) rotate(288deg) translateY(330px) rotate(-288deg); }
+
+.item-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.8) 0%, rgba(236, 72, 153, 0.6) 100%);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.item-content:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════
+   PARTICLES
+   ═══════════════════════════════════════════════════ */
+
+.orbit-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.8) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   CONNECTION LINES
+   ═══════════════════════════════════════════════════ */
+
+.orbit-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.connection-path {
+  filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0.5));
+}
+
+/* ═══════════════════════════════════════════════════
+   CLICK EFFECT
+   ═══════════════════════════════════════════════════ */
+
+.click-ring {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(99, 102, 241, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 200;
+}
+
+/* ═══════════════════════════════════════════════════
+   BACKGROUND EFFECTS
+   ═══════════════════════════════════════════════════ */
+
+.gsap-orbit-system::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse-background 4s ease-in-out infinite;
+}
+
+@keyframes pulse-background {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .orbit-canvas {
+    width: 95vmin;
+    height: 95vmin;
+  }
+
+  .core-inner {
+    width: 80px;
+    height: 80px;
+  }
+
+  .core-icon {
+    font-size: 32px;
+  }
+
+  .ring-1 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .ring-2 {
+    width: 320px;
+    height: 320px;
+  }
+
+  .ring-3 {
+    width: 440px;
+    height: 440px;
+  }
+
+  .orbit-item {
+    width: 45px;
+    height: 45px;
+  }
+
+  .item-content {
+    font-size: 18px;
+  }
+
+  .ring-1 .item-1 { transform: translate(-50%, -50%) translateY(-100px); }
+  .ring-1 .item-2 { transform: translate(-50%, -50%) translateY(-100px) rotate(120deg) translateY(100px) rotate(-120deg); }
+  .ring-1 .item-3 { transform: translate(-50%, -50%) translateY(-100px) rotate(240deg) translateY(100px) rotate(-240deg); }
+
+  .ring-2 .item-1 { transform: translate(-50%, -50%) translateY(-160px); }
+  .ring-2 .item-2 { transform: translate(-50%, -50%) translateY(-160px) rotate(90deg) translateY(160px) rotate(-90deg); }
+  .ring-2 .item-3 { transform: translate(-50%, -50%) translateY(-160px) rotate(180deg) translateY(160px) rotate(-180deg); }
+  .ring-2 .item-4 { transform: translate(-50%, -50%) translateY(-160px) rotate(270deg) translateY(160px) rotate(-270deg); }
+
+  .ring-3 .item-1 { transform: translate(-50%, -50%) translateY(-220px); }
+  .ring-3 .item-2 { transform: translate(-50%, -50%) translateY(-220px) rotate(72deg) translateY(220px) rotate(-72deg); }
+  .ring-3 .item-3 { transform: translate(-50%, -50%) translateY(-220px) rotate(144deg) translateY(220px) rotate(-144deg); }
+  .ring-3 .item-4 { transform: translate(-50%, -50%) translateY(-220px) rotate(216deg) translateY(220px) rotate(-216deg); }
+  .ring-3 .item-5 { transform: translate(-50%, -50%) translateY(-220px) rotate(288deg) translateY(220px) rotate(-288deg); }
+}
+
+/* ═══════════════════════════════════════════════════
+   ACCESSIBILITY
+   ═══════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring,
+  .orbit-item,
+  .core-pulse,
+  .particle {
+    animation: none !important;
+  }
+}

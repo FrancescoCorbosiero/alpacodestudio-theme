@@ -28,6 +28,9 @@ import { initShowcaseAnimations } from './libraries/showcase-init'
 import { initOrbitingHero } from './sections/orbiting-hero'
 //import './sections/curtainsjs-demo' // Curtains.js text demo (auto-initializes)
 
+// Import GSAP orbit component
+import { initGsapOrbit } from './components/gsap-orbit'
+
 // Make Alpine & utilities available globally
 window.Alpine = Alpine
 window.GSAPUtils = GSAPUtils
@@ -163,6 +166,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initOrbitingHero()
   } catch (error) {
     console.error('Failed to initialize orbiting hero:', error)
+  }
+
+  try {
+    // Initialize GSAP orbit component
+    initGsapOrbit()
+  } catch (error) {
+    console.error('Failed to initialize GSAP orbit:', error)
   }
 
   console.log('🚀 Theme fully initialized with all libraries')
