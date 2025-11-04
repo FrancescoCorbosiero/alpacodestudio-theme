@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
   max-width: 600px;
 }
 
-/* Swiper Navigation Buttons - Clean & Modern */
+/* Swiper Navigation Buttons - Clean & Modern with Icons */
 .hero-swiper .swiper-button-prev,
 .hero-swiper .swiper-button-next {
   width: 40px;
@@ -220,11 +220,21 @@ document.addEventListener('DOMContentLoaded', () => {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Custom arrow icons using Unicode */
 .hero-swiper .swiper-button-prev:after,
 .hero-swiper .swiper-button-next:after {
-  font-size: 16px;
+  font-family: inherit;
+  font-size: 18px;
   font-weight: bold;
   color: var(--color-brand-primary);
+}
+
+.hero-swiper .swiper-button-prev:after {
+  content: '←';
+}
+
+.hero-swiper .swiper-button-next:after {
+  content: '→';
 }
 
 .hero-swiper .swiper-button-prev:hover:after,
@@ -256,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
   border-radius: 5px;
 }
 
-/* Mobile adjustments */
+/* Mobile - COMPLETELY REMOVE navigation buttons */
 @media (max-width: 768px) {
   .hero-carousel {
     min-height: 50vh;
@@ -268,7 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   .hero-swiper .swiper-button-prev,
   .hero-swiper .swiper-button-next {
-    display: none; /* Hide arrows on mobile, use swipe gestures */
+    display: none !important;
+    visibility: hidden;
+    pointer-events: none;
   }
 }
 
