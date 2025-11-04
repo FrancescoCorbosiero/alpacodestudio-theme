@@ -39,7 +39,8 @@
 
     {{-- Hero Content with Swiper Carousel --}}
     <div class="portfolio-content">
-      <p>Test</p>
+      Create a mini version of this orbit thing!
+      <!-- @include('sections.orbiting-hero') -->
     </div>
 
     {{-- Skills Column (Desktop Only) --}}
