@@ -32,6 +32,7 @@
 @import "./components/_grid-layout.css";
 @import "./components/_portfolio-premium.css";
 @import "./components/_contact-premium.css";
+@import "./components/_mini-orbit.css";
 
 /* Sections */
 @import "./sections/_header.css";
@@ -45,3 +46,4 @@
 @import "./sections/_cta.css";
 @import "./sections/_orbiting-hero.css";
 @import "./sections/_curtainsjs-demo.css";
+@import "./sections/_contact-sharp.css";
