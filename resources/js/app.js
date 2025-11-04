@@ -5,6 +5,7 @@
 
 // Import Alpine.js
 import Alpine from 'alpinejs'
+import collapse from '@alpinejs/collapse'
 
 // Import core modules
 import { initPageLoader } from './core/loader'
@@ -30,6 +31,9 @@ import { initOrbitingHero } from './sections/orbiting-hero'
 // Make Alpine & utilities available globally
 window.Alpine = Alpine
 window.GSAPUtils = GSAPUtils
+
+// Register Alpine plugins
+Alpine.plugin(collapse)
 
 // Register Alpine helpers
 Alpine.data('swiperController', AlpineLibraryHelpers.swiperController)
