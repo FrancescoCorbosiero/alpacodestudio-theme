@@ -33,6 +33,7 @@
 @import "./components/_portfolio-premium.css";
 @import "./components/_contact-premium.css";
 @import "./components/_mini-orbit.css";
+@import "./components/_gsap-orbit.css";
 
 /* Sections */
 @import "./sections/_header.css";
