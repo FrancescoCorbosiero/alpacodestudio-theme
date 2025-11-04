@@ -4,9 +4,9 @@
 
     {{-- Section Header --}}
     <div class="portfolio-showcase__header">
-      <span class="section-eyebrow">Selected Work</span>
-      <h2 class="section-title">Projects That Define Excellence</h2>
-      <p class="section-description">
+      <span class="portfolio-showcase__eyebrow">Selected Work</span>
+      <h2 class="portfolio-showcase__title">Projects That Define Excellence</h2>
+      <p class="portfolio-showcase__description">
         Crafting digital experiences that merge innovation with timeless design principles. Each project represents a unique journey from concept to completion.
       </p>
     </div>

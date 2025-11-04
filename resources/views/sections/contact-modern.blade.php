@@ -4,9 +4,9 @@
 
     {{-- Section Header --}}
     <div class="contact-premium__header">
-      <span class="section-eyebrow">Get In Touch</span>
-      <h2 class="section-title">Let's Create Something Extraordinary</h2>
-      <p class="section-description">
+      <span class="contact-premium__eyebrow">Get In Touch</span>
+      <h2 class="contact-premium__title">Let's Create Something Extraordinary</h2>
+      <p class="contact-premium__description">
         Whether you have a project in mind or just want to chat about possibilities, I'm here to help bring your vision to life.
       </p>
     </div>
