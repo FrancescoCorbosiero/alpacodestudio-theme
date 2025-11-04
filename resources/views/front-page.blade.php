@@ -11,5 +11,12 @@
 @extends('layouts.app')
 
 @section('content')
+  {{-- Hero Section with Grid Layout --}}
   @include('sections.home-modern')
+
+  {{-- Portfolio Showcase Section --}}
+  @include('sections.portfolio-showcase')
+
+  {{-- Contact Section with FAQs --}}
+  @include('sections.contact-modern')
 @endsection
