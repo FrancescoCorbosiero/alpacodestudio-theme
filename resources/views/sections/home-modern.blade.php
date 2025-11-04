@@ -203,26 +203,57 @@ document.addEventListener('DOMContentLoaded', () => {
   max-width: 600px;
 }
 
-/* Swiper buttons */
-.swiper-button-prev,
-.swiper-button-next {
+/* Swiper Navigation Buttons - Clean & Modern */
+.hero-swiper .swiper-button-prev,
+.hero-swiper .swiper-button-next {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.hero-swiper .swiper-button-prev:hover,
+.hero-swiper .swiper-button-next:hover {
+  background: var(--color-brand-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hero-swiper .swiper-button-prev:after,
+.hero-swiper .swiper-button-next:after {
+  font-size: 16px;
+  font-weight: bold;
   color: var(--color-brand-primary);
-  width: 44px;
-  height: 44px;
 }
 
-.swiper-button-prev:after,
-.swiper-button-next:after {
-  font-size: 24px;
+.hero-swiper .swiper-button-prev:hover:after,
+.hero-swiper .swiper-button-next:hover:after {
+  color: white;
 }
 
-.swiper-pagination-bullet {
+/* Position buttons inside the carousel */
+.hero-swiper .swiper-button-prev {
+  left: 10px;
+}
+
+.hero-swiper .swiper-button-next {
+  right: 10px;
+}
+
+/* Pagination Dots */
+.hero-swiper .swiper-pagination-bullet {
   background: var(--color-brand-primary);
   opacity: 0.3;
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s ease;
 }
 
-.swiper-pagination-bullet-active {
+.hero-swiper .swiper-pagination-bullet-active {
   opacity: 1;
+  width: 24px;
+  border-radius: 5px;
 }
 
 /* Mobile adjustments */
@@ -235,9 +266,23 @@ document.addEventListener('DOMContentLoaded', () => {
     padding: var(--space-md) 0;
   }
 
-  .swiper-button-prev,
-  .swiper-button-next {
-    display: none; /* Hide arrows on mobile for cleaner UI */
+  .hero-swiper .swiper-button-prev,
+  .hero-swiper .swiper-button-next {
+    display: none; /* Hide arrows on mobile, use swipe gestures */
+  }
+}
+
+/* Desktop - Show buttons only on hover for cleaner look */
+@media (min-width: 769px) {
+  .hero-swiper .swiper-button-prev,
+  .hero-swiper .swiper-button-next {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .hero-swiper:hover .swiper-button-prev,
+  .hero-swiper:hover .swiper-button-next {
+    opacity: 1;
   }
 }
 </style>
