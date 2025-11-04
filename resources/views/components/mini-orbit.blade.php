@@ -1,60 +1,46 @@
-{{-- Mini Orbit System Component --}}
+{{-- Mini Orbit Component - Scaled down version of orbiting-hero --}}
 @props(['items' => []])
 
-<div class="mini-orbit" x-data="miniOrbit()">
-  <div class="mini-orbit__container">
+<div class="mini-orbit">
+  <div class="mini-orbit__wrapper">
 
-    {{-- Center Core --}}
-    <div class="mini-orbit__core">
-      <div class="mini-orbit__logo">
-        <i class="fas fa-star"></i>
-      </div>
-    </div>
+    {{-- Use the same structure as orbiting-hero, just scaled down --}}
+    <div class="orbiting-hero__container">
 
-    {{-- Orbiting Items --}}
-    <div class="mini-orbit__ring">
-      @foreach($items as $index => $item)
-        <div class="mini-orbit__item" data-index="{{ $index }}">
-          <div class="mini-orbit__badge">
-            @if(isset($item['icon']))
-              <i class="{{ $item['icon'] }}"></i>
-            @endif
-            <span>{{ $item['label'] ?? 'Item ' . ($index + 1) }}</span>
-          </div>
+      {{-- Center Core --}}
+      <div class="orbit-system__core">
+        <div class="orbit-core__logo">
+          <img src="{{ Vite::asset('resources/images/logo.png') }}" alt="Core" class="orbit-core__image">
+          <div class="orbit-core__glow" aria-hidden="true"></div>
         </div>
-      @endforeach
+      </div>
+
+      {{-- Single Orbit Ring --}}
+      <div class="orbit-system__ring orbit-ring--1" data-orbit="1">
+        @foreach($items as $index => $item)
+          <article class="orbit-ring__item" data-angle="{{ ($index * (360 / count($items))) }}" data-service="{{ $item['service'] ?? 'service-' . $index }}">
+            <div class="orbit-item__badge">
+              @if(isset($item['icon']))
+                <i class="{{ $item['icon'] }} orbit-item__icon"></i>
+              @endif
+              <span class="orbit-item__label">{{ $item['label'] ?? 'Item ' . ($index + 1) }}</span>
+            </div>
+          </article>
+        @endforeach
+      </div>
+
+      {{-- Connections SVG --}}
+      <svg class="orbit-system__connections" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="miniOrbitLineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:0" />
+            <stop offset="50%" style="stop-color:rgba(255,255,255,0.2);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:0" />
+          </linearGradient>
+        </defs>
+      </svg>
+
     </div>
 
   </div>
 </div>
-
-@once
-@push('scripts')
-<script>
-document.addEventListener('alpine:init', () => {
-  Alpine.data('miniOrbit', () => ({
-    init() {
-      this.positionItems()
-      window.addEventListener('resize', () => this.positionItems())
-    },
-
-    positionItems() {
-      const items = this.$el.querySelectorAll('.mini-orbit__item')
-      const itemCount = items.length
-
-      items.forEach((item, index) => {
-        const angle = (360 / itemCount) * index
-        const rad = (angle - 90) * (Math.PI / 180)
-        const radius = 80 // Distance from center in pixels
-
-        const x = Math.cos(rad) * radius
-        const y = Math.sin(rad) * radius
-
-        item.style.transform = `translate(${x}px, ${y}px)`
-      })
-    }
-  }))
-})
-</script>
-@endpush
-@endonce
