@@ -30,6 +30,8 @@
 @import "./components/_curtains.css";
 @import "./components/_nav-overlay.css";
 @import "./components/_grid-layout.css";
+@import "./components/_portfolio-premium.css";
+@import "./components/_contact-premium.css";
 
 /* Sections */
 @import "./sections/_header.css";
