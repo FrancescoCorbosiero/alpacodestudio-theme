@@ -8,11 +8,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import AOS from 'aos'
 import Swiper from 'swiper'
 import { Navigation, Pagination, EffectFade, Autoplay } from 'swiper/modules'
-import PhotoSwipeLightbox from 'photoswipe/lightbox'
 import * as THREE from 'three'
 
 // Import GSAP utilities and make globally available
 import { GSAPUtils } from './utilities.js'
+
+// Import PhotoSwipe initialization
+import { initAllPhotoSwipeGalleries } from './photoswipe-init.js'
 
 // Make Swiper globally available for component usage
 window.Swiper = Swiper
@@ -104,19 +106,9 @@ export function initSwipers() {
  * Initialize PhotoSwipe Lightbox
  */
 export function initPhotoSwipe() {
-  const lightbox = new PhotoSwipeLightbox({
-    gallery: '.gallery',
-    children: 'a',
-    pswpModule: () => import('photoswipe'),
-    // Custom options
-    padding: { top: 20, bottom: 20, left: 20, right: 20 },
-    bgOpacity: 0.9,
-  })
-
-  lightbox.init()
-
-  console.log('✅ PhotoSwipe initialized')
-  return lightbox
+  const galleries = initAllPhotoSwipeGalleries()
+  console.log(`✅ PhotoSwipe initialized (${galleries.length} galleries)`)
+  return galleries
 }
 
 /**

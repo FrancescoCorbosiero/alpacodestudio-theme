@@ -157,32 +157,8 @@
   </div>
 </section>
 
-{{-- Initialize PhotoSwipe --}}
-@push('scripts')
-<script type="module">
-import PhotoSwipeLightbox from 'photoswipe/lightbox';
-import PhotoSwipe from 'photoswipe';
-
-const lightbox = new PhotoSwipeLightbox({
-  gallery: '.portfolio-showcase__grid',
-  children: 'a',
-  pswpModule: PhotoSwipe,
-  bgOpacity: 0.9,
-  padding: { top: 50, bottom: 50, left: 50, right: 50 },
-  wheelToZoom: true,
-});
-
-lightbox.init();
-
-console.log('✅ PhotoSwipe gallery initialized');
-</script>
-@endpush
-
 @push('styles')
 <style>
-/* Import PhotoSwipe styles */
-@import 'photoswipe/style.css';
-
 .portfolio-showcase {
   min-height: 100vh;
   padding: var(--space-3xl) var(--space-lg);
